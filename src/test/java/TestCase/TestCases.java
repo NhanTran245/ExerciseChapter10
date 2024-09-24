@@ -229,7 +229,7 @@ public class TestCases extends TestPage {
     public void TC13(String username, String password, int daysFromToday, String departStation, String arriveStation, String seatType, int ticketAmount) {
         HomePage homePage = new HomePage();
 
-        System.out.println("User can book 1 ticket at a time");
+        System.out.println("User can book 1 ticket at a time!");
         homePage.navigateTabPage("Login");
         LoginPage loginPage = new LoginPage();
 
