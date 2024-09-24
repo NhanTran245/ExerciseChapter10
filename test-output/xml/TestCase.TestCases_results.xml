@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ExerciseChapter10"
+           tests="1"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="3.625">
+    <properties></properties>
+
+
+
+            <testcase
+                name="TC12"
+                time="3.625"
+                classname="TestCase.TestCases">
+            </testcase>
+</testsuite>
