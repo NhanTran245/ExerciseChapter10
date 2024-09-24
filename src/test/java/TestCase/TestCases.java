@@ -400,6 +400,6 @@ public class TestCases extends TestPage {
         Assert.assertTrue(myTicketPage.getTicketRow(departStation, arriveStation).isDisplayed(), "The canceled ticket still appear");
         System.out.println("The canceled ticket is disappeared");
 
-        System.out.println("TC15: Passed");
+        System.out.println("TC16: Passed");
     }
 }
