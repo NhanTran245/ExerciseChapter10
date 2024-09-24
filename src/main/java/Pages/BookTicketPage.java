@@ -24,6 +24,7 @@ public class BookTicketPage {
     protected By seatTypeDropDown = By.xpath("//select[@name = 'SeatType']");
     protected By bookTicketBtn = By.xpath("//input[@type='submit']");
     protected By confirmText = By.xpath("//h1");
+    protected By bookTicketForm = By.xpath("//form[@method = 'post']");
 
     //Methods
     public BookTicketPage selectDepartDate(int daysFromToday) {
@@ -54,7 +55,7 @@ public class BookTicketPage {
         Select selectDepartStation = new Select(driver.findElement(departSationDropDown));
         selectDepartStation.selectByVisibleText(departFromStation);
 
-        SeleniumHelper.waitToLoadElement(driver.findElement(arriveStationDropDown));
+//        SeleniumHelper.waitToLoadElement(driver.findElement(arriveStationDropDown));
 
         Select selectArriveStation = new Select(driver.findElement(arriveStationDropDown));
         selectArriveStation.selectByVisibleText(arriveAtStation);
@@ -63,5 +64,18 @@ public class BookTicketPage {
     public void selectSeatType(String seatType) {
         Select selectSeatType= new Select(driver.findElement(seatTypeDropDown));
         selectSeatType.selectByVisibleText(seatType);
+    }
+
+    public WebElement getbBookTicketForm() {
+        WebElement bookticketForm = driver.findElement(bookTicketForm);
+        return bookticketForm;
+    }
+
+    public String getDepartFrom() {
+        return driver.findElement(departSationDropDown).getText();
+    }
+
+    public String getArriveAt() {
+        return driver.findElement(arriveStationDropDown).getText();
     }
 }

@@ -86,4 +86,25 @@ public class StaticProvider {
                 {"h1uv4c9ktg@email2u.shop", "123456789",25, "Nha Trang", "Sài Gòn", "Soft seat with air conditioner", 5}
         };
     };
+
+    @DataProvider(name = "TC14")
+    public static Object[][] createData14() {
+        return new Object[][]{
+                {"h1uv4c9ktg@email2u.shop", "123456789", "Đà Nẵng", "Sài Gòn"}
+        };
+    };
+
+    @DataProvider(name = "TC15")
+    public static Object[][] createData15() {
+        return new Object[][]{
+                {"h1uv4c9ktg@email2u.shop", "123456789", "Quảng Ngãi", "Huế", 10, 5}
+        };
+    };
+
+    @DataProvider(name = "TC16")
+    public static Object[][] createData16() {
+        return new Object[][]{
+                {"h1uv4c9ktg@email2u.shop", "123456789",10, "Nha Trang", "Huế", "Soft seat with air conditioner", 1}
+        };
+    };
 }

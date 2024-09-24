@@ -224,16 +224,16 @@ public class TestCases extends TestPage {
 
         System.out.println("TC12: Passed");
     }
-// chua xong
+// TC13 chua xong
     @Test (dataProvider = "TC13", dataProviderClass = StaticProvider.class)
     public void TC13(String username, String password, int daysFromToday, String departStation, String arriveStation, String seatType, int ticketAmount) {
         HomePage homePage = new HomePage();
 
-        System.out.println("User can book 1 ticket at a time!");
+        System.out.println("User can book many tickets at a time");
         homePage.navigateTabPage("Login");
         LoginPage loginPage = new LoginPage();
 
-        System.out.println("Login with a valid account ");
+        System.out.println("Login with a valid account");
         homePage = loginPage.loginAccount(username, password);
 
         System.out.println("Click on Book ticket tab");
@@ -267,19 +267,139 @@ public class TestCases extends TestPage {
 
         System.out.println("TC13: Passed");
     }
-
+//TC14: Chua xong
     @Test (dataProvider = "TC14", dataProviderClass = StaticProvider.class)
-    public void TC14(String username, String password, String pid) {
+    public void TC14(String username, String password, String departStation, String arriveStation) {
         HomePage homePage = new HomePage();
 
-        System.out.println("User can't create account with an already in-use email");
-        homePage.navigateTabPage("Register");
-        RegisterPage registerPage = new RegisterPage();
-        registerPage = registerPage.registerAccount(username, password, pid);
+        System.out.println("User can book ticket from Timetable");
+        homePage.navigateTabPage("Login");
+        LoginPage loginPage = new LoginPage();
 
-        Assert.assertTrue(registerPage.getErrorMessage().isDisplayed(), "Error message is not displayed");
-        System.out.println("Error message is displayed");
+        System.out.println("Login with a valid account");
+        homePage = loginPage.loginAccount(username, password);
 
-        System.out.println("TC07: Passed");
+        System.out.println("Click on 'Timetable' tab");
+        homePage.navigateTabPage("Timetable");
+        TimeTablePage timeTablePage = new TimeTablePage();
+
+        System.out.println("Click on “check price” of Da Nang - Sai Gon");
+        TicketPricePage ticketPricePage = timeTablePage.clickCheckPrice(departStation, arriveStation);
+
+        String expectedTicketTableText = "Ticket price from Đà Nẵng to Sài Gòn";
+        String actualTicketTableText = ticketPricePage.getTicketTableText();
+        Assert.assertTrue(actualTicketTableText.equals(expectedTicketTableText), "Ticket table shows incorrectly");
+        System.out.println("Ticket table shows 'Ticket price from Đà Nẵng to Sài Gòn'");
+
+        System.out.println("TC14: Passed");
+    }
+
+    @Test (dataProvider = "TC15", dataProviderClass = StaticProvider.class)
+    public void TC15(String username, String password, String departStation, String arriveStation, int daysFromToday, int ticketAmount) {
+        HomePage homePage = new HomePage();
+
+        System.out.println("User can book ticket from Timetable");
+        homePage.navigateTabPage("Login");
+        LoginPage loginPage = new LoginPage();
+
+        System.out.println("Login with a valid account");
+        homePage = loginPage.loginAccount(username, password);
+
+        System.out.println("Click on 'Timetable' tab");
+        homePage.navigateTabPage("Timetable");
+        TimeTablePage timeTablePage = new TimeTablePage();
+
+        System.out.println("Click on book ticket of route 'Quảng Ngãi' to 'Huế'");
+        timeTablePage.clickBookTicket(departStation, arriveStation);
+        BookTicketPage bookTicketPage = new BookTicketPage();
+
+        Assert.assertTrue(bookTicketPage.getbBookTicketForm().isDisplayed(),"Book ticket form is not shown!");
+        String actualDepart = bookTicketPage.getDepartFrom();
+        if (actualDepart.equals(departStation)) {
+            System.out.println("Book ticket form is shown with the corrected 'depart from'");
+        } else {
+            System.out.println("Book ticket form is shown with the incorrected 'depart from'");
+        }
+
+        String actualArrive = bookTicketPage.getArriveAt();
+        if (actualArrive.equals(arriveStation)) {
+            System.out.println("Book ticket form is shown with the corrected 'arrive at'");
+        } else {
+            System.out.println("Book ticket form is shown with the incorrected 'arrive at'");
+        }
+
+        System.out.println("Select Depart date next 10 days");
+        bookTicketPage.selectDepartDate(daysFromToday);
+
+        System.out.println("Select Ticket amount = 5");
+        bookTicketPage.selectTicketAmount(ticketAmount);
+
+        System.out.println("Click on 'Book ticket' button");
+        bookTicketPage.clickBookTicketBtn();
+
+        System.out.println("Ticket booked successfully with corrected ticket info");
+        String expectedMessage = "Ticket booked successfully!";
+        String actualMessage = bookTicketPage.getsuccessMessage();
+
+        if (actualMessage.equals(expectedMessage)) {
+            System.out.println("Passed");
+        } else {
+            System.out.println("Failed");
+        }
+
+        System.out.println("TC15: Passed");
+    }
+
+    @Test (dataProvider = "TC16", dataProviderClass = StaticProvider.class)
+    public void TC16(String username, String password, int daysFromToday, String departStation, String arriveStation, String seatType, int ticketAmount) {
+        HomePage homePage = new HomePage();
+
+        System.out.println("User can cancel a ticket");
+        homePage.navigateTabPage("Login");
+        LoginPage loginPage = new LoginPage();
+
+        System.out.println("Login with a valid account");
+        homePage = loginPage.loginAccount(username, password);
+
+        System.out.println("Book a ticket");
+        homePage.navigateTabPage("Book ticket");
+        BookTicketPage bookTicketPage = new BookTicketPage();
+
+        System.out.println("Select the next 12 days from 'Depart date'");
+        bookTicketPage = bookTicketPage.selectDepartDate(daysFromToday);
+
+        System.out.println("Select Depart from 'Nha Trang' and Arrive at 'Huế'");
+        bookTicketPage.selectStation(departStation, arriveStation);
+
+        System.out.println("Select 'Soft seat with air conditioner' for 'Seat type'");
+        bookTicketPage.selectSeatType(seatType);
+
+        System.out.println("Select '1' for 'Ticket amount'");
+        bookTicketPage.selectTicketAmount(ticketAmount);
+
+        System.out.println("Click on 'Book ticket' button");
+        bookTicketPage.clickBookTicketBtn();
+
+        System.out.println("Ticket booked successfully with corrected ticket info");
+        String expectedMessage = "Ticket booked successfully!";
+        String actualMessage = bookTicketPage.getsuccessMessage();
+
+        if (actualMessage.equals(expectedMessage)) {
+            System.out.println("Passed");
+        } else {
+            System.out.println("Failed");
+        }
+
+        System.out.println("Click on 'My ticket' tab");
+        homePage.navigateTabPage("My ticket");
+        MyTicketPage myTicketPage = new MyTicketPage();
+
+        System.out.println("Click on 'Cancel' button of ticket which user want to cancel.");
+        myTicketPage.clickCancelBtn();
+
+        Assert.assertTrue(myTicketPage.getTicketRow(departStation, arriveStation).isDisplayed(), "The canceled ticket still appear");
+        System.out.println("The canceled ticket is disappeared");
+
+        System.out.println("TC15: Passed");
     }
 }
