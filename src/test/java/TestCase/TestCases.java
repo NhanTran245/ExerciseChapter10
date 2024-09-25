@@ -159,7 +159,15 @@ public class TestCases extends TestPage {
         Assert.assertTrue(registerPage.getHeaderRegisterPage().isDisplayed(),"Register page is not shown");
         System.out.println("Register page is shown");
 
+        System.out.println("Enter valid information into all fields");
         registerPage = registerPage.registerAccount(username, password, pid);
+
+        String expectedSuccessMess = "Thank you for registering your account";
+        String actualSuccessMess = registerPage.getSuccessMess();
+        Assert.assertTrue(actualSuccessMess.equals(expectedSuccessMess),"Success message shows incorrect");
+        System.out.println("Success message 'Thank you for registering your account' is shown");
+
+
 
 
         System.out.println("TC07: Chua xong");

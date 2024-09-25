@@ -50,4 +50,8 @@ public class RegisterPage extends BasePage {
         WebElement headerRegisterPage = driver.findElement(header);
         return headerRegisterPage;
     }
+
+    public String getSuccessMess() {
+        return driver.findElement(header).getText();
+    }
 }

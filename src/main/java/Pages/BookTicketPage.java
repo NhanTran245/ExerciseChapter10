@@ -55,7 +55,7 @@ public class BookTicketPage {
         Select selectDepartStation = new Select(driver.findElement(departSationDropDown));
         selectDepartStation.selectByVisibleText(departFromStation);
 
-//        SeleniumHelper.waitToLoadElement(driver.findElement(arriveStationDropDown));
+       SeleniumHelper.waitToLoadElement(driver.findElement(bookTicketBtn));
 
         Select selectArriveStation = new Select(driver.findElement(arriveStationDropDown));
         selectArriveStation.selectByVisibleText(arriveAtStation);

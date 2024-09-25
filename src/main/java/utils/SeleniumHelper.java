@@ -15,10 +15,10 @@ public class SeleniumHelper {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-//    public static void waitToLoadElement(WebElement element) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        WebElement refreshedElement = wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfElementLocated(element));
-//    }
+    public static void waitToLoadElement(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
 
     public static void acceptAlert() {
         // Chờ cho Alert xuất hiện
