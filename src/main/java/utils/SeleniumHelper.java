@@ -1,9 +1,11 @@
 package utils;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -15,10 +17,10 @@ public class SeleniumHelper {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public static void waitToLoadElement(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(element));
-    }
+//    public static void waitToLoadElement(WebElement element) {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.visibilityOf(element));
+//    }
 
     public static void acceptAlert() {
         // Chờ cho Alert xuất hiện
@@ -29,4 +31,10 @@ public class SeleniumHelper {
         Alert alert = driver.switchTo().alert();
         alert.accept();
     }
+
+    public static void getFirstOptionDropdown (WebElement element) {
+        WebElement dropdownElement = element;
+        Select dropdown = new Select(dropdownElement);
+        WebElement selectedOption = dropdown.getFirstSelectedOption();
+    };
 }

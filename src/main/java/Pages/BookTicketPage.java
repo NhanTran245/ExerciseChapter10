@@ -51,16 +51,31 @@ public class BookTicketPage {
         return driver.findElement(confirmText).getText();
     }
 
+//    public String getFirstOptionDropdown() {
+//        Select select = new Select(driver.findElement(arriveStationDropDown));
+//        String selectedValue = select.getFirstSelectedOption().getText();
+//        return selectedValue;
+//    }
+
     public void selectStation(String departFromStation, String arriveAtStation) {
         Select selectDepartStation = new Select(driver.findElement(departSationDropDown));
         selectDepartStation.selectByVisibleText(departFromStation);
 
-       SeleniumHelper.scrollToElement(driver.findElement(bookTicketBtn));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(arriveStationDropDown)));
+
+
+        SeleniumHelper.scrollToElement(driver.findElement(bookTicketBtn));
 
         Select selectArriveStation = new Select(driver.findElement(arriveStationDropDown));
-        if(departFromStation == "Nha Trang"){
-//            selectArriveStation.getFirstSelectedOption();
-            selectArriveStation.selectByIndex(1);
+        String actualValue = selectArriveStation.getFirstSelectedOption().getText();
+
+        if(arriveAtStation.equals(actualValue)) {
+
+            selectArriveStation.getFirstSelectedOption();
+            System.out.println("True");
+//            selectArriveStation.selectByIndex(1);
+
         }
         else{
             selectArriveStation.selectByVisibleText(arriveAtStation);
