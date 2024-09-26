@@ -29,6 +29,7 @@ public class TimeTablePage extends BasePage {
     }
 
     public TicketPricePage clickCheckPrice(String departStation, String arriveStation) {
+        SeleniumHelper.scrollToElement(getCheckPriceElement(departStation,arriveStation));
         this.getCheckPriceElement(departStation,arriveStation).click();
         return new TicketPricePage();
     }

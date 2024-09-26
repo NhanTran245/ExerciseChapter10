@@ -55,10 +55,16 @@ public class BookTicketPage {
         Select selectDepartStation = new Select(driver.findElement(departSationDropDown));
         selectDepartStation.selectByVisibleText(departFromStation);
 
-       SeleniumHelper.waitToLoadElement(driver.findElement(bookTicketBtn));
+       SeleniumHelper.scrollToElement(driver.findElement(bookTicketBtn));
 
         Select selectArriveStation = new Select(driver.findElement(arriveStationDropDown));
-        selectArriveStation.selectByVisibleText(arriveAtStation);
+        if(departFromStation == "Nha Trang"){
+//            selectArriveStation.getFirstSelectedOption();
+            selectArriveStation.selectByIndex(1);
+        }
+        else{
+            selectArriveStation.selectByVisibleText(arriveAtStation);
+        }
     }
 
     public void selectSeatType(String seatType) {

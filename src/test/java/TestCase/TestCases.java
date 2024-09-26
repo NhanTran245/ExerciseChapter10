@@ -299,6 +299,8 @@ public class TestCases extends TestPage {
         Assert.assertTrue(actualTicketTableText.equals(expectedTicketTableText), "Ticket table shows incorrectly");
         System.out.println("Ticket table shows 'Ticket price from Đà Nẵng to Sài Gòn'");
 
+
+//        //tbody/tr/th[@class='RowHeader']/following-sibling::td[3]
         System.out.println("TC14: Passed");
     }
 

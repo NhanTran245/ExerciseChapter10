@@ -3,6 +3,7 @@ package Pages;
 import common.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import utils.SeleniumHelper;
 
 import static utils.DriverManagement.driver;
 
@@ -18,6 +19,7 @@ public class LoginPage extends BasePage {
     public HomePage loginAccount(String username, String password) { //nen tra ve 1 page cu  the//
         driver.findElement(usernameTextBox).sendKeys(username);
         driver.findElement(pwTextBox).sendKeys(password);
+        SeleniumHelper.scrollToElement(driver.findElement(loginBtn));
         driver.findElement(loginBtn).click();
 
         return new HomePage();
