@@ -17,6 +17,7 @@ public class MailPage {
     }
 
     public void loginWebMail() {
+        this.navigateToWebMail();
 
     }
 }

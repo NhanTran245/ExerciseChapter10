@@ -232,7 +232,7 @@ public class TestCases extends TestPage {
 
         System.out.println("TC12: Passed");
     }
-// TC13 chua xong
+
     @Test (dataProvider = "TC13", dataProviderClass = StaticProvider.class)
     public void TC13(String username, String password, int daysFromToday, String departStation, String arriveStation, String seatType, int ticketAmount) {
         HomePage homePage = new HomePage();
@@ -280,7 +280,7 @@ public class TestCases extends TestPage {
     public void TC14(String username, String password, String departStation, String arriveStation) {
         HomePage homePage = new HomePage();
 
-        System.out.println("User can book ticket from Timetable");
+        System.out.println("User can check price of ticket from Timetable");
         homePage.navigateTabPage("Login");
         LoginPage loginPage = new LoginPage();
 
@@ -299,8 +299,7 @@ public class TestCases extends TestPage {
         Assert.assertTrue(actualTicketTableText.equals(expectedTicketTableText), "Ticket table shows incorrectly");
         System.out.println("Ticket table shows 'Ticket price from Đà Nẵng to Sài Gòn'");
 
-
-//        //tbody/tr/th[@class='RowHeader']/following-sibling::td[3]
+        ticketPricePage.compareValues();
         System.out.println("TC14: Passed");
     }
 

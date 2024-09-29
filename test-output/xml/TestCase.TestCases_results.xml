@@ -1,39 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite name="ExerciseChapter10"
            tests="1"
-           failures="1"
+           failures="0"
            errors="0"
            skipped="0"
-           time="2.901">
+           time="3.140">
     <properties></properties>
 
+
+
             <testcase
-                name="TC13"
-                time="2.901"
+                name="TC14"
+                time="3.140"
                 classname="TestCase.TestCases">
-
-            <failure type="org.openqa.selenium.StaleElementReferenceException" message="stale element reference: stale element not found in the current frame
-  (Session info: chrome=129.0.6668.60)
-For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
-Build info: version: &apos;4.23.1&apos;, revision: &apos;656257d8e9&apos;
-System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;11.0.17&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [76cc99f3b99bb0cc43c6a2e3e69bc7a1, findChildElements {using=xpath, value=.//option[normalize-space(.) = &quot;Sài Gòn&quot;], id=f.47C7F34F1D4AF72AF5C19522E1F4D7C8.d.78F87B1315079D3F2E3047A7A85A2300.e.41}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 129.0.6668.60, chrome: {chromedriverVersion: 129.0.6668.70 (df87d5cf12b1..., userDataDir: C:\Users\Admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54411}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:54411/devtoo..., se:cdpVersion: 129.0.6668.60, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 76cc99f3b99bb0cc43c6a2e3e69bc7a1">
-                <![CDATA[org.openqa.selenium.StaleElementReferenceException: stale element reference: stale element not found in the current frame
-  (Session info: chrome=129.0.6668.60)
-For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
-Build info: version: '4.23.1', revision: '656257d8e9'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.17'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [76cc99f3b99bb0cc43c6a2e3e69bc7a1, findChildElements {using=xpath, value=.//option[normalize-space(.) = "Sài Gòn"], id=f.47C7F34F1D4AF72AF5C19522E1F4D7C8.d.78F87B1315079D3F2E3047A7A85A2300.e.41}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 129.0.6668.60, chrome: {chromedriverVersion: 129.0.6668.70 (df87d5cf12b1..., userDataDir: C:\Users\Admin\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54411}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:54411/devtoo..., se:cdpVersion: 129.0.6668.60, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 76cc99f3b99bb0cc43c6a2e3e69bc7a1
-                java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElements(ElementLocation.java:182)org.openqa.selenium.remote.ElementLocation.findElements(ElementLocation.java:103)org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:381)org.openqa.selenium.remote.RemoteWebElement.findElements(RemoteWebElement.java:203)org.openqa.selenium.support.ui.Select.selectByVisibleText(Select.java:115)Pages.BookTicketPage.selectStation(BookTicketPage.java:81)TestCase.TestCases.TC13(TestCases.java:255)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)java.base/java.lang.reflect.Method.invoke(Method.java:566)org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)java.base/java.util.ArrayList.forEach(ArrayList.java:1541)org.testng.TestRunner.privateRun(TestRunner.java:794)org.testng.TestRunner.run(TestRunner.java:596)org.testng.SuiteRunner.runTest(SuiteRunner.java:377)org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)org.testng.SuiteRunner.run(SuiteRunner.java:276)org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)org.testng.TestNG.runSuitesLocally(TestNG.java:1134)org.testng.TestNG.runSuites(TestNG.java:1063)org.testng.TestNG.run(TestNG.java:1031)com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109)
-]]>
-            </failure>
-    </testcase>
-
-
+            </testcase>
 </testsuite>
