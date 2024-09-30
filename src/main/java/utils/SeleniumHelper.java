@@ -17,6 +17,10 @@ public class SeleniumHelper {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
+    public static void waitToLoadElement() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
     public static void waitToLoadDropdown(By dropdownLocator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -33,6 +37,16 @@ public class SeleniumHelper {
         Alert alert = driver.switchTo().alert();
         alert.accept();
     }
+    public static void closeCurrentTab() {
+        driver.close();
+    }
+
+    public static void refreshPage() {
+        driver.navigate().refresh();
+    }
+
+
+
 
 //    public static void getFirstOptionDropdown (WebElement element) {
 //        WebElement dropdownElement = element;

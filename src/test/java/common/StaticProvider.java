@@ -63,7 +63,7 @@ public class StaticProvider {
     @DataProvider(name = "TC09")
     public static Object[][] createData9() {
         return new Object[][]{
-                {"u0tvz0+a3ii8w2nrxv8o@grr.la", "123456789", "123123123"}
+                {"123456789", "123123123"}
         };
     };
 

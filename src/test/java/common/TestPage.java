@@ -23,8 +23,7 @@ public class TestPage {
     @BeforeMethod
     public void beforeTest() {
 
-        String browser = "chrome"; // Có thể thay đổi thành "firefox" để sử dụng Firefox
-
+//        String browser = "chrome"; // Có thể thay đổi thành "firefox" để sử dụng Firefox
 //        if (browser.equalsIgnoreCase("chrome")) {
 //            driver = new ChromeDriver();
 //        } else if (browser.equalsIgnoreCase("firefox")) {

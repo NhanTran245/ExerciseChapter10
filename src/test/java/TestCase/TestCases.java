@@ -1,10 +1,12 @@
 package TestCase;
 
 import Pages.*;
+import common.MailPage;
 import common.StaticProvider;
 import common.TestPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.SeleniumHelper;
 
 
 public class TestCases extends TestPage {
@@ -150,7 +152,7 @@ public class TestCases extends TestPage {
     }
 //TC09: Chua xong
     @Test (dataProvider = "TC09", dataProviderClass = StaticProvider.class)
-    public void TC09(String username, String password, String pid) {
+    public void TC09(String password, String pid) {
         HomePage homePage = new HomePage();
 
         System.out.println("User create and activate account");
@@ -161,13 +163,21 @@ public class TestCases extends TestPage {
 
 
         System.out.println("Enter valid information into all fields");
-        registerPage = registerPage.registerAccount(username, password, pid);
 
+        String OriginalWindow = homePage.saveWindownHandle(); // Save handle of Railway
+        MailPage mailPage = new MailPage();
+        MailPage.navigateToWebMail();
+        String username = mailPage.getMailFree();
+        homePage.navigateBackToOriginalWindow(OriginalWindow); //Back to Railway
+        SeleniumHelper.refreshPage();
+
+        registerPage = registerPage.registerAccount(username, password, pid);
         String expectedSuccessMess = "Thank you for registering your account";
         String actualSuccessMess = registerPage.getSuccessMess();
         Assert.assertTrue(actualSuccessMess.equals(expectedSuccessMess),"Success message shows incorrect");
         System.out.println("Success message 'Thank you for registering your account' is shown");
 
+        homePage.switchEmailWeb(OriginalWindow);
 
 
 

@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.SeleniumHelper;
 
+import java.util.Set;
+
 import static utils.DriverManagement.driver;
 
 public class RegisterPage extends BasePage {
@@ -20,12 +22,7 @@ public class RegisterPage extends BasePage {
     protected By header = By.xpath("//h1");
 
     //Methods
-    public RegisterPage registerAccount(String password, String pid) {
-
-        MailPage mailPage = new MailPage();
-        MailPage.navigateToWebMail();
-        String username = mailPage.getMailFree();
-        MailPage.closeCurrentTab();
+    public RegisterPage registerAccount(String username, String password, String pid) {
 
         driver.findElement(usernameTextBox).sendKeys(username);
         driver.findElement(passwordTextBox).sendKeys(password);
@@ -61,4 +58,5 @@ public class RegisterPage extends BasePage {
     public String getSuccessMess() {
         return driver.findElement(header).getText();
     }
+
 }

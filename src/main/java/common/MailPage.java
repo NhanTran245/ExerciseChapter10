@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.support.ui.Select;
 import utils.DriverManagement;
+import utils.SeleniumHelper;
 
 import static utils.DriverManagement.driver;
 
@@ -27,12 +28,11 @@ public class MailPage extends BasePage {
     }
 
     public static void confirmEmail() {
+        SeleniumHelper.refreshPage();
+        SeleniumHelper.waitToLoadElement();
 
     }
 
-    public static void closeCurrentTab() {
-        driver.close();
-    }
 
     //    public void navigateToWebMail() {
 //        driver.switchTo().newWindow(WindowType.TAB);
