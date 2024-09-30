@@ -3,6 +3,7 @@ package common;
 import org.testng.annotations.DataProvider;
 public class StaticProvider {
 
+
     @DataProvider(name = "TC01")
     public static Object[][] createData1() {
         return new Object[][]{

@@ -19,7 +19,13 @@ public class RegisterPage extends BasePage {
     protected By header = By.xpath("//h1");
 
     //Methods
-    public RegisterPage registerAccount(String username, String password, String pid) {
+    public RegisterPage registerAccount(String password, String pid) {
+
+        MailPage mailPage = new MailPage();
+        MailPage.navigateToWebMail();
+        String username = mailPage.getMailFree();
+        MailPage.closeCurrentTab();
+
         driver.findElement(usernameTextBox).sendKeys(username);
         driver.findElement(passwordTextBox).sendKeys(password);
         driver.findElement(confirmTextBox).sendKeys(password);

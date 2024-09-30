@@ -159,6 +159,7 @@ public class TestCases extends TestPage {
         Assert.assertTrue(registerPage.getHeaderRegisterPage().isDisplayed(),"Register page is not shown");
         System.out.println("Register page is shown");
 
+
         System.out.println("Enter valid information into all fields");
         registerPage = registerPage.registerAccount(username, password, pid);
 
@@ -275,7 +276,7 @@ public class TestCases extends TestPage {
 
         System.out.println("TC13: Passed");
     }
-//TC14: Chua xong
+
     @Test (dataProvider = "TC14", dataProviderClass = StaticProvider.class)
     public void TC14(String username, String password, String departStation, String arriveStation) {
         HomePage homePage = new HomePage();
