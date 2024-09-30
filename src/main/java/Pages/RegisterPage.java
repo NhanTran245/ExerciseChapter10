@@ -1,6 +1,7 @@
 package Pages;
 
 import common.BasePage;
+import common.MailPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.SeleniumHelper;
