@@ -18,7 +18,7 @@ public class SeleniumHelper {
     }
 
     public static void waitToLoadElement() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public static void waitToLoadDropdown(By dropdownLocator) {

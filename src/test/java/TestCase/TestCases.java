@@ -179,9 +179,10 @@ public class TestCases extends TestPage {
 
         homePage.switchEmailWeb(OriginalWindow);
 
+        mailPage.confirmEmail();
+        Assert.assertTrue(registerPage.getConfirmMess().isDisplayed(), "Confirm message does not display");
 
-
-        System.out.println("TC07: Chua xong");
+        System.out.println("TC09: Chua xong");
     }
     //TC10: Chua xong
     @Test (dataProvider = "TC10", dataProviderClass = StaticProvider.class)
