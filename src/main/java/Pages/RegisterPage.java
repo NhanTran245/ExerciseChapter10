@@ -63,6 +63,7 @@ public class RegisterPage extends BasePage {
     public WebElement getConfirmMess() {
         WebElement confirmMess = driver.findElement(confirmMessage);
         return confirmMess;
+
     }
 
 }

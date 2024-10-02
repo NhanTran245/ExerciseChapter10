@@ -31,7 +31,7 @@ public class MailPage extends BasePage {
 
     public void confirmEmail() {
         SeleniumHelper.refreshPage();
-        SeleniumHelper.waitToLoadElement();
+        SeleniumHelper.waitToLoadElement(emailConfirm);
         driver.findElement(emailConfirm).click();
         SeleniumHelper.scrollToElement(driver.findElement(confirmLink));
         driver.findElement(confirmLink).click();
