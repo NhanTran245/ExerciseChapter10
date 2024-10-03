@@ -150,9 +150,9 @@ public class TestCases extends TestPage {
 
         System.out.println("TC08: Passed");
     }
-//TC09: Chua xong
+
     @Test (dataProvider = "TC09", dataProviderClass = StaticProvider.class)
-    public void TC09(String password, String pid) {
+    public void TC09(String email, String password, String pid) {
         HomePage homePage = new HomePage();
 
         System.out.println("User create and activate account");
@@ -164,12 +164,11 @@ public class TestCases extends TestPage {
 
         System.out.println("Enter valid information into all fields");
 
-        String OriginalWindow = homePage.saveWindownHandle(); // Save handle of Railway
+        String railWayWindow = homePage.saveWindownHandle(); // Save handle of Railway
         MailPage mailPage = new MailPage();
         MailPage.navigateToWebMail();
-        String username = mailPage.getMailFree();
-        homePage.navigateBackToOriginalWindow(OriginalWindow); //Back to Railway
-        SeleniumHelper.refreshPage();
+        String username = mailPage.getMailFree(email);
+        homePage.navigateBackToOriginalWindow(railWayWindow); //Back to Railway
 
         registerPage = registerPage.registerAccount(username, password, pid);
         String expectedSuccessMess = "Thank you for registering your account";
@@ -177,16 +176,21 @@ public class TestCases extends TestPage {
         Assert.assertTrue(actualSuccessMess.equals(expectedSuccessMess),"Success message shows incorrect");
         System.out.println("Success message 'Thank you for registering your account' is shown");
 
-        homePage.switchEmailWeb(OriginalWindow);
+        homePage.switchWindow(railWayWindow);
+
+        String emailFreeWeb = homePage.saveWindownHandle(); // Save handle of EmailFree Web
 
         mailPage.confirmEmail();
-        Assert.assertTrue(registerPage.getConfirmMess().isDisplayed(), "Confirm message does not display");
+        homePage.switchWindow(emailFreeWeb); //Switch to new tab
 
-        System.out.println("TC09: Chua xong");
+        Assert.assertTrue(registerPage.getConfirmMess().isDisplayed(), "Confirm message does not display");
+        System.out.println("Message 'Registration Confirmed! You can now log in to the site' is shown");
+
+        System.out.println("TC09: Passed");
     }
     //TC10: Chua xong
     @Test (dataProvider = "TC10", dataProviderClass = StaticProvider.class)
-    public void TC10(String username) {
+    public void TC10(String username, String email, String password) {
         HomePage homePage = new HomePage();
 
         System.out.println("Reset password shows error if the new password is same as current");
@@ -198,6 +202,21 @@ public class TestCases extends TestPage {
 
         System.out.println("Enter the email address of the activated account");
         forgotPasswordPage = forgotPasswordPage.enterEmailAddress(username);
+
+        MailPage mailPage = new MailPage();
+        MailPage.navigateToWebMail();
+        String emailFreeWeb = homePage.saveWindownHandle(); // Save handle of EmailFree Web
+
+        mailPage.getMailFree(email);
+        mailPage.resetPw();
+        homePage.switchWindow(emailFreeWeb); //Switch to new tab
+
+        Assert.assertTrue(forgotPasswordPage.getPWChangeForm().isDisplayed(), "Password Change form is not shown"); // verify PW change form display
+        Assert.assertTrue(forgotPasswordPage.getResetPWToken().isDisplayed(), "The reset password token is not show"); // Verify reset pw token
+
+        forgotPasswordPage.inputNewPW(password);
+
+        Assert.assertTrue(forgotPasswordPage.getErrorMessage().isDisplayed(), "Message 'The new password cannot be the same with the current password' is NOT shown");
 
         System.out.println("TC10: Chua xong");
     }

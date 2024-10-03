@@ -27,13 +27,13 @@ public class HomePage extends BasePage {
         return originalWindow;
     }
 
-    public void switchEmailWeb(String originalWindow) {
+    public void switchWindow(String originalWindow) {
         Set<String> allWindows = driver.getWindowHandles();
 
         for (String windowHandle : allWindows) {
-            if (!windowHandle.equals(originalWindow)) {
+            if (!windowHandle.equals(originalWindow)) { // neu tab hien tai hong phai tab original(goc) thi chuyen sang tab moi
                 driver.switchTo().window(windowHandle);
-                break;  // Sau khi chuyển sang tab guerrillamail thì thoát khỏi vòng lặp
+                break;  // Sau khi chuyển sang tab moi thì thoát khỏi vòng lặp
             }
         }
     }
