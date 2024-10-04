@@ -38,6 +38,6 @@ public class TestPage {
 
     @AfterMethod
     public void afterTest() {
-        driver.quit();
+//        driver.quit();
     }
 }

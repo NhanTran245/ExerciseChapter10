@@ -6,7 +6,6 @@ import common.StaticProvider;
 import common.TestPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import utils.SeleniumHelper;
 
 
 public class TestCases extends TestPage {
@@ -190,7 +189,7 @@ public class TestCases extends TestPage {
     }
     //TC10: Chua xong
     @Test (dataProvider = "TC10", dataProviderClass = StaticProvider.class)
-    public void TC10(String username, String email, String password) {
+    public void TC10(String username, String email, String password, String confirmPW) {
         HomePage homePage = new HomePage();
 
         System.out.println("Reset password shows error if the new password is same as current");
@@ -213,12 +212,50 @@ public class TestCases extends TestPage {
 
         Assert.assertTrue(forgotPasswordPage.getPWChangeForm().isDisplayed(), "Password Change form is not shown"); // verify PW change form display
         Assert.assertTrue(forgotPasswordPage.getResetPWToken().isDisplayed(), "The reset password token is not show"); // Verify reset pw token
+        System.out.println("Password Change form is shown with the reset password token");
 
-        forgotPasswordPage.inputNewPW(password);
+        forgotPasswordPage.inputNewPW(password, confirmPW);
 
-        Assert.assertTrue(forgotPasswordPage.getErrorMessage().isDisplayed(), "Message 'The new password cannot be the same with the current password' is NOT shown");
+        Assert.assertTrue(forgotPasswordPage.getErrorMessage().isDisplayed(), "Error message 'The new password cannot be the same with the current password' is NOT shown");
+        System.out.println("Error message 'The new password cannot be the same with the current password' is shown");
 
         System.out.println("TC10: Chua xong");
+    }
+
+    @Test (dataProvider = "TC11", dataProviderClass = StaticProvider.class)
+    public void TC11(String username, String email, String password, String confirmPW) {
+        HomePage homePage = new HomePage();
+
+        System.out.println("Reset password shows error if the new password is same as current");
+        homePage.navigateTabPage("Login");
+        LoginPage loginPage = new LoginPage();
+
+        System.out.println("Click on 'Forgot Password page' link");
+        ForgotPasswordPage forgotPasswordPage = loginPage.clickForgotPasswordPage();
+
+        System.out.println("Enter the email address of the activated account");
+        forgotPasswordPage = forgotPasswordPage.enterEmailAddress(username);
+
+        MailPage mailPage = new MailPage();
+        MailPage.navigateToWebMail();
+        String emailFreeWeb = homePage.saveWindownHandle(); // Save handle of EmailFree Web
+
+        mailPage.getMailFree(email);
+        mailPage.resetPw();
+//        homePage.switchWindow(emailFreeWeb); //Switch to new tab
+        homePage.switchTest(2, emailFreeWeb);
+        Assert.assertTrue(forgotPasswordPage.getPWChangeForm().isDisplayed(), "Password Change form is not shown"); // verify PW change form display
+        Assert.assertTrue(forgotPasswordPage.getResetPWToken().isDisplayed(), "The reset password token is not show"); // Verify reset pw token
+        System.out.println("Password Change form is shown with the reset password token");
+
+        forgotPasswordPage.inputNewPW(password, confirmPW);
+
+        Assert.assertTrue(forgotPasswordPage.getErrorMessage().isDisplayed(), "Error message 'Could not reset password. Please correct the errors and try again.' is NOT shown");
+        Assert.assertTrue(forgotPasswordPage.getErrorMessageConfirmPW().isDisplayed(), "Error message 'The password confirmation did not match the new password.' is NOT shown");
+        System.out.println("Error message 'Could not reset password. Please correct the errors and try again.' displays above the form.");
+        System.out.println("Error message 'The password confirmation did not match the new password.' displays next to the confirm password field.");
+
+        System.out.println("TC11: Passed");
     }
 
     @Test (dataProvider = "TC12", dataProviderClass = StaticProvider.class)

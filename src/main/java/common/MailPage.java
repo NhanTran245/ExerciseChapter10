@@ -20,6 +20,7 @@ public class MailPage extends BasePage {
     protected By emailConfirm = By.xpath("//tr[contains(@class, 'mail_row')]/td[@class = 'td3' and contains(text(), 'Please confirm your account')]");
     protected By emailResetPW = By.xpath("//tr[contains(@class, 'mail_row')]/td[@class = 'td3' and contains(text(), 'Please reset your password')]");
     protected By tokenLink = By.xpath("//div[@class = 'email_body']/a[@href]");
+    protected By emailSubject = By.xpath("//h3[@class = 'email_subject']");
 
     public static void navigateToWebMail() {
         driver.switchTo().newWindow(WindowType.TAB);
@@ -48,16 +49,21 @@ public class MailPage extends BasePage {
         SeleniumHelper.waitToLoadElement(emailConfirm);
         driver.findElement(emailConfirm).click(); //click emal confirm
 
-        SeleniumHelper.scrollToElement(driver.findElement(tokenLink));
+        SeleniumHelper.scrollToElement(driver.findElement(emailSubject));
         driver.findElement(tokenLink).click(); //click Token link
     }
 
     public void resetPw() {
         SeleniumHelper.refreshPage();
         SeleniumHelper.waitToLoadElement(emailResetPW);
+        System.out.println("1");
         driver.findElement(emailResetPW).click(); // click email reset PW
-
-        SeleniumHelper.scrollToElement(driver.findElement(tokenLink));
+        System.out.println("2");
+        SeleniumHelper.scrollToElement(driver.findElement(emailSubject));
+        System.out.println("3");
+        SeleniumHelper.waitToLoadElement(tokenLink);
+        System.out.println("4");
         driver.findElement(tokenLink).click(); //click Token link
+        System.out.println("5");
     }
 }
