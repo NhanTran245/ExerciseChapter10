@@ -1,13 +1,9 @@
 package Pages;
 
 import common.BasePage;
-import common.MailPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.SeleniumHelper;
-
-import java.util.Set;
-
 import static utils.DriverManagement.driver;
 
 public class RegisterPage extends BasePage {
