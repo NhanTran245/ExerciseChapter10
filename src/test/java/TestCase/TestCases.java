@@ -173,7 +173,7 @@ public class TestCases extends TestPage {
         registerPage = registerPage.registerAccount(username, password, pid);
         String expectedSuccessMess = "Thank you for registering your account";
         String actualSuccessMess = registerPage.getSuccessMess();
-        Assert.assertTrue(actualSuccessMess.equals(expectedSuccessMess),"Success message shows incorrect");
+        Assert.assertEquals(actualSuccessMess, expectedSuccessMess,"Success message shows incorrect");
         System.out.println("Success message 'Thank you for registering your account' is shown");
 
         SeleniumHelper.switchTab(railWayWindow);
@@ -185,7 +185,7 @@ public class TestCases extends TestPage {
 
         String expectedConfirmMessage = "Registration Confirmed! You can now log in to the site.";
         String actualConfirmMessage = registerPage.getConfirmMess();
-        Assert.assertTrue(expectedConfirmMessage.equals(actualConfirmMessage), "Confirm message does not display");
+        Assert.assertEquals(actualConfirmMessage, expectedConfirmMessage, "Confirm message does not display");
         System.out.println("Message 'Registration Confirmed! You can now log in to the site' is shown");
 
         System.out.println("TC09: Passed");
@@ -221,7 +221,7 @@ public class TestCases extends TestPage {
 
         String expectedErrorMessage = "The new password cannot be the same with the current password";
         String actualErrorMessage = forgotPasswordPage.getErrorMessage();
-        Assert.assertTrue(actualErrorMessage.equals(expectedErrorMessage), "Error message 'The new password cannot be the same with the current password' is NOT shown");
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage, "Error message 'The new password cannot be the same with the current password' is NOT shown");
         System.out.println("Error message 'The new password cannot be the same with the current password' is shown");
 
         System.out.println("TC10: Passed");
@@ -257,12 +257,12 @@ public class TestCases extends TestPage {
 
         String expectedErrorMessage = "Could not reset password. Please correct the errors and try again.";
         String actualErrorMessage = forgotPasswordPage.getErrorMessage();
-        Assert.assertTrue(expectedErrorMessage.equals(actualErrorMessage), "Error message 'Could not reset password. Please correct the errors and try again.' is NOT shown");
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage, "Error message 'Could not reset password. Please correct the errors and try again.' is NOT shown");
         System.out.println("Error message 'Could not reset password. Please correct the errors and try again.' displays above the form.");
 
         String expectedErrorMessageConfirmPW = "The password confirmation did not match the new password.";
         String actualErrorMessageConfirmPW = forgotPasswordPage.getErrorMessageConfirmPW();
-        Assert.assertTrue(expectedErrorMessageConfirmPW.equals(actualErrorMessageConfirmPW), "Error message 'The password confirmation did not match the new password.' is NOT shown");
+        Assert.assertEquals(actualErrorMessageConfirmPW, expectedErrorMessageConfirmPW, "Error message 'The password confirmation did not match the new password.' is NOT shown");
         System.out.println("Error message 'The password confirmation did not match the new password.' displays next to the confirm password field.");
 
         System.out.println("TC11: Passed");
@@ -302,11 +302,8 @@ public class TestCases extends TestPage {
         String expectedMessage = "Ticket booked successfully!";
         String actualMessage = bookTicketPage.getsuccessMessage();
 
-        if (actualMessage.equals(expectedMessage)) {
-            System.out.println("Passed");
-        } else {
-            System.out.println("Failed");
-        }
+        Assert.assertEquals(actualMessage, expectedMessage, "Message 'Ticket booked successfully!' does not display");
+        System.out.println("Message 'Ticket booked successfully!' displays");
 
         System.out.println("TC12: Passed");
     }
@@ -345,11 +342,8 @@ public class TestCases extends TestPage {
         String expectedMessage = "Ticket booked successfully!";
         String actualMessage = bookTicketPage.getsuccessMessage();
 
-        if (actualMessage.equals(expectedMessage)) {
-            System.out.println("Passed");
-        } else {
-            System.out.println("Failed");
-        }
+        Assert.assertEquals(actualMessage, expectedMessage, "Message 'Ticket booked successfully!' does not display");
+        System.out.println("Message 'Ticket booked successfully!' displays");
 
         System.out.println("TC13: Passed");
     }
@@ -374,7 +368,7 @@ public class TestCases extends TestPage {
 
         String expectedTicketTableText = "Ticket price from Đà Nẵng to Sài Gòn";
         String actualTicketTableText = ticketPricePage.getTicketTableText();
-        Assert.assertTrue(actualTicketTableText.equals(expectedTicketTableText), "Ticket table shows incorrectly");
+        Assert.assertEquals(actualTicketTableText, expectedTicketTableText, "Ticket table shows incorrectly");
         System.out.println("Ticket table shows 'Ticket price from Đà Nẵng to Sài Gòn'");
 
         ticketPricePage.compareValues();
@@ -401,19 +395,14 @@ public class TestCases extends TestPage {
         BookTicketPage bookTicketPage = new BookTicketPage();
 
         Assert.assertTrue(bookTicketPage.getbBookTicketForm().isDisplayed(),"Book ticket form is not shown!");
+
         String actualDepart = bookTicketPage.getDepartFrom();
-        if (actualDepart.equals(departStation)) {
-            System.out.println("Book ticket form is shown with the corrected 'depart from'");
-        } else {
-            System.out.println("Book ticket form is shown with the incorrected 'depart from'");
-        }
+        Assert.assertEquals(actualDepart, departStation, "Book ticket form is shown with the incorrect 'depart from'");
+        System.out.println("Book ticket form is shown with the corrected 'depart from'");
 
         String actualArrive = bookTicketPage.getArriveAt();
-        if (actualArrive.equals(arriveStation)) {
-            System.out.println("Book ticket form is shown with the corrected 'arrive at'");
-        } else {
-            System.out.println("Book ticket form is shown with the incorrected 'arrive at'");
-        }
+        Assert.assertEquals(actualArrive, arriveStation, "Book ticket form is shown with the incorrect 'arrive at'");
+        System.out.println("Book ticket form is shown with the corrected 'arrive at'");
 
         System.out.println("Select Depart date next 10 days");
         bookTicketPage.selectDepartDate(daysFromToday);
@@ -428,11 +417,8 @@ public class TestCases extends TestPage {
         String expectedMessage = "Ticket booked successfully!";
         String actualMessage = bookTicketPage.getsuccessMessage();
 
-        if (actualMessage.equals(expectedMessage)) {
-            System.out.println("Passed");
-        } else {
-            System.out.println("Failed");
-        }
+        Assert.assertEquals(actualMessage, expectedMessage, "Message 'Ticket booked successfully!' displays. Ticket information display incorrectly");
+        System.out.println("Message 'Ticket booked successfully!' displays. Ticket information display correctly");
 
         System.out.println("TC15: Passed");
     }
@@ -471,11 +457,8 @@ public class TestCases extends TestPage {
         String expectedMessage = "Ticket booked successfully!";
         String actualMessage = bookTicketPage.getsuccessMessage();
 
-        if (actualMessage.equals(expectedMessage)) {
-            System.out.println("Passed");
-        } else {
-            System.out.println("Failed");
-        }
+        Assert.assertEquals(actualMessage, expectedMessage, "Message 'Ticket booked successfully!' does not displays");
+        System.out.println("Message 'Ticket booked successfully!' display");
 
         System.out.println("Click on 'My ticket' tab");
         homePage.navigateTabPage("My ticket");

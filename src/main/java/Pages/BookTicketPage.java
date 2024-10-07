@@ -20,7 +20,9 @@ public class BookTicketPage {
     protected By departDateDropDown = By.xpath("//select[@name ='Date']");
     protected By ticketAmountDropDown = By.xpath("//select[@name ='TicketAmount']");
     protected By departSationDropDown = By.xpath("//select[@name = 'DepartStation']");
+    protected By departStationValue = By.xpath("//select[@name = 'DepartStation']/option[@selected = 'selected']");
     protected By arriveStationDropDown = By.xpath("//select[@name = 'ArriveStation']");
+    protected By arriveStationValue = By.xpath("//select[@name = 'ArriveStation']/option[@selected = 'selected']");
     protected By seatTypeDropDown = By.xpath("//select[@name = 'SeatType']");
     protected By bookTicketBtn = By.xpath("//input[@type='submit']");
     protected By confirmText = By.xpath("//h1");
@@ -83,10 +85,10 @@ public class BookTicketPage {
     }
 
     public String getDepartFrom() {
-        return driver.findElement(departSationDropDown).getText();
+        return driver.findElement(departStationValue).getText();
     }
 
     public String getArriveAt() {
-        return driver.findElement(arriveStationDropDown).getText();
+        return driver.findElement(arriveStationValue).getText();
     }
 }

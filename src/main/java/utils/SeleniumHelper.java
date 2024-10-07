@@ -24,10 +24,6 @@ public class SeleniumHelper {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
-    public static void waitToClick(By element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
 
     public static void waitToLoadDropdown(By dropdownLocator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -44,9 +40,6 @@ public class SeleniumHelper {
         // Chuyển sang Alert và nhấn "OK"
         Alert alert = driver.switchTo().alert();
         alert.accept();
-    }
-    public static void closeCurrentTab() {
-        driver.close();
     }
 
     public static void refreshPage() {

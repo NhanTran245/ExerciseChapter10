@@ -55,15 +55,13 @@ public class MailPage extends BasePage {
 
     public void resetPw() {
         SeleniumHelper.refreshPage();
+
         SeleniumHelper.waitToLoadElement(emailResetPW);
-        System.out.println("1");
         driver.findElement(emailResetPW).click(); // click email reset PW
-        System.out.println("2");
+
         SeleniumHelper.scrollToElement(driver.findElement(emailSubject));
-        System.out.println("3");
         SeleniumHelper.waitToLoadElement(tokenLink);
-        System.out.println("4");
+
         driver.findElement(tokenLink).click(); //click Token link
-        System.out.println("5");
     }
 }
