@@ -12,6 +12,7 @@ public class MyTicketPage extends BasePage {
     protected String sTicketRow = "//tr[td[text() = '%s' and following-sibling::td[text() = '%s']]]";
 
     public MyTicketPage clickCancelBtn() {
+        SeleniumHelper.scrollToElement(driver.findElement(firstCancelBtn));
         driver.findElement(firstCancelBtn).click();
         SeleniumHelper.acceptAlert();
         return new  MyTicketPage();

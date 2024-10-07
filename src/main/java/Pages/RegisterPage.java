@@ -20,7 +20,8 @@ public class RegisterPage extends BasePage {
     protected By errorMessPw = By.xpath("//label[@for = 'password' and @class = 'validation-error']");
     protected By errorMessPID = By.xpath("//label[@for = 'pid' and @class = 'validation-error']");
     protected By header = By.xpath("//h1");
-    protected By confirmMessage = By.xpath("//div[@id = 'content']");
+    protected By successMessage = By.xpath("//div[@id = 'content']/h1");
+    protected By confirmMessage = By.xpath("//div[@id = 'content']/p");
 
     //Methods
     public RegisterPage registerAccount(String username, String password, String pid) {
@@ -57,12 +58,11 @@ public class RegisterPage extends BasePage {
     }
 
     public String getSuccessMess() {
-        return driver.findElement(header).getText();
+        return driver.findElement(successMessage).getText();
     }
 
-    public WebElement getConfirmMess() {
-        WebElement confirmMess = driver.findElement(confirmMessage);
-        return confirmMess;
+    public String getConfirmMess() {
+        return driver.findElement(confirmMessage).getText();
 
     }
 

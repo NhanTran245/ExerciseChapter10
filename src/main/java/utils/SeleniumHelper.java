@@ -9,6 +9,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import static utils.DriverManagement.driver;
 
@@ -48,6 +51,38 @@ public class SeleniumHelper {
 
     public static void refreshPage() {
         driver.navigate().refresh();
+    }
+
+    public static void navigateBackToOriginalWindow(String originalWindow) {
+        driver.switchTo().window(originalWindow);
+    }
+
+    public static String saveWindownHandle() {
+        String originalWindow = driver.getWindowHandle();
+        return originalWindow;
+    }
+
+    public static void switchTab(String originalWindow) {
+        Set<String> allWindows = driver.getWindowHandles();
+
+        for (String windowHandle : allWindows) {
+            if (!windowHandle.equals(originalWindow)) { // neu tab hien tai hong phai tab original(goc) thi chuyen sang tab moi
+                driver.switchTo().window(windowHandle);
+                break;  // Sau khi chuyển sang tab moi thì thoát khỏi vòng lặp
+            }
+        }
+    }
+
+    public static void switchWindow(int tabIndex, String originalWindow) {
+        Set<String> allWindows = driver.getWindowHandles();
+        List<String> windowList = new ArrayList<>(allWindows);  // Chuyển Set thành List để có thể truy cập theo chỉ mục
+
+        if (tabIndex < windowList.size()) {
+            driver.switchTo().window(windowList.get(tabIndex));
+
+        } else {
+            System.out.println("Tab index " + tabIndex + " is out of bounds.");
+        }
     }
 
 }

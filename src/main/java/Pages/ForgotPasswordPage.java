@@ -45,14 +45,12 @@ public class ForgotPasswordPage extends BasePage {
         driver.findElement(resetPWBtn).click();
     }
 
-    public WebElement getErrorMessage() {
-        WebElement errorMess = driver.findElement(errorMessage);
-        return errorMess;
+    public String getErrorMessage() {
+        return driver.findElement(errorMessage).getText();
     }
 
-    public  WebElement getErrorMessageConfirmPW() {
-        WebElement errorMessConfirmPW = driver.findElement(errorMessageConfirmPW);
-        return errorMessConfirmPW;
+    public  String getErrorMessageConfirmPW() {
+        return driver.findElement(errorMessageConfirmPW).getText();
     }
 
 }
