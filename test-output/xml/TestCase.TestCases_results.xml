@@ -12,6 +12,6 @@
             <testcase
                 name="TC16"
                 time="5.414"
-                classname="TestCase.TestCases">
+                classname="testcases.TestCases">
             </testcase>
 </testsuite>

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static utils.DriverManagement.driver;
+import static utils.DriverUtils.driver;
 
 public class SeleniumHelper {
     public static void scrollToElement(WebElement element) {

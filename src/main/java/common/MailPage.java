@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.support.ui.Select;
-import utils.DriverManagement;
+import utils.DriverUtils;
 import utils.SeleniumHelper;
 
-import static utils.DriverManagement.driver;
+import static utils.DriverUtils.driver;
 
 public class MailPage extends BasePage {
 
@@ -24,7 +24,7 @@ public class MailPage extends BasePage {
 
     public static void navigateToWebMail() {
         driver.switchTo().newWindow(WindowType.TAB);
-        DriverManagement.driver.get("https://www.guerrillamail.com/inbox"); // Open the application
+        DriverUtils.driver.get("https://www.guerrillamail.com/inbox"); // Open the application
     }
 
     public String getMailFree(String email) {
