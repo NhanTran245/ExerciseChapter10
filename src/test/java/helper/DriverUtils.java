@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class DriverUtils {
     protected static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 
-    public void initDriver(String browser) throws Exception {
+    public static void initDriver(String browser) throws Exception {
         Logger.log("Create " + browser);
         switch (browser) {
             case ("chrome"): {

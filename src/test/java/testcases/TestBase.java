@@ -35,8 +35,16 @@ public class TestBase {
         DriverUtils.driver.get("http://saferailway.somee.com/"); // Open the application
     }
 
+    public void setup() {
+
+    }
+
     @AfterMethod
     public void afterTest() {
         driver.quit();
+    }
+
+    public void teardown() {
+
     }
 }
