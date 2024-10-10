@@ -1,6 +1,6 @@
 package pageobjects;
 
-import common.BasePage;
+//import common.BasePage;
 
 public class FAQPage extends BasePage {
 }
