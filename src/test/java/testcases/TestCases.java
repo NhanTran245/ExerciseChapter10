@@ -1,7 +1,9 @@
 package testcases;
 
-import common.MailPage;
+//import common.MailPage;
 import common.StaticProvider;
+import dataobjects.Menu;
+import helper.Constant;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.*;
@@ -9,6 +11,25 @@ import utils.SeleniumHelper;
 
 
 public class TestCases extends TestBase {
+
+    @Test (dataProvider = "Fixed_TC01", dataProviderClass = StaticProvider.class)
+    public void TC001(String username, String password) {
+//        1. Navigate to QA Railway Website
+
+//        2. Click on "Login" tab
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+//        3. Enter valid Email and Password
+
+//        4. Click on "Login" button
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(username, password);
+//        VP: User is logged into Railway.
+        Assert.assertTrue(homePage.ísMenuExists(Menu.LOGOUT.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
+//        Welcome user message is displayed. "Wellcome message is not displayed"
+        var expectedMessage = "Wellcome " + username;
+        Assert.assertEquals(homePage.getWellcomeMessage(),expectedMessage);
+    }
 
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)
 //    public void TC01(String username, String password) {

@@ -1,6 +1,7 @@
 package pageobjects;
 
 //import common.BasePage;
+import helper.Constant;
 import helper.ElementUltis;
 import helper.Logger;
 import org.openqa.selenium.By;
@@ -16,8 +17,14 @@ public class LoginPage extends BasePage {
     private By loginBtn = By.xpath("//input[@type = 'submit']");
     private By welcomeMessage = By.xpath("//div[@class='account']");
 
+    public LoginPage() {
+        pageTitle = "Safe Railway - Login";
+    }
+
     public void login (String username, String password) {
         Logger.log("Login user");
+        waitForPageLoad();
+        ElementUltis.waitForElementExists(loginBtn, Constant.ELEMENT_WAIT_TIMEOUT);
         ElementUltis.findElement(usernameTextBox).sendKeys(username);
         ElementUltis.findElement(pwTextBox).sendKeys(password);
         ElementUltis.scrollToElement(ElementUltis.findElement(loginBtn));

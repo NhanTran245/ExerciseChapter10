@@ -13,7 +13,7 @@ public class Fixed_TestBase {
     @BeforeMethod
     public void setup(String browser) throws Exception {
         DriverUtils.initDriver(browser);
-        BrowserUtils.navigateTo(Constant.url);
+        BrowserUtils.navigateTo(Constant.URL);
         BrowserUtils.maximize();
 
     }

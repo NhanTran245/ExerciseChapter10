@@ -24,7 +24,12 @@ public class ElementUltis
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
-    public boolean elementIsExists (By locator, int timeoutForSecond) {
+    public static void waitForElementClickable (By locator, int timeoutInSecond) {
+        WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSecond));
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public static boolean isElementExists (By locator, int timeoutForSecond) {
         try {
             waitForElementExists(locator, timeoutForSecond);
             return true;
