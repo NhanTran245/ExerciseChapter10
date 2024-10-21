@@ -1,15 +1,33 @@
 package testcases;
 
+import helper.BrowserUtils;
+import helper.Constant;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import helper.DriverUtils;
+import org.testng.annotations.Parameters;
 
 import java.util.concurrent.TimeUnit;
 
 //import static helper.DriverUtils.driver;
 
 public class TestBase {
+
+    @Parameters({"browser"})
+    @BeforeMethod
+    public void setup(String browser) throws Exception {
+        DriverUtils.initDriver(browser);
+        BrowserUtils.navigateTo(Constant.URL);
+        BrowserUtils.maximize();
+
+    }
+
+    @AfterMethod
+    public void teardown() {
+        BrowserUtils.close();
+
+    }
 
 //    @DataProvider(name = "Driver")
 //    public Object[][] createData() {

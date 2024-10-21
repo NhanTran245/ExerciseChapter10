@@ -3,8 +3,10 @@ package testcases;
 //import common.MailPage;
 import common.StaticProvider;
 import dataobjects.Menu;
+import dataobjects.User;
 import helper.Constant;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageobjects.*;
 import utils.SeleniumHelper;
@@ -12,8 +14,11 @@ import utils.SeleniumHelper;
 
 public class TestCases extends TestBase {
 
-    @Test (dataProvider = "Fixed_TC01", dataProviderClass = StaticProvider.class)
-    public void TC001(String username, String password) {
+    @Test
+    public void TC001() {
+        var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
+        var expectedMessage = "Wellcome " + user.getEmail();
+
 //        1. Navigate to QA Railway Website
 
 //        2. Click on "Login" tab
@@ -23,12 +28,40 @@ public class TestCases extends TestBase {
 
 //        4. Click on "Login" button
         LoginPage loginPage = new LoginPage();
-        loginPage.login(username, password);
+        loginPage.login(user);
+
 //        VP: User is logged into Railway.
         Assert.assertTrue(homePage.ísMenuExists(Menu.LOGOUT.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
-//        Welcome user message is displayed. "Wellcome message is not displayed"
-        var expectedMessage = "Wellcome " + username;
+
+//        VP: Welcome user message is displayed. "Wellcome message is not displayed"
         Assert.assertEquals(homePage.getWellcomeMessage(),expectedMessage);
+    }
+    @DataProvider (name = "loginTestData")
+    public Object [][] createData002(){
+            return new Object [][]{
+                    {new User(null, "123456789"), "There was a problem with your login and/or errors exist in your form."},
+                    {new User("h1uv4c9ktg@email2u.shop", "12345678"), "There was a problem with your login and/or errors exist in your form."}
+                };
+    }
+
+    @Test (dataProvider = "loginTestData")
+    public void TC002(User user, String expectedMessage) {
+
+//        1. Navigate to QA Railway Website
+
+//        2. Click on "Login" tab
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+//        3. Enter valid Email and Password
+
+//        4. Click on "Login" button
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+
+//        VP: User doesn't type any words into "Username" textbox but enter valid information into "Password" textbox
+
+//        VP: Welcome user message is displayed. "Wellcome message is not displayed"
+        Assert.assertEquals(loginPage.getErrorMessage(),expectedMessage);
     }
 
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)

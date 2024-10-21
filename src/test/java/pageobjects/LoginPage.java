@@ -1,6 +1,7 @@
 package pageobjects;
 
 //import common.BasePage;
+import dataobjects.User;
 import helper.Constant;
 import helper.ElementUltis;
 import helper.Logger;
@@ -15,20 +16,33 @@ public class LoginPage extends BasePage {
     private By usernameTextBox = By.xpath("//input[@id = 'username']");
     private By pwTextBox = By.xpath("//input[@id = 'password']");
     private By loginBtn = By.xpath("//input[@type = 'submit']");
-    private By welcomeMessage = By.xpath("//div[@class='account']");
+    private By errorMessage = By.xpath("//p[@class = 'message error LoginForm']");
 
     public LoginPage() {
         pageTitle = "Safe Railway - Login";
     }
 
-    public void login (String username, String password) {
+    public void login (User user) {
         Logger.log("Login user");
         waitForPageLoad();
         ElementUltis.waitForElementExists(loginBtn, Constant.ELEMENT_WAIT_TIMEOUT);
-        ElementUltis.findElement(usernameTextBox).sendKeys(username);
-        ElementUltis.findElement(pwTextBox).sendKeys(password);
-        ElementUltis.scrollToElement(ElementUltis.findElement(loginBtn));
+//        ElementUltis.scrollToElement(loginBtn);
+        if (user.getEmail() != null) {
+            ElementUltis.findElement(usernameTextBox).sendKeys(user.getEmail());
+        }
+        if (user.getPassword() != null) {
+            ElementUltis.findElement(pwTextBox).sendKeys(user.getPassword());
+        }
         ElementUltis.findElement(loginBtn).click();
+    }
+
+    public String getErrorMessage() {
+        try {
+            return ElementUltis.findElement(errorMessage).getText().trim();
+        }
+        catch (Exception e) {
+            return "";
+        }
 
     }
 
