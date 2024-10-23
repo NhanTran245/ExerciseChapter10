@@ -26,7 +26,7 @@ public class LoginPage extends BasePage {
         Logger.log("Login user");
         waitForPageLoad();
         ElementUltis.waitForElementExists(loginBtn, Constant.ELEMENT_WAIT_TIMEOUT);
-//        ElementUltis.scrollToElement(loginBtn);
+        ElementUltis.scrollToElement(loginBtn);
         if (user.getEmail() != null) {
             ElementUltis.findElement(usernameTextBox).sendKeys(user.getEmail());
         }

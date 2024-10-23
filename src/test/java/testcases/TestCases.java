@@ -36,7 +36,7 @@ public class TestCases extends TestBase {
 //        VP: Welcome user message is displayed. "Wellcome message is not displayed"
         Assert.assertEquals(homePage.getWellcomeMessage(),expectedMessage);
     }
-    @DataProvider (name = "loginTestData")
+    @DataProvider (name = "loginTestData", parallel = true)
     public Object [][] createData002(){
             return new Object [][]{
                     {new User(null, "123456789"), "There was a problem with your login and/or errors exist in your form."},

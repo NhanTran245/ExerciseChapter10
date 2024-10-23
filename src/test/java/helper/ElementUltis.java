@@ -39,8 +39,8 @@ public class ElementUltis
 
     }
     public static void scrollToElement(By locator) {
-        WebElement element = findElement(locator);
-        ((JavascriptExecutor) DriverUtils.driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        WebElement element = ElementUltis.findElement(locator);
+        ((JavascriptExecutor) DriverUtils.driver.get()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
 }
