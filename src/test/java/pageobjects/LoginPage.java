@@ -27,11 +27,17 @@ public class LoginPage extends BasePage {
         waitForPageLoad();
         ElementUltis.waitForElementExists(loginBtn, Constant.ELEMENT_WAIT_TIMEOUT);
         ElementUltis.scrollToElement(loginBtn);
+
         if (user.getEmail() != null) {
-            ElementUltis.findElement(usernameTextBox).sendKeys(user.getEmail());
+            var element = ElementUltis.findElement(usernameTextBox);
+            element.clear();
+            element.sendKeys(user.getEmail());
         }
+
         if (user.getPassword() != null) {
-            ElementUltis.findElement(pwTextBox).sendKeys(user.getPassword());
+            var element = ElementUltis.findElement(pwTextBox);
+            element.clear();
+            element.sendKeys(user.getPassword());
         }
         ElementUltis.findElement(loginBtn).click();
     }

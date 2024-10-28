@@ -7,8 +7,9 @@
         <classes>
             <class name="testcases.TestCases">
                 <methods>
-                    <include name="TC001"/>
-                    <include name="TC002"/>
+<!--                    <include name="TC001"/>-->
+<!--                    <include name="TC002"/>-->
+                    <include name="TC004"/>
                 </methods>
             </class>
         </classes>

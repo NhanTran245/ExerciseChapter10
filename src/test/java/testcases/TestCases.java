@@ -33,7 +33,7 @@ public class TestCases extends TestBase {
 //        VP: User is logged into Railway.
         Assert.assertTrue(homePage.ísMenuExists(Menu.LOGOUT.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
 
-//        VP: Welcome user message is displayed. "Wellcome message is not displayed"
+//        VP: Welcome user message is displayed.
         Assert.assertEquals(homePage.getWellcomeMessage(),expectedMessage);
     }
     @DataProvider (name = "loginTestData", parallel = true)
@@ -58,10 +58,40 @@ public class TestCases extends TestBase {
         LoginPage loginPage = new LoginPage();
         loginPage.login(user);
 
-//        VP: User doesn't type any words into "Username" textbox but enter valid information into "Password" textbox
-
-//        VP: Welcome user message is displayed. "Wellcome message is not displayed"
+//        VP: User can't login and message "There was a problem with your login and/or errors exist in your form. " appears.
         Assert.assertEquals(loginPage.getErrorMessage(),expectedMessage);
+    }
+
+    @Test
+    public void TC004() {
+        var user = new User("h1uv4c9ktg@email2u.shop", "test123");
+        var expectedMessage = "Invalid username or password. Please try again.";
+        var after4timesExpectedErrorMessage = "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes.";
+
+//        1. Navigate to QA Railway Website
+
+//        2. Click on "Login" tab
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+
+        LoginPage loginPage = new LoginPage();
+//        5. Repeat step 3 and 4 three more times.
+        for (int i = 0; i < 4; i++)
+        {
+//        3. Enter valid information into "Username" textbox except "Password" textbox.
+
+//        4. Click on "Login" button
+            loginPage.login(user);
+
+            if (i == 0) {
+
+                //        VP: "Invalid username or password. Please try again" is shown
+                Assert.assertEquals(loginPage.getErrorMessage(), expectedMessage);
+            }
+        }
+//        VP: User can't login and message "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes." appears.
+        Assert.assertEquals(loginPage.getErrorMessage(),after4timesExpectedErrorMessage);
+
     }
 
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)
