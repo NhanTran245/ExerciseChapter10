@@ -9,7 +9,8 @@
                 <methods>
 <!--                    <include name="TC001"/>-->
 <!--                    <include name="TC002"/>-->
-                    <include name="TC004"/>
+<!--                    <include name="TC004"/>-->
+                    <include name="TC005"/>
                 </methods>
             </class>
         </classes>

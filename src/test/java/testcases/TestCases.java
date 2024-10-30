@@ -5,6 +5,7 @@ import common.StaticProvider;
 import dataobjects.Menu;
 import dataobjects.User;
 import helper.Constant;
+import helper.DateTimeUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -92,6 +93,37 @@ public class TestCases extends TestBase {
 //        VP: User can't login and message "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes." appears.
         Assert.assertEquals(loginPage.getErrorMessage(),after4timesExpectedErrorMessage);
 
+    }
+
+    @Test
+    public void TC005() {
+        var emailTemplate = "test%s@test.com";
+        var dinamicPattern = "yyyyMMddHHmmssSSS";
+        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dinamicPattern));
+        var user = new User(email, "test1234","12341234");
+        var expectedMessage = "Invalid username or password. Please try again.";
+
+//        0. Pre-condition: a not-active account is existing
+        // Navigate to Register page
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.REGISTER.toString());
+
+        // Create new account
+        RegisterPage registerPage = new RegisterPage();
+        registerPage.registerAccount(user);
+
+//        1. Navigate to QA Railway Website
+
+//        2. Click on "Login" tab
+        homePage.selectMenu(Menu.LOGIN.toString());
+//        3. Enter username and password of account hasn't been activated.
+
+//        4. Click on "Login" button
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+
+//        VP: User can't login and message "Invalid username or password. Please try again." appears.
+        Assert.assertEquals(loginPage.getErrorMessage(), expectedMessage);
     }
 
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)

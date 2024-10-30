@@ -6,7 +6,36 @@ package pageobjects;
 //import utils.SeleniumHelper;
 //import static helper.DriverUtils.driver;
 
+import dataobjects.User;
+import helper.Constant;
+import helper.ElementUltis;
+import helper.Logger;
+import org.openqa.selenium.By;
+
 public class RegisterPage extends BasePage {
+    private By usernameTextBox = By.xpath("//input[@id = 'email']");
+    private By passwordTextBox = By.xpath("//input[@id = 'password']");
+    private By confirmTextBox = By.xpath("//input[@id = 'confirmPassword']");
+    private By pidTextBox = By.xpath("//input[@id = 'pid']");
+    private By registerBtn = By.xpath("//input[@type = 'submit']");
+
+    public RegisterPage() {
+        pageTitle = "Safe Railway - Register an Account";
+    }
+
+    public void registerAccount (User user) {
+        Logger.log("Register account");
+        waitForPageLoad();
+        ElementUltis.waitForElementExists(registerBtn, Constant.ELEMENT_WAIT_TIMEOUT);
+        ElementUltis.scrollToElement(registerBtn);
+
+        ElementUltis.findElement(usernameTextBox).sendKeys(user.getEmail());
+        ElementUltis.findElement(passwordTextBox).sendKeys(user.getPassword());
+        ElementUltis.findElement(confirmTextBox).sendKeys(user.getPassword());
+        ElementUltis.findElement(pidTextBox).sendKeys(user.getPid());
+        ElementUltis.findElement(registerBtn).click();
+
+    }
 //    protected By usernameTextBox = By.xpath("//input[@id = 'email']");
 //    protected By passwordTextBox = By.xpath("//input[@id = 'password']");
 //    protected By confirmTextBox = By.xpath("//input[@id = 'confirmPassword']");
