@@ -148,9 +148,95 @@ public class TestCases extends TestBase {
         homePage.selectMenu(Menu.LOGOUT.toString());
 
 //        VP: Home page displays.
-        Assert.assertTrue(homePage.ísMenuExists(Menu.HOME.toString(), Constant.PAGE_WAIT_TIMEOUT));
+        Assert.assertTrue(homePage.ísMenuExists(Menu.HOME.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
+
 //        VP: "Log out" tab is disappeared.
-        Assert.assertTrue(h);
+        Assert.assertFalse(homePage.ísMenuExists(Menu.LOGOUT.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
+
+    }
+
+    @Test
+    public void TC007() {
+//        0. Pre-condition: an actived account is existing
+        var user = new User("h1uv4c9ktg@email2u.shop", "123456789", "123456789");
+        var expectedErrorMessage = "This email address is already in use.";
+
+//        1. Navigate to QA Railway Website
+
+//        2. Click on "Register" tab
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.REGISTER.toString());
+
+//        3. Enter information of the created account in Pre-condition
+
+//        4. Click on "Register" button
+        RegisterPage registerPage = new RegisterPage();
+        registerPage.registerAccount(user);
+
+//        VP: Error message "This email address is already in use." displays above the form.
+        Assert.assertEquals(registerPage.getErrorMessage(), expectedErrorMessage);
+
+    }
+
+    @Test
+    public void TC008() {
+        var emailTemplate = "test%s@test.com";
+        var dinamicPattern = "yyyyMMddHHmmssSSS";
+        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dinamicPattern));
+        var user = new User(email, "","");
+        var expectedErrorMessage = "There're errors in the form. Please correct the errors and try again.";
+        var expectedPwErrorMessage = "Invalid password length";
+        var expectedPidErrorMessage = "Invalid ID length";
+//        1. Navigate to QA Railway Website
+
+//        2. Click on "Register" tab
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.REGISTER.toString());
+
+//        3. Enter valid email address and leave other fields empty
+
+//        4. Click on "Register" button
+        RegisterPage registerPage = new RegisterPage();
+        registerPage.registerAccount(user);
+
+//        VP: "Message ""There're errors in the form. Please correct the errors and try again."" appears above the form.
+        Assert.assertEquals(registerPage.getErrorMessage(), expectedErrorMessage);
+
+//        VP: Next to password fields, error message ""Invalid password length."" displays
+        Assert.assertEquals(registerPage.getPwErrorMessage(), expectedPwErrorMessage);
+
+//        VP: Next to PID field, error message ""Invalid ID length."" displays"
+        Assert.assertEquals(registerPage.getPIDErrorMessage(), expectedPidErrorMessage);
+
+    }
+
+    @Test
+    public void TC012() {
+        var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
+//        0. Pre-condition: an actived account is existing
+
+//        1. Navigate to QA Railway Website
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+
+//        2. Login with a valid account
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+
+//        3. Click on "Book ticket" tab
+
+//        4. Select the next 12 days from "Depart date"
+
+//        5. Select Depart from "Nha Trang" and Arrive at "Huế"
+
+//        6. Select "Soft bed with air conditioner" for "Seat type"
+
+//        7. Select "1" for "Ticket amount"
+
+//        8. Click on "Book ticket" button
+
+//        VP: Message "Ticket booked successfully!" displays. Ticket information display correctly (Depart Date,  Depart Station,  Arrive Station,  Seat Type,  Amount)
+
 
     }
 

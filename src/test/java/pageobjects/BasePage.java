@@ -39,11 +39,11 @@ public class BasePage {
         return ElementUltis.isElementExists(locator, timeoutInSeconds);
     }
 
-    public Boolean isMenuNotExits (String menu, int timeoutInSeconds) {
-        var locator = getMenuLocator(menu);
-        WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSeconds));
-        wait.until(ExpectedConditions.stalenessOf(ElementUltis.findElement(locator)));
-    }
+//    public Boolean isMenuNotExits (String menu, int timeoutInSeconds) {
+//        var locator = getMenuLocator(menu);
+//        WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSeconds));
+//        wait.until(ExpectedConditions.stalenessOf(ElementUltis.findElement(locator)));
+//    }
 
 //    protected String sTabMenu = "//li//a[span[text() = '%s']]";
 //

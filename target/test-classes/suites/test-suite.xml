@@ -10,7 +10,10 @@
 <!--                    <include name="TC001"/>-->
 <!--                    <include name="TC002"/>-->
 <!--                    <include name="TC004"/>-->
-                    <include name="TC005"/>
+<!--                    <include name="TC005"/>-->
+<!--                    <include name="TC006"/>-->
+<!--                    <include name="TC007"/>-->
+                    <include name="TC008"/>
                 </methods>
             </class>
         </classes>

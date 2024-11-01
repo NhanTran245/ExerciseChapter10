@@ -18,6 +18,9 @@ public class RegisterPage extends BasePage {
     private By confirmTextBox = By.xpath("//input[@id = 'confirmPassword']");
     private By pidTextBox = By.xpath("//input[@id = 'pid']");
     private By registerBtn = By.xpath("//input[@type = 'submit']");
+    private By errorMessage = By.xpath("//p[@class = 'message error']");
+    private By errorMessPw = By.xpath("//label[@for = 'password' and @class = 'validation-error']");
+    private By errorMessPID = By.xpath("//label[@for = 'pid' and @class = 'validation-error']");
 
     public RegisterPage() {
         pageTitle = "Safe Railway - Register an Account";
@@ -34,7 +37,33 @@ public class RegisterPage extends BasePage {
         ElementUltis.findElement(confirmTextBox).sendKeys(user.getPassword());
         ElementUltis.findElement(pidTextBox).sendKeys(user.getPid());
         ElementUltis.findElement(registerBtn).click();
+    }
 
+    public String getErrorMessage() {
+        try {
+            return ElementUltis.findElement(errorMessage).getText().trim();
+        }
+        catch (Exception e) {
+            return "";
+        }
+    }
+
+    public  String getPwErrorMessage() {
+        try {
+            return ElementUltis.findElement(errorMessPw).getText().trim();
+        }
+        catch (Exception e) {
+            return "";
+        }
+    }
+
+    public  String getPIDErrorMessage() {
+        try {
+            return ElementUltis.findElement(errorMessPID).getText().trim();
+        }
+        catch (Exception e) {
+            return "";
+        }
     }
 //    protected By usernameTextBox = By.xpath("//input[@id = 'email']");
 //    protected By passwordTextBox = By.xpath("//input[@id = 'password']");
