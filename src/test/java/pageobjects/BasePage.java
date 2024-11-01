@@ -1,11 +1,14 @@
 package pageobjects;
 
-import helper.BrowserUtils;
-import helper.Constant;
-import helper.ElementUltis;
-import helper.Logger;
+import helper.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+import static helper.DriverUtils.driver;
 
 //import static helper.DriverUtils.driver;
 
@@ -34,6 +37,12 @@ public class BasePage {
     public Boolean ísMenuExists (String menu, int timeoutInSeconds) {
         var locator = getMenuLocator(menu);
         return ElementUltis.isElementExists(locator, timeoutInSeconds);
+    }
+
+    public Boolean isMenuNotExits (String menu, int timeoutInSeconds) {
+        var locator = getMenuLocator(menu);
+        WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSeconds));
+        wait.until(ExpectedConditions.stalenessOf(ElementUltis.findElement(locator)));
     }
 
 //    protected String sTabMenu = "//li//a[span[text() = '%s']]";

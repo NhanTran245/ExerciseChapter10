@@ -126,6 +126,34 @@ public class TestCases extends TestBase {
         Assert.assertEquals(loginPage.getErrorMessage(), expectedMessage);
     }
 
+    @Test
+    public void TC006() {
+        var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
+
+//        1. Navigate to QA Railway Website
+
+//        2. Login with valid Email and Password
+        //Click Login tab
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+
+        // Enter valid Email and Password
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+
+//        3. Click on "FAQ" tab
+        homePage.selectMenu(Menu.FAQ.toString());
+
+//        4. Click on "Log out" tab
+        homePage.selectMenu(Menu.LOGOUT.toString());
+
+//        VP: Home page displays.
+        Assert.assertTrue(homePage.ísMenuExists(Menu.HOME.toString(), Constant.PAGE_WAIT_TIMEOUT));
+//        VP: "Log out" tab is disappeared.
+        Assert.assertTrue(h);
+
+    }
+
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)
 //    public void TC01(String username, String password) {
 //        HomePage homePage = new HomePage();
