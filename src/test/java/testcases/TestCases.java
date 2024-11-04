@@ -2,6 +2,7 @@ package testcases;
 
 //import common.MailPage;
 import common.StaticProvider;
+import dataobjects.BookTicketInformation;
 import dataobjects.Menu;
 import dataobjects.User;
 import helper.Constant;
@@ -213,6 +214,9 @@ public class TestCases extends TestBase {
     @Test
     public void TC012() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
+
+        var dinamicPattern = "M/d/yyyy";
+        var bookTicketInformation = new BookTicketInformation();
 //        0. Pre-condition: an actived account is existing
 
 //        1. Navigate to QA Railway Website
@@ -224,6 +228,7 @@ public class TestCases extends TestBase {
         loginPage.login(user);
 
 //        3. Click on "Book ticket" tab
+        homePage.selectMenu(Menu.BOOKTICKET.toString());
 
 //        4. Select the next 12 days from "Depart date"
 

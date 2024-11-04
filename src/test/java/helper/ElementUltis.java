@@ -43,4 +43,8 @@ public class ElementUltis
         ((JavascriptExecutor) DriverUtils.driver.get()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
+    public static void waitForElement(){
+
+    }
+
 }

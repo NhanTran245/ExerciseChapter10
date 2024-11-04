@@ -1,5 +1,10 @@
 package pageobjects;
 
+import dataobjects.BookTicketInformation;
+import helper.Constant;
+import helper.DateTimeUtils;
+import helper.ElementUltis;
+import helper.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -10,7 +15,67 @@ import java.time.format.DateTimeFormatter;
 
 //import static helper.DriverUtils.driver;
 
-public class BookTicketPage {
+public class BookTicketPage extends BasePage{
+
+    private By departDateDropDown = By.xpath("//select[@name ='Date']");
+    private By ticketAmountDropDown = By.xpath("//select[@name ='TicketAmount']");
+    private By departStationDropDown = By.xpath("//select[@name = 'DepartStation']");
+    private By departStationValue = By.xpath("//select[@name = 'DepartStation']/option[@selected = 'selected']");
+    private By arriveStationDropDown = By.xpath("//select[@name = 'ArriveStation']");
+    private By arriveStationValue = By.xpath("//select[@name = 'ArriveStation']/option[@selected = 'selected']");
+    private By seatTypeDropDown = By.xpath("//select[@name = 'SeatType']");
+    private By bookTicketBtn = By.xpath("//input[@type='submit']");
+
+    public BookTicketPage() {
+        pageTitle = "Safe Railway - Book Ticket";
+    }
+
+    public void bookTicket(BookTicketInformation bookTicketInformation, String patter) {
+        Logger.log("Book ticket");
+        waitForPageLoad();
+        ElementUltis.waitForElementExists(bookTicketBtn, Constant.ELEMENT_WAIT_TIMEOUT);
+        ElementUltis.scrollToElement(bookTicketBtn);
+
+        if (departDateDropDown != null) {
+            Select selectDate = new Select(ElementUltis.findElement(departDateDropDown));
+            selectDate.selectByVisibleText(DateTimeUtils.getDateFromTodayString(daysFromToday, pattern));
+        }
+        if (departStationDropDown != null) {
+            Select selectDepartStation = new Select(ElementUltis.findElement(departStationDropDown));
+            selectDepartStation.selectByVisibleText(departFromStation);
+        }
+        if (arriveStationDropDown != null) {
+            ElementUltis.waitForElementClickable(arriveStationDropDown, Constant.ELEMENT_WAIT_TIMEOUT);
+            Select selectArriveStation = new Select(ElementUltis.findElement(arriveStationDropDown));
+            String actualValue = selectArriveStation.getFirstSelectedOption().getText();
+
+                if(arriveAtStation.equals(actualValue)) {
+
+                    selectArriveStation.getFirstSelectedOption();
+
+                }
+                else{
+                    selectArriveStation.selectByVisibleText(arriveAtStation);
+                }
+
+                }
+        if (seatType != null) {
+            Select selectSeatType= new Select(ElementUltis.findElement(seatTypeDropDown));
+            selectSeatType.selectByVisibleText(seatType);
+        }
+        if (ticketAmountDropDown != null) {
+            Select selectAmount = new Select(ElementUltis.findElement(ticketAmountDropDown));
+        selectAmount.selectByValue(String.valueOf(amount));
+        }
+    }
+
+    public void selectDepartDate(int daysFromToday, String pattern) {
+        Logger.log("Select Depart Date");
+        waitForPageLoad();
+        Select selectDate = new Select(ElementUltis.findElement(departDateDropDown));
+        selectDate.selectByVisibleText(DateTimeUtils.getDateFromTodayString(daysFromToday, pattern));
+
+    }
 
 //    // Elements
 //    protected By departDateDropDown = By.xpath("//select[@name ='Date']");
