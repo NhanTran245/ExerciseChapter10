@@ -3,25 +3,35 @@ package dataobjects;
 import java.time.LocalDate;
 
 public class BookTicketInformation {
+
     private int dateFromToday;
+    private String pattern;
     private String departStation;
     private String arriveStation;
     private String seatType;
     private int ticketAmount;
-    public BookTicketInformation (int dateFromToday, String departStation, String arriveStation, String seatType, int ticketAmount) {
+    public BookTicketInformation (int dateFromToday, String pattern, String departStation, String arriveStation, String seatType, int ticketAmount) {
         this.dateFromToday = dateFromToday;
+        this.pattern = pattern;
         this.departStation = departStation;
         this.arriveStation = arriveStation;
         this.seatType = seatType;
         this.ticketAmount = ticketAmount;
     }
 
-    public int getDepartDate() {
+    public int getDateFromToday() {
         return dateFromToday;
     }
 
-    public void DateFromToday(int dateFromToday) {
+    public void setDateFromToday(int dateFromToday) {
         this.dateFromToday = dateFromToday;
+    }
+    public String getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
     }
 
     public String getDepartStation() {

@@ -214,9 +214,9 @@ public class TestCases extends TestBase {
     @Test
     public void TC012() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
-
         var dinamicPattern = "M/d/yyyy";
-        var bookTicketInformation = new BookTicketInformation();
+        var bookTicketInformation = new BookTicketInformation (12, dinamicPattern, "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
+        var expectedMessage = "Ticket booked successfully!";
 //        0. Pre-condition: an actived account is existing
 
 //        1. Navigate to QA Railway Website
@@ -239,9 +239,11 @@ public class TestCases extends TestBase {
 //        7. Select "1" for "Ticket amount"
 
 //        8. Click on "Book ticket" button
+        BookTicketPage bookTicketPage = new BookTicketPage();
+        bookTicketPage.bookTicket(bookTicketInformation);
 
 //        VP: Message "Ticket booked successfully!" displays. Ticket information display correctly (Depart Date,  Depart Station,  Arrive Station,  Seat Type,  Amount)
-
+        Assert.assertEquals(bookTicketPage.getSuccessMessage(),expectedMessage);
 
     }
 
