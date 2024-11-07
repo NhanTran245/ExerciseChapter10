@@ -13,9 +13,9 @@ public class DateTimeUtils {
         return currentDateTime.format(format);
     }
 
-    public static String getDateFromTodayString (int daysFromToday, String patter) {
+    public static String getDateFromTodayString (int daysFromToday, String pattern) {
         LocalDate currentDate = LocalDate.now().plusDays(daysFromToday);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern(patter);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(pattern);
 
         return  currentDate.format(format);
     }

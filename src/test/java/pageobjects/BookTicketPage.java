@@ -10,8 +10,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import utils.SeleniumHelper;
 
+import javax.lang.model.element.Element;
+import javax.lang.model.util.Elements;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 //import static helper.DriverUtils.driver;
 
@@ -26,7 +29,7 @@ public class BookTicketPage extends BasePage {
     private By seatTypeDropDown = By.xpath("//select[@name = 'SeatType']");
     private By bookTicketBtn = By.xpath("//input[@type='submit']");
     private By successMessage = By.xpath("//h1");
-    private String sTicketRow = "//tr[td[text() = '%s' and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s']]]";
+    private String BookTicketRow = "//tr[@class = 'TableSmallHeader']/following-sibling::tr/td";
 
     public BookTicketPage() {
         pageTitle = "Safe Railway - Book Ticket";
@@ -38,9 +41,9 @@ public class BookTicketPage extends BasePage {
         ElementUltis.waitForElementExists(bookTicketBtn, Constant.ELEMENT_WAIT_TIMEOUT);
         ElementUltis.scrollToElement(bookTicketBtn);
 
-        if (bookTicketInformation.getDateFromToday() != 0) {
+        if (bookTicketInformation.getDepartDate() != null) {
             Select selectDate = new Select(ElementUltis.findElement(departDateDropDown));
-            selectDate.selectByVisibleText(DateTimeUtils.getDateFromTodayString(bookTicketInformation.getDateFromToday(), bookTicketInformation.getPattern()));
+            selectDate.selectByVisibleText(bookTicketInformation.getDepartDate());
         }
         if (bookTicketInformation.getDepartStation() != null) {
             Select selectDepartStation = new Select(ElementUltis.findElement(departStationDropDown));
@@ -79,10 +82,64 @@ public class BookTicketPage extends BasePage {
         }
     }
 
-    public void getsTicketInformation (BookTicketInformation bookTicketInformation) {
+    public void compareTicketInformationRow(BookTicketInformation bookTicketInformation) {
+        Logger.log("Get the ticket information");
+        List<WebElement> ticketInfoElements = ElementUltis.findElements(By.xpath(String.format(BookTicketRow)));
 
-    }
-}
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+
+        LocalDate actualDepartDate;
+        try {
+            actualDepartDate = LocalDate.parse(ticketInfoElements.get(4).getText(), formatter);
+        } catch (Exception e) {
+            Logger.log("Lỗi định dạng ngày tháng: " + ticketInfoElements.get(4).getText());
+            return;
+        }
+        String actualDepartStation = ticketInfoElements.get(1).getText();
+        String actualArriveStation = ticketInfoElements.get(2).getText();
+        String actualSeatType = ticketInfoElements.get(3).getText();
+        int actualTicketAmount = Integer.parseInt(ticketInfoElements.get(7).getText());
+        Logger.log("Compare the ticket information");
+        if (bookTicketInformation.getDepartDate().equals(actualDepartDate)) {
+            Logger.log("Expected Depart Date: " + bookTicketInformation.getDepartDate() + ", Actual: " + actualDepartDate);
+        }
+        if (bookTicketInformation.getDepartStation().equals(actualDepartStation)) {
+            Logger.log("Expected Depart Station: " + bookTicketInformation.getDepartStation() + ", Actual: " + actualDepartStation);
+        }
+        if (bookTicketInformation.getArriveStation().equals(actualArriveStation)) {
+            Logger.log("Expected Arrive Station: " + bookTicketInformation.getArriveStation() + ", Actual: " + actualArriveStation);
+        }
+        if (bookTicketInformation.getSeatType().equals(actualSeatType)) {
+            Logger.log("Expected Seat Type: " + bookTicketInformation.getSeatType() + ", Actual: " + actualSeatType);
+        }
+        if (bookTicketInformation.getTicketAmount() == actualTicketAmount) {
+            Logger.log("Expected Ticket Amount: " + bookTicketInformation.getTicketAmount() + ", Actual: " + actualTicketAmount);
+        }
+
+//                 {
+//
+//            Logger.log("Ticket information display correctly");
+//        } else {
+//            Logger.log("Ticket information display incorrectly");
+//
+//            // Detailed comparison log for troubleshooting
+//            Logger.log("Expected Depart Date: " + bookTicketInformation.getDepartDate() + ", Actual: " + actualDepartDate);
+//            Logger.log("Expected Depart Station: " + bookTicketInformation.getDepartStation() + ", Actual: " + actualDepartStation);
+//            Logger.log("Expected Arrive Station: " + bookTicketInformation.getArriveStation() + ", Actual: " + actualArriveStation);
+//            Logger.log("Expected Seat Type: " + bookTicketInformation.getSeatType() + ", Actual: " + actualSeatType);
+//            Logger.log("Expected Ticket Amount: " + bookTicketInformation.getTicketAmount() + ", Actual: " + actualTicketAmount);
+        }
+//        if (bookTicketInformation.getDepartDate().equals(actualDepartDate) &&
+//                bookTicketInformation.getDepartStation().equals(actualDepartStation) &&
+//                bookTicketInformation.getArriveStation().equals(actualArriveStation) &&
+//                bookTicketInformation.getSeatType().equals(actualSeatType) &&
+//                bookTicketInformation.getTicketAmount() == actualTicketAmount) {
+//
+//            Logger.log("Ticket information display correctly");
+//        }
+
+        }
+
 
 
 //    // Elements

@@ -215,7 +215,7 @@ public class TestCases extends TestBase {
     public void TC012() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
         var dinamicPattern = "M/d/yyyy";
-        var bookTicketInformation = new BookTicketInformation (12, dinamicPattern, "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(12, dinamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
         var expectedMessage = "Ticket booked successfully!";
 //        0. Pre-condition: an actived account is existing
 
@@ -242,8 +242,10 @@ public class TestCases extends TestBase {
         BookTicketPage bookTicketPage = new BookTicketPage();
         bookTicketPage.bookTicket(bookTicketInformation);
 
-//        VP: Message "Ticket booked successfully!" displays. Ticket information display correctly (Depart Date,  Depart Station,  Arrive Station,  Seat Type,  Amount)
+//        VP: Message "Ticket booked successfully!" displays.
         Assert.assertEquals(bookTicketPage.getSuccessMessage(),expectedMessage);
+//        VP: Ticket information display correctly (Depart Date,  Depart Station,  Arrive Station,  Seat Type,  Amount)
+        bookTicketPage.compareTicketInformationRow(bookTicketInformation);
 
     }
 
