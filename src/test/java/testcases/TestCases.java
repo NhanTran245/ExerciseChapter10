@@ -249,6 +249,74 @@ public class TestCases extends TestBase {
 
     }
 
+    @Test
+    public void TC013() {
+        var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
+        var dinamicPattern = "M/d/yyyy";
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(25, dinamicPattern), "Nha Trang", "Sài Gòn", "Soft bed with air conditioner", 5 );
+        var expectedMessage = "Ticket booked successfully!";
+//        Pre-condition: an actived account is existing
+
+//        1. Navigate to QA Railway Website
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+
+//        2. Login with a valid account
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+
+//        3. Click on "Book ticket" tab
+        homePage.selectMenu(Menu.BOOKTICKET.toString());
+
+//        4. Select the next 25 days from "Depart date"
+
+//        5. Select "Nha Trang" for "Depart from" and "Sài Gòn" for "Arrive at".
+
+//        6. Select "Soft seat with air conditioner" for "Seat type"
+
+//        7. Select "5" for "Ticket amount"
+
+//        8. Click on "Book ticket" button
+        BookTicketPage bookTicketPage = new BookTicketPage();
+        bookTicketPage.bookTicket(bookTicketInformation);
+
+//        VP: Message "Ticket booked successfully!" displays.
+        Assert.assertEquals(bookTicketPage.getSuccessMessage(),expectedMessage);
+//        VP: Ticket information display correctly (Depart Date,  Depart Station,  Arrive Station,  Seat Type,  Amount)
+        bookTicketPage.compareTicketInformationRow(bookTicketInformation);
+
+    }
+
+    @Test
+    public void TC014() {
+        var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
+        var bookTicketInformation = new BookTicketInformation ("Đà Nẵng", "Sài Gòn");
+//        Pre-condition: an actived account is existing
+
+//        1. Navigate to QA Railway Website
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+
+//        2. Login with a valid account
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+
+//        3. Click on "Timetable" tab
+        homePage.selectMenu(Menu.TIMETABLE.toString());
+
+//        4. Click on "check price" link of the route from "Đà Nẵng" to "Sài Gòn"
+        TimeTablePage timeTablePage = new TimeTablePage();
+        timeTablePage.clickCheckPrice(bookTicketInformation);
+
+//      VP: "Ticket Price" page is loaded.
+
+//      VP: Ticket table shows ""Ticket price from Đà Nẵng to Sài Gòn"".
+//      VP: Price for each seat displays correctly
+//      HS = 310000, SS = 335000, SSC = 360000, HB = 410000, SB = 460000, SBC = 510000"
+
+
+    }
+
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)
 //    public void TC01(String username, String password) {
 //        HomePage homePage = new HomePage();

@@ -12,11 +12,15 @@ public class BookTicketInformation {
     private int ticketAmount;
     public BookTicketInformation (String departDate, String departStation, String arriveStation, String seatType, int ticketAmount) {
         this.departDate = departDate;
-//        this.pattern = pattern;
         this.departStation = departStation;
         this.arriveStation = arriveStation;
         this.seatType = seatType;
         this.ticketAmount = ticketAmount;
+    }
+
+    public BookTicketInformation (String departStation, String arriveStation) {
+        this.departStation = departStation;
+        this.arriveStation = arriveStation;
     }
 
     public String getDepartDate() {
@@ -26,13 +30,6 @@ public class BookTicketInformation {
     public void setDepartDate(String departDate) {
         this.departDate = departDate;
     }
-//    public String getPattern() {
-//        return pattern;
-//    }
-//
-//    public void setPattern(String pattern) {
-//        this.pattern = pattern;
-//    }
 
     public String getDepartStation() {
         return departStation;

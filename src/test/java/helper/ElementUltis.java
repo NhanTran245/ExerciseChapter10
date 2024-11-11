@@ -43,8 +43,11 @@ public class ElementUltis
         ((JavascriptExecutor) DriverUtils.driver.get()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public static void waitForElement(){
+    public static void waitForElementNotExists(By locator, int timeoutInSecond) {
+        WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSecond));
 
+        // Đợi cho dropdown cũ không còn tồn tại
+        wait.until(ExpectedConditions.stalenessOf(ElementUltis.findElement(locator)));
     }
 
 }
