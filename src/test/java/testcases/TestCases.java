@@ -5,6 +5,7 @@ import common.StaticProvider;
 import dataobjects.BookTicketInformation;
 import dataobjects.Menu;
 import dataobjects.User;
+import helper.BrowserUtils;
 import helper.Constant;
 import helper.DateTimeUtils;
 import org.testng.Assert;
@@ -291,6 +292,7 @@ public class TestCases extends TestBase {
     public void TC014() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
         var bookTicketInformation = new BookTicketInformation ("Đà Nẵng", "Sài Gòn");
+        var expectedTicketTableText = "Ticket price from Đà Nẵng to Sài Gòn";
 //        Pre-condition: an actived account is existing
 
 //        1. Navigate to QA Railway Website
@@ -309,12 +311,57 @@ public class TestCases extends TestBase {
         timeTablePage.clickCheckPrice(bookTicketInformation);
 
 //      VP: "Ticket Price" page is loaded.
+        TicketPricePage ticketPricePage = new TicketPricePage();
 
-//      VP: Ticket table shows ""Ticket price from Đà Nẵng to Sài Gòn"".
+//      VP: Ticket table shows "Ticket price from Đà Nẵng to Sài Gòn".
+        Assert.assertEquals(ticketPricePage.getTicketTableText(),expectedTicketTableText);
+
 //      VP: Price for each seat displays correctly
 //      HS = 310000, SS = 335000, SSC = 360000, HB = 410000, SB = 460000, SBC = 510000"
+        ticketPricePage.compareValues();
 
+    }
 
+    @Test
+    public void TC015() {
+        var user = new User("6djvhj5wqyyr9v403b@emails2u.shop", "123456789");
+        var dinamicPattern = "M/d/yyyy";
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(10, dinamicPattern), "Quảng Ngãi", "Huế", "", 5);
+        var expectedMessage = "Ticket booked successfully!";
+//        Pre-condition: an actived account is existing
+
+//        1. Navigate to QA Railway Website
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+
+//        2. Login with a valid account
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+
+//        3. Click on "Timetable" tab
+        homePage.selectMenu(Menu.TIMETABLE.toString());
+
+//        4. Click on book ticket of route "Quảng Ngãi" to "Huế"
+        TimeTablePage timeTablePage = new TimeTablePage();
+        timeTablePage.clickBookTicket(bookTicketInformation);
+
+//        VP: Book ticket form is shown with the corrected "depart from" and "Arrive at"
+        BookTicketPage bookTicketPage = new BookTicketPage();
+        Assert.assertEquals(bookTicketPage.getDepartFrom(), bookTicketInformation.getDepartStation());
+        Assert.assertEquals(bookTicketPage.getArriveAt(), bookTicketInformation.getArriveStation());
+
+//        5. Select Depart date next 10 days
+
+//        6. Select Ticket amount = 5
+
+//        7. Click on "Book ticket" button
+        bookTicketPage.bookTicket(bookTicketInformation);
+
+//        VP: Message "Ticket booked successfully!" displays.
+        Assert.assertEquals(bookTicketPage.getSuccessMessage(),expectedMessage);
+
+//        VP: Ticket information display correctly (Depart Date,  Depart Station,  Arrive Station,  Seat Type,  Amount)
+        bookTicketPage.compareTicketInformationRow(bookTicketInformation);
     }
 
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)

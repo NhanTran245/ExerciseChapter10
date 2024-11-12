@@ -8,7 +8,39 @@ package pageobjects;
 //
 //import static helper.DriverUtils.driver;
 
+import helper.ElementUltis;
+import helper.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+
 public class TicketPricePage extends BasePage {
+    private String sBookTicket = "//td[text() = '%s']/following-sibling::td/a";
+    private By ticketTableText = By.xpath("//tr[th[text() = 'Ticket price from Đà Nẵng to Sài Gòn']]");
+    private String sCheckInforPrice = "//tbody/tr/th[@class='RowHeader']/following-sibling::td[%s]";
+    public String getTicketTableText() {
+        return ElementUltis.findElement(ticketTableText).getText();
+    }
+
+    public void compareValues () {
+
+        Logger.log("Price for each seat:");
+
+        for (int i = 1; i <= 6; i++) {
+            List<WebElement> elements = ElementUltis.findElements(By.xpath(String.format(sCheckInforPrice, i)));
+
+            if (elements.size() >= 2) {
+                String seatValue = elements.get(0).getText();
+                String priceValue = elements.get(1).getText();
+
+                Logger.log(seatValue + " = " + priceValue);
+            } else {
+                Logger.log("Missing value");
+
+            }
+        }
+    }
 //    protected String sBookTicket = "//td[text() = '%s']/following-sibling::td/a";
 //    protected By ticketTableText = By.xpath("//tr[th[text() = 'Ticket price from Đà Nẵng to Sài Gòn']]");
 //    protected String sCheckInforPrice = "//tbody/tr/th[@class='RowHeader']/following-sibling::td[%s]";

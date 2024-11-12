@@ -23,9 +23,9 @@ public class BookTicketPage extends BasePage {
     private By departDateDropDown = By.xpath("//select[@name ='Date']");
     private By ticketAmountDropDown = By.xpath("//select[@name ='TicketAmount']");
     private By departStationDropDown = By.xpath("//select[@name = 'DepartStation']");
-    private By departStationValue = By.xpath("//select[@name = 'DepartStation']/option");
+    private By departStationValue = By.xpath("//select[@name = 'DepartStation']/option[@selected = 'selected']");
     private By arriveStationDropDown = By.xpath("//select[@name = 'ArriveStation']");
-    private By arriveStationValue = By.xpath("//select[@name = 'ArriveStation']/option");
+    private By arriveStationValue = By.xpath("//select[@name = 'ArriveStation']/option[@selected = 'selected']");
     private By seatTypeDropDown = By.xpath("//select[@name = 'SeatType']");
     private By bookTicketBtn = By.xpath("//input[@type='submit']");
     private By successMessage = By.xpath("//h1");
@@ -45,37 +45,58 @@ public class BookTicketPage extends BasePage {
             Logger.log("Select Depart Date");
             Select selectDate = new Select(ElementUltis.findElement(departDateDropDown));
             selectDate.selectByVisibleText(bookTicketInformation.getDepartDate());
+        } else {
+            Logger.log("Depart Date is null, skipping depart date selection");
         }
+
         if (bookTicketInformation.getDepartStation() != null) {
             Logger.log("Select Depart Station");
             Select selectDepartStation = new Select(ElementUltis.findElement(departStationDropDown));
-            selectDepartStation.selectByVisibleText(bookTicketInformation.getDepartStation());
+            String actualValue = ElementUltis.findElement(departStationValue).getText();
+
+            if (bookTicketInformation.getDepartStation().equals(actualValue)) {
+
+//                selectArriveStation.getFirstSelectedOption();
+
+            } else {
+                selectDepartStation.selectByVisibleText(bookTicketInformation.getDepartStation());
+            }
+        } else {
+            Logger.log("Depart Station is null, skipping depart station selection");
         }
+
         if (bookTicketInformation.getArriveStation() != null) {
-            Logger.log("Select Arive Station");
-            ElementUltis.waitForElementNotExists(arriveStationDropDown, Constant.ELEMENT_WAIT_TIMEOUT);
+            Logger.log("Select Arrive Station");
+//            ElementUltis.waitForElementNotExists(arriveStationDropDown, Constant.ELEMENT_WAIT_TIMEOUT);
             Select selectArriveStation = new Select(ElementUltis.findElement(arriveStationDropDown));
-            String actualValue = selectArriveStation.getFirstSelectedOption().getText();
-            selectArriveStation.selectByVisibleText(bookTicketInformation.getArriveStation());
+            String actualValue = ElementUltis.findElement(arriveStationValue).getText();
 
             if (bookTicketInformation.getArriveStation().equals(actualValue)) {
 
-                selectArriveStation.getFirstSelectedOption();
+//                selectArriveStation.getFirstSelectedOption();
 
             } else {
                 selectArriveStation.selectByVisibleText(bookTicketInformation.getArriveStation());
             }
 
+        } else {
+            Logger.log("Arrive Station is null, skipping arrive station selection");
         }
+
         if (bookTicketInformation.getSeatType() != null) {
             Logger.log("Select Seat type");
             Select selectSeatType = new Select(ElementUltis.findElement(seatTypeDropDown));
             selectSeatType.selectByVisibleText(bookTicketInformation.getSeatType());
+        } else {
+            Logger.log("Seat type is null, skipping seat selection");
         }
+
         if (bookTicketInformation.getTicketAmount() != 1) {
             Logger.log("Select Ticket Amount");
             Select selectAmount = new Select(ElementUltis.findElement(ticketAmountDropDown));
             selectAmount.selectByValue(String.valueOf(bookTicketInformation.getTicketAmount()));
+        } else {
+            Logger.log("Ticket Amount is null, skipping ticket amount selection");
         }
         ElementUltis.findElement(bookTicketBtn).click();
     }
@@ -126,8 +147,23 @@ public class BookTicketPage extends BasePage {
         Logger.log("Ticket information display correctly");
 
     }
-
+    public String getDepartFrom() {
+        try {
+            return ElementUltis.findElement(departStationValue).getText().trim();
+        } catch (Exception e) {
+            return "";
+        }
     }
+
+    public String getArriveAt() {
+        try {
+            return ElementUltis.findElement(arriveStationValue).getText().trim();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+}
 
 
 

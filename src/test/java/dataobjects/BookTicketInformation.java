@@ -23,6 +23,13 @@ public class BookTicketInformation {
         this.arriveStation = arriveStation;
     }
 
+    public BookTicketInformation (String departDate, String departStation, String arriveStation, int ticketAmount) {
+        this.departDate = departDate;
+        this.departStation = departStation;
+        this.arriveStation = arriveStation;
+        this.ticketAmount = ticketAmount;
+    }
+
     public String getDepartDate() {
         return departDate;
     }

@@ -23,7 +23,6 @@ public class BasePage {
     }
 
     public void selectMenu (String menu) {
-
         Logger.log("Select menu " + menu);
         var locator = getMenuLocator(menu);
         ElementUltis.waitForElementClickable(locator, Constant.ELEMENT_WAIT_TIMEOUT);
