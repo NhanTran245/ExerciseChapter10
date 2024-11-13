@@ -45,61 +45,42 @@ public class BookTicketPage extends BasePage {
             Logger.log("Select Depart Date");
             Select selectDate = new Select(ElementUltis.findElement(departDateDropDown));
             selectDate.selectByVisibleText(bookTicketInformation.getDepartDate());
-        } else {
-            Logger.log("Depart Date is null, skipping depart date selection");
         }
 
         if (bookTicketInformation.getDepartStation() != null) {
             Logger.log("Select Depart Station");
             Select selectDepartStation = new Select(ElementUltis.findElement(departStationDropDown));
-            String actualValue = ElementUltis.findElement(departStationValue).getText();
+            String actualDepartStation = ElementUltis.findElement(departStationValue).getText();
 
-            if (bookTicketInformation.getDepartStation().equals(actualValue)) {
-
-//                selectArriveStation.getFirstSelectedOption();
-
-            } else {
+            if (!bookTicketInformation.getDepartStation().equals(actualDepartStation)) {
                 selectDepartStation.selectByVisibleText(bookTicketInformation.getDepartStation());
             }
-        } else {
-            Logger.log("Depart Station is null, skipping depart station selection");
         }
 
         if (bookTicketInformation.getArriveStation() != null) {
             Logger.log("Select Arrive Station");
-//            ElementUltis.waitForElementNotExists(arriveStationDropDown, Constant.ELEMENT_WAIT_TIMEOUT);
             Select selectArriveStation = new Select(ElementUltis.findElement(arriveStationDropDown));
-            String actualValue = ElementUltis.findElement(arriveStationValue).getText();
+            String actualArriveStation = ElementUltis.findElement(arriveStationValue).getText();
 
-            if (bookTicketInformation.getArriveStation().equals(actualValue)) {
-
-//                selectArriveStation.getFirstSelectedOption();
-
-            } else {
+            if (!bookTicketInformation.getArriveStation().equals(actualArriveStation)) {
                 selectArriveStation.selectByVisibleText(bookTicketInformation.getArriveStation());
             }
-
-        } else {
-            Logger.log("Arrive Station is null, skipping arrive station selection");
         }
 
         if (bookTicketInformation.getSeatType() != null) {
             Logger.log("Select Seat type");
             Select selectSeatType = new Select(ElementUltis.findElement(seatTypeDropDown));
             selectSeatType.selectByVisibleText(bookTicketInformation.getSeatType());
-        } else {
-            Logger.log("Seat type is null, skipping seat selection");
         }
 
         if (bookTicketInformation.getTicketAmount() != 1) {
             Logger.log("Select Ticket Amount");
             Select selectAmount = new Select(ElementUltis.findElement(ticketAmountDropDown));
             selectAmount.selectByValue(String.valueOf(bookTicketInformation.getTicketAmount()));
-        } else {
-            Logger.log("Ticket Amount is null, skipping ticket amount selection");
         }
         ElementUltis.findElement(bookTicketBtn).click();
     }
+
 
     public String getSuccessMessage() {
         try {
@@ -138,8 +119,10 @@ public class BookTicketPage extends BasePage {
         if (bookTicketInformation.getArriveStation().equals(actualArriveStation)) {
             Logger.log("Expected Arrive Station: " + bookTicketInformation.getArriveStation() + ", Actual: " + actualArriveStation);
         }
-        if (bookTicketInformation.getSeatType().equals(actualSeatType)) {
-            Logger.log("Expected Seat Type: " + bookTicketInformation.getSeatType() + ", Actual: " + actualSeatType);
+        if ((bookTicketInformation.getSeatType() != null && bookTicketInformation.getSeatType().equals(actualSeatType)))  {
+                Logger.log("Expected Seat Type: " + bookTicketInformation.getSeatType() + ", Actual: " + actualSeatType);
+        } else if (bookTicketInformation.getSeatType() == null) {
+            Logger.log("Expected Seat Type: Default, Actual: " + actualSeatType);
         }
         if (bookTicketInformation.getTicketAmount() == actualTicketAmount) {
             Logger.log("Expected Ticket Amount: " + bookTicketInformation.getTicketAmount() + ", Actual: " + actualTicketAmount);
@@ -170,7 +153,7 @@ public class BookTicketPage extends BasePage {
 //    // Elements
 //    protected By departDateDropDown = By.xpath("//select[@name ='Date']");
 //    protected By ticketAmountDropDown = By.xpath("//select[@name ='TicketAmount']");
-//    protected By departSationDropDown = By.xpath("//select[@name = 'DepartStation']");
+//    protected By departStationDropDown = By.xpath("//select[@name = 'DepartStation']");
 //    protected By departStationValue = By.xpath("//select[@name = 'DepartStation']/option[@selected = 'selected']");
 //    protected By arriveStationDropDown = By.xpath("//select[@name = 'ArriveStation']");
 //    protected By arriveStationValue = By.xpath("//select[@name = 'ArriveStation']/option[@selected = 'selected']");
