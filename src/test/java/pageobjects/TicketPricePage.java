@@ -8,7 +8,7 @@ package pageobjects;
 //
 //import static helper.DriverUtils.driver;
 
-import helper.ElementUltis;
+import helper.ElementUtils;
 import helper.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -20,7 +20,7 @@ public class TicketPricePage extends BasePage {
     private By ticketTableText = By.xpath("//tr[th[text() = 'Ticket price from Đà Nẵng to Sài Gòn']]");
     private String sCheckInforPrice = "//tbody/tr/th[@class='RowHeader']/following-sibling::td[%s]";
     public String getTicketTableText() {
-        return ElementUltis.findElement(ticketTableText).getText();
+        return ElementUtils.findElement(ticketTableText).getText();
     }
 
     public void compareValues () {
@@ -28,7 +28,7 @@ public class TicketPricePage extends BasePage {
         Logger.log("Price for each seat:");
 
         for (int i = 1; i <= 6; i++) {
-            List<WebElement> elements = ElementUltis.findElements(By.xpath(String.format(sCheckInforPrice, i)));
+            List<WebElement> elements = ElementUtils.findElements(By.xpath(String.format(sCheckInforPrice, i)));
 
             if (elements.size() >= 2) {
                 String seatValue = elements.get(0).getText();

@@ -3,11 +3,9 @@ package pageobjects;
 //import common.BasePage;
 import dataobjects.User;
 import helper.Constant;
-import helper.ElementUltis;
+import helper.ElementUtils;
 import helper.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import utils.SeleniumHelper;
 
 //import static helper.DriverUtils.driver;
 
@@ -25,26 +23,26 @@ public class LoginPage extends BasePage {
     public void login (User user) {
         Logger.log("Login user");
         waitForPageLoad();
-        ElementUltis.waitForElementExists(loginBtn, Constant.ELEMENT_WAIT_TIMEOUT);
-        ElementUltis.scrollToElement(loginBtn);
+        ElementUtils.waitForElementExists(loginBtn, Constant.ELEMENT_WAIT_TIMEOUT);
+        ElementUtils.scrollToElement(loginBtn);
 
         if (user.getEmail() != null) {
-            var element = ElementUltis.findElement(usernameTextBox);
+            var element = ElementUtils.findElement(usernameTextBox);
             element.clear();
             element.sendKeys(user.getEmail());
         }
 
         if (user.getPassword() != null) {
-            var element = ElementUltis.findElement(pwTextBox);
+            var element = ElementUtils.findElement(pwTextBox);
             element.clear();
             element.sendKeys(user.getPassword());
         }
-        ElementUltis.findElement(loginBtn).click();
+        ElementUtils.findElement(loginBtn).click();
     }
 
     public String getErrorMessage() {
         try {
-            return ElementUltis.findElement(errorMessage).getText().trim();
+            return ElementUtils.findElement(errorMessage).getText().trim();
         }
         catch (Exception e) {
             return "";

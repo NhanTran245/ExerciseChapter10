@@ -100,8 +100,8 @@ public class TestCases extends TestBase {
     @Test
     public void TC005() {
         var emailTemplate = "test%s@test.com";
-        var dinamicPattern = "yyyyMMddHHmmssSSS";
-        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dinamicPattern));
+        var dynamicPattern = "yyyyMMddHHmmssSSS";
+        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern));
         var user = new User(email, "test1234","12341234");
         var expectedMessage = "Invalid username or password. Please try again.";
 
@@ -183,8 +183,8 @@ public class TestCases extends TestBase {
     @Test
     public void TC008() {
         var emailTemplate = "test%s@test.com";
-        var dinamicPattern = "yyyyMMddHHmmssSSS";
-        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dinamicPattern));
+        var dynamicPattern = "yyyyMMddHHmmssSSS";
+        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern));
         var user = new User(email, "","");
         var expectedErrorMessage = "There're errors in the form. Please correct the errors and try again.";
         var expectedPwErrorMessage = "Invalid password length";
@@ -215,8 +215,8 @@ public class TestCases extends TestBase {
     @Test
     public void TC012() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
-        var dinamicPattern = "M/d/yyyy";
-        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(12, dinamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
+        var dynamicPattern = "M/d/yyyy";
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(12, dynamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
         var expectedMessage = "Ticket booked successfully!";
 //        0. Pre-condition: an actived account is existing
 
@@ -253,8 +253,8 @@ public class TestCases extends TestBase {
     @Test
     public void TC013() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
-        var dinamicPattern = "M/d/yyyy";
-        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(25, dinamicPattern), "Nha Trang", "Sài Gòn", "Soft bed with air conditioner", 5 );
+        var dynamicPattern = "M/d/yyyy";
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(25, dynamicPattern), "Nha Trang", "Sài Gòn", "Soft bed with air conditioner", 5 );
         var expectedMessage = "Ticket booked successfully!";
 //        Pre-condition: an actived account is existing
 
@@ -325,8 +325,8 @@ public class TestCases extends TestBase {
     @Test
     public void TC015() {
         var user = new User("6djvhj5wqyyr9v403b@emails2u.shop", "123456789");
-        var dinamicPattern = "M/d/yyyy";
-        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(10, dinamicPattern), "Quảng Ngãi", "Huế", null, 5);
+        var dynamicPattern = "M/d/yyyy";
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(10, dynamicPattern), "Quảng Ngãi", "Huế", null, 5);
         var expectedMessage = "Ticket booked successfully!";
 //        Pre-condition: an actived account is existing
 
@@ -364,6 +364,38 @@ public class TestCases extends TestBase {
         bookTicketPage.compareTicketInformationRow(bookTicketInformation);
     }
 
+    @Test
+    public void TC016() {
+        var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
+        var dynamicPattern = "M/d/yyyy";
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(12, dynamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
+        var expectedMessage = "Ticket booked successfully!";
+//        Pre-condition: an actived account is existing
+
+//        1. Navigate to QA Railway Website
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+
+//        2. Login with a valid account
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+
+//        3. Book a ticket
+        homePage.selectMenu(Menu.BOOKTICKET.toString());
+        BookTicketPage bookTicketPage = new BookTicketPage();
+        bookTicketPage.bookTicket(bookTicketInformation);
+
+//        4. Click on "My ticket" tab
+        homePage.selectMenu(Menu.MYTICKET.toString());
+        MyTicketPage myTicketPage = new MyTicketPage();
+
+//        5. Click on "Cancel" button of ticket which user want to cancel.
+
+//        6. Click on "OK" button on Confirmation message "Are you sure?"
+
+//        VP: The canceled ticket is disappeared.
+
+    }
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)
 //    public void TC01(String username, String password) {
 //        HomePage homePage = new HomePage();

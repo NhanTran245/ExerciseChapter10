@@ -8,7 +8,7 @@ package pageobjects;
 
 import dataobjects.User;
 import helper.Constant;
-import helper.ElementUltis;
+import helper.ElementUtils;
 import helper.Logger;
 import org.openqa.selenium.By;
 
@@ -29,19 +29,19 @@ public class RegisterPage extends BasePage {
     public void registerAccount (User user) {
         Logger.log("Register account");
         waitForPageLoad();
-        ElementUltis.waitForElementExists(registerBtn, Constant.ELEMENT_WAIT_TIMEOUT);
-        ElementUltis.scrollToElement(registerBtn);
+        ElementUtils.waitForElementExists(registerBtn, Constant.ELEMENT_WAIT_TIMEOUT);
+        ElementUtils.scrollToElement(registerBtn);
 
-        ElementUltis.findElement(usernameTextBox).sendKeys(user.getEmail());
-        ElementUltis.findElement(passwordTextBox).sendKeys(user.getPassword());
-        ElementUltis.findElement(confirmTextBox).sendKeys(user.getPassword());
-        ElementUltis.findElement(pidTextBox).sendKeys(user.getPid());
-        ElementUltis.findElement(registerBtn).click();
+        ElementUtils.findElement(usernameTextBox).sendKeys(user.getEmail());
+        ElementUtils.findElement(passwordTextBox).sendKeys(user.getPassword());
+        ElementUtils.findElement(confirmTextBox).sendKeys(user.getPassword());
+        ElementUtils.findElement(pidTextBox).sendKeys(user.getPid());
+        ElementUtils.findElement(registerBtn).click();
     }
 
     public String getErrorMessage() {
         try {
-            return ElementUltis.findElement(errorMessage).getText().trim();
+            return ElementUtils.findElement(errorMessage).getText().trim();
         }
         catch (Exception e) {
             return "";
@@ -50,7 +50,7 @@ public class RegisterPage extends BasePage {
 
     public  String getPwErrorMessage() {
         try {
-            return ElementUltis.findElement(errorMessPw).getText().trim();
+            return ElementUtils.findElement(errorMessPw).getText().trim();
         }
         catch (Exception e) {
             return "";
@@ -59,7 +59,7 @@ public class RegisterPage extends BasePage {
 
     public  String getPIDErrorMessage() {
         try {
-            return ElementUltis.findElement(errorMessPID).getText().trim();
+            return ElementUtils.findElement(errorMessPID).getText().trim();
         }
         catch (Exception e) {
             return "";

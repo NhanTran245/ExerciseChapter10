@@ -1,5 +1,6 @@
 package helper;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class ElementUltis
+public class ElementUtils
 {
     public static WebElement findElement (By locator) {
         return DriverUtils.driver.get().findElement(locator);
@@ -39,7 +40,7 @@ public class ElementUltis
 
     }
     public static void scrollToElement(By locator) {
-        WebElement element = ElementUltis.findElement(locator);
+        WebElement element = ElementUtils.findElement(locator);
         ((JavascriptExecutor) DriverUtils.driver.get()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
@@ -47,7 +48,17 @@ public class ElementUltis
         WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSecond));
 
         // Đợi cho dropdown cũ không còn tồn tại
-        wait.until(ExpectedConditions.stalenessOf(ElementUltis.findElement(locator)));
+        wait.until(ExpectedConditions.stalenessOf(ElementUtils.findElement(locator)));
+    }
+
+    public static void acceptAlert(int timeoutInSecond) {
+        // Chờ cho Alert xuất hiện
+        WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSecond));
+        wait.until(ExpectedConditions.alertIsPresent());
+
+        // Chuyển sang Alert và nhấn "OK"
+        Alert alert = DriverUtils.driver.get().switchTo().alert();
+        alert.accept();
     }
 
 }

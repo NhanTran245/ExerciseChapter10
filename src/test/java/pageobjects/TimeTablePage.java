@@ -8,7 +8,7 @@ package pageobjects;
 //import static helper.DriverUtils.driver;
 
 import dataobjects.BookTicketInformation;
-import helper.ElementUltis;
+import helper.ElementUtils;
 import helper.Logger;
 import org.openqa.selenium.By;
 
@@ -25,8 +25,8 @@ public class TimeTablePage extends BasePage {
         String departStation = bookTicketInformation.getDepartStation();
         String arriveStation = bookTicketInformation.getArriveStation();
         By bookTicketBtn = By.xpath(String.format(sBookTicket, departStation, arriveStation));
-        ElementUltis.scrollToElement(bookTicketBtn);
-        ElementUltis.findElement(bookTicketBtn).click();
+        ElementUtils.scrollToElement(bookTicketBtn);
+        ElementUtils.findElement(bookTicketBtn).click();
     }
 
 
@@ -35,8 +35,8 @@ public class TimeTablePage extends BasePage {
         String departStation = bookTicketInformation.getDepartStation();
         String arriveStation = bookTicketInformation.getArriveStation();
         By checkPriceBtn = By.xpath(String.format(sCheckPrice, departStation, arriveStation));
-        ElementUltis.scrollToElement(checkPriceBtn);
-        ElementUltis.findElement(checkPriceBtn).click();
+        ElementUtils.scrollToElement(checkPriceBtn);
+        ElementUtils.findElement(checkPriceBtn).click();
     }
 }
 

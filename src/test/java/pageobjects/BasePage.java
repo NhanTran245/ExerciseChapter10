@@ -2,13 +2,6 @@ package pageobjects;
 
 import helper.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
-
-import static helper.DriverUtils.driver;
 
 //import static helper.DriverUtils.driver;
 
@@ -25,8 +18,8 @@ public class BasePage {
     public void selectMenu (String menu) {
         Logger.log("Select menu " + menu);
         var locator = getMenuLocator(menu);
-        ElementUltis.waitForElementClickable(locator, Constant.ELEMENT_WAIT_TIMEOUT);
-        ElementUltis.findElement(locator).click();
+        ElementUtils.waitForElementClickable(locator, Constant.ELEMENT_WAIT_TIMEOUT);
+        ElementUtils.findElement(locator).click();
     }
 
     public void waitForPageLoad() {
@@ -35,7 +28,7 @@ public class BasePage {
 
     public Boolean ísMenuExists (String menu, int timeoutInSeconds) {
         var locator = getMenuLocator(menu);
-        return ElementUltis.isElementExists(locator, timeoutInSeconds);
+        return ElementUtils.isElementExists(locator, timeoutInSeconds);
     }
 
 //    public Boolean isMenuNotExits (String menu, int timeoutInSeconds) {

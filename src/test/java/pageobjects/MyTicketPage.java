@@ -7,10 +7,22 @@ package pageobjects;
 //
 //import static helper.DriverUtils.driver;
 
+import helper.Constant;
+import helper.ElementUtils;
+import org.openqa.selenium.By;
+
 public class MyTicketPage extends BasePage {
+    private By firstCancelBtn = By.xpath("(//td/input[@value = 'Cancel'])[1]");
+    private String sTicketRow = "//tr[td[text() = '%s' and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s']]]";
+
+    public MyTicketPage clickCancelBtn() {
+        ElementUtils.scrollToElement(firstCancelBtn);
+        ElementUtils.findElement(firstCancelBtn).click();
+        ElementUtils.acceptAlert(Constant.ELEMENT_WAIT_TIMEOUT);
+        return new  MyTicketPage();
+    }
 //    protected By firstCancelBtn = By.xpath("(//td/input[@value = 'Cancel'])[1]");
 //    protected String sTicketRow = "//tr[td[text() = '%s' and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s']]]";
-    // //tr[td[text() = 'Nha Trang' and following-sibling::td[text() = 'Huế'] and following-sibling::td[text()='Soft bed with air conditioner'] and following-sibling::td[text()='11/18/2024'] and following-sibling::td[text()='1']]]
 //
 //    public MyTicketPage clickCancelBtn() {
 //        SeleniumHelper.scrollToElement(driver.findElement(firstCancelBtn));

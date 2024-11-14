@@ -2,16 +2,12 @@ package pageobjects;
 
 import dataobjects.BookTicketInformation;
 import helper.Constant;
-import helper.DateTimeUtils;
-import helper.ElementUltis;
+import helper.ElementUtils;
 import helper.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import utils.SeleniumHelper;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.util.Elements;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -23,6 +19,7 @@ public class BookTicketPage extends BasePage {
     private By departDateDropDown = By.xpath("//select[@name ='Date']");
     private By ticketAmountDropDown = By.xpath("//select[@name ='TicketAmount']");
     private By departStationDropDown = By.xpath("//select[@name = 'DepartStation']");
+    private By departStationSelect = By.xpath("//select[@name = 'DepartStation']/option[@selected = 'selected']");
     private By departStationValue = By.xpath("//select[@name = 'DepartStation']/option[@selected = 'selected']");
     private By arriveStationDropDown = By.xpath("//select[@name = 'ArriveStation']");
     private By arriveStationValue = By.xpath("//select[@name = 'ArriveStation']/option[@selected = 'selected']");
@@ -38,19 +35,19 @@ public class BookTicketPage extends BasePage {
     public void bookTicket(BookTicketInformation bookTicketInformation) {
         Logger.log("Book ticket");
         waitForPageLoad();
-        ElementUltis.waitForElementExists(bookTicketBtn, Constant.ELEMENT_WAIT_TIMEOUT);
-        ElementUltis.scrollToElement(bookTicketBtn);
+        ElementUtils.waitForElementExists(bookTicketBtn, Constant.ELEMENT_WAIT_TIMEOUT);
+        ElementUtils.scrollToElement(bookTicketBtn);
 
         if (bookTicketInformation.getDepartDate() != null) {
             Logger.log("Select Depart Date");
-            Select selectDate = new Select(ElementUltis.findElement(departDateDropDown));
+            Select selectDate = new Select(ElementUtils.findElement(departDateDropDown));
             selectDate.selectByVisibleText(bookTicketInformation.getDepartDate());
         }
 
         if (bookTicketInformation.getDepartStation() != null) {
             Logger.log("Select Depart Station");
-            Select selectDepartStation = new Select(ElementUltis.findElement(departStationDropDown));
-            String actualDepartStation = ElementUltis.findElement(departStationValue).getText();
+            Select selectDepartStation = new Select(ElementUtils.findElement(departStationDropDown));
+            String actualDepartStation = ElementUtils.findElement(departStationValue).getText();
 
             if (!bookTicketInformation.getDepartStation().equals(actualDepartStation)) {
                 selectDepartStation.selectByVisibleText(bookTicketInformation.getDepartStation());
@@ -59,8 +56,8 @@ public class BookTicketPage extends BasePage {
 
         if (bookTicketInformation.getArriveStation() != null) {
             Logger.log("Select Arrive Station");
-            Select selectArriveStation = new Select(ElementUltis.findElement(arriveStationDropDown));
-            String actualArriveStation = ElementUltis.findElement(arriveStationValue).getText();
+            Select selectArriveStation = new Select(ElementUtils.findElement(arriveStationDropDown));
+            String actualArriveStation = ElementUtils.findElement(arriveStationValue).getText();
 
             if (!bookTicketInformation.getArriveStation().equals(actualArriveStation)) {
                 selectArriveStation.selectByVisibleText(bookTicketInformation.getArriveStation());
@@ -69,22 +66,22 @@ public class BookTicketPage extends BasePage {
 
         if (bookTicketInformation.getSeatType() != null) {
             Logger.log("Select Seat type");
-            Select selectSeatType = new Select(ElementUltis.findElement(seatTypeDropDown));
+            Select selectSeatType = new Select(ElementUtils.findElement(seatTypeDropDown));
             selectSeatType.selectByVisibleText(bookTicketInformation.getSeatType());
         }
 
         if (bookTicketInformation.getTicketAmount() != 1) {
             Logger.log("Select Ticket Amount");
-            Select selectAmount = new Select(ElementUltis.findElement(ticketAmountDropDown));
+            Select selectAmount = new Select(ElementUtils.findElement(ticketAmountDropDown));
             selectAmount.selectByValue(String.valueOf(bookTicketInformation.getTicketAmount()));
         }
-        ElementUltis.findElement(bookTicketBtn).click();
+        ElementUtils.findElement(bookTicketBtn).click();
     }
 
 
     public String getSuccessMessage() {
         try {
-            return ElementUltis.findElement(successMessage).getText().trim();
+            return ElementUtils.findElement(successMessage).getText().trim();
         } catch (Exception e) {
             return "";
         }
@@ -92,7 +89,7 @@ public class BookTicketPage extends BasePage {
 
     public void compareTicketInformationRow(BookTicketInformation bookTicketInformation) {
         Logger.log("Get the ticket information");
-        List<WebElement> ticketInfoElements = ElementUltis.findElements(By.xpath(String.format(BookTicketRow)));
+        List<WebElement> ticketInfoElements = ElementUtils.findElements(By.xpath(String.format(BookTicketRow)));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 
@@ -132,7 +129,7 @@ public class BookTicketPage extends BasePage {
     }
     public String getDepartFrom() {
         try {
-            return ElementUltis.findElement(departStationValue).getText().trim();
+            return ElementUtils.findElement(departStationValue).getText().trim();
         } catch (Exception e) {
             return "";
         }
@@ -140,7 +137,7 @@ public class BookTicketPage extends BasePage {
 
     public String getArriveAt() {
         try {
-            return ElementUltis.findElement(arriveStationValue).getText().trim();
+            return ElementUtils.findElement(arriveStationValue).getText().trim();
         } catch (Exception e) {
             return "";
         }
