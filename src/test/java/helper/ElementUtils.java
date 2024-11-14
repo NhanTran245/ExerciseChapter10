@@ -47,7 +47,7 @@ public class ElementUtils
     public static void waitForElementNotExists(By locator, int timeoutInSecond) {
         WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSecond));
 
-        // Đợi cho dropdown cũ không còn tồn tại
+        // Đợi cho Element không còn tồn tại
         wait.until(ExpectedConditions.stalenessOf(ElementUtils.findElement(locator)));
     }
 

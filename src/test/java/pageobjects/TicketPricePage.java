@@ -18,7 +18,7 @@ import java.util.List;
 public class TicketPricePage extends BasePage {
     private String sBookTicket = "//td[text() = '%s']/following-sibling::td/a";
     private By ticketTableText = By.xpath("//tr[th[text() = 'Ticket price from Đà Nẵng to Sài Gòn']]");
-    private String sCheckInforPrice = "//tbody/tr/th[@class='RowHeader']/following-sibling::td[%s]";
+    private String sCheckInfoPrice = "//tbody/tr/th[@class='RowHeader']/following-sibling::td[%s]";
     public String getTicketTableText() {
         return ElementUtils.findElement(ticketTableText).getText();
     }
@@ -28,7 +28,7 @@ public class TicketPricePage extends BasePage {
         Logger.log("Price for each seat:");
 
         for (int i = 1; i <= 6; i++) {
-            List<WebElement> elements = ElementUtils.findElements(By.xpath(String.format(sCheckInforPrice, i)));
+            List<WebElement> elements = ElementUtils.findElements(By.xpath(String.format(sCheckInfoPrice, i)));
 
             if (elements.size() >= 2) {
                 String seatValue = elements.get(0).getText();

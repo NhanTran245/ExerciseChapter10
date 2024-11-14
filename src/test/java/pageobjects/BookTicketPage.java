@@ -2,12 +2,16 @@ package pageobjects;
 
 import dataobjects.BookTicketInformation;
 import helper.Constant;
+import helper.DateTimeUtils;
 import helper.ElementUtils;
 import helper.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import utils.SeleniumHelper;
 
+import javax.lang.model.element.Element;
+import javax.lang.model.util.Elements;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -19,10 +23,9 @@ public class BookTicketPage extends BasePage {
     private By departDateDropDown = By.xpath("//select[@name ='Date']");
     private By ticketAmountDropDown = By.xpath("//select[@name ='TicketAmount']");
     private By departStationDropDown = By.xpath("//select[@name = 'DepartStation']");
-    private By departStationSelect = By.xpath("//select[@name = 'DepartStation']/option[@selected = 'selected']");
-    private By departStationValue = By.xpath("//select[@name = 'DepartStation']/option[@selected = 'selected']");
+    private By selectedDepartStation = By.xpath("//select[@name = 'DepartStation']/option[@selected = 'selected']");
     private By arriveStationDropDown = By.xpath("//select[@name = 'ArriveStation']");
-    private By arriveStationValue = By.xpath("//select[@name = 'ArriveStation']/option[@selected = 'selected']");
+    private By selectedArriveStation = By.xpath("//select[@name = 'ArriveStation']/option[@selected = 'selected']");
     private By seatTypeDropDown = By.xpath("//select[@name = 'SeatType']");
     private By bookTicketBtn = By.xpath("//input[@type='submit']");
     private By successMessage = By.xpath("//h1");
@@ -42,38 +45,50 @@ public class BookTicketPage extends BasePage {
             Logger.log("Select Depart Date");
             Select selectDate = new Select(ElementUtils.findElement(departDateDropDown));
             selectDate.selectByVisibleText(bookTicketInformation.getDepartDate());
+        } else {
+            Logger.log("Skip select Depart Date");
         }
 
-        if (bookTicketInformation.getDepartStation() != null) {
+        if (bookTicketInformation.getDepartStation() != null || ElementUtils.isElementExists(selectedDepartStation, Constant.ELEMENT_WAIT_TIMEOUT) == false) {
             Logger.log("Select Depart Station");
             Select selectDepartStation = new Select(ElementUtils.findElement(departStationDropDown));
-            String actualDepartStation = ElementUtils.findElement(departStationValue).getText();
-
-            if (!bookTicketInformation.getDepartStation().equals(actualDepartStation)) {
+            String actualDepartValue = selectDepartStation.getFirstSelectedOption().getText();
+            if (!bookTicketInformation.getDepartStation().equals(actualDepartValue)) {
                 selectDepartStation.selectByVisibleText(bookTicketInformation.getDepartStation());
             }
+        } else {
+            Logger.log("Skip select Depart Station");
         }
 
-        if (bookTicketInformation.getArriveStation() != null) {
+        if (bookTicketInformation.getArriveStation() != null || ElementUtils.isElementExists(selectedArriveStation, Constant.ELEMENT_WAIT_TIMEOUT) == false) {
             Logger.log("Select Arrive Station");
+            // Đang sai chỗ này
+            ElementUtils.waitForElementNotExists(arriveStationDropDown, Constant.ELEMENT_WAIT_TIMEOUT);
             Select selectArriveStation = new Select(ElementUtils.findElement(arriveStationDropDown));
-            String actualArriveStation = ElementUtils.findElement(arriveStationValue).getText();
-
-            if (!bookTicketInformation.getArriveStation().equals(actualArriveStation)) {
+            String actualArriveValue = selectArriveStation.getFirstSelectedOption().getText();
+            if (!bookTicketInformation.getArriveStation().equals(actualArriveValue)) {
+                Logger.log("actualArriveValue" + actualArriveValue);
+                Logger.log("Select Arrive Station:" + bookTicketInformation.getArriveStation());
                 selectArriveStation.selectByVisibleText(bookTicketInformation.getArriveStation());
             }
+        } else {
+            Logger.log("Skip select Arrive Station");
         }
 
         if (bookTicketInformation.getSeatType() != null) {
             Logger.log("Select Seat type");
             Select selectSeatType = new Select(ElementUtils.findElement(seatTypeDropDown));
             selectSeatType.selectByVisibleText(bookTicketInformation.getSeatType());
+        } else {
+            Logger.log("Skip select Seat type");
         }
 
         if (bookTicketInformation.getTicketAmount() != 1) {
             Logger.log("Select Ticket Amount");
             Select selectAmount = new Select(ElementUtils.findElement(ticketAmountDropDown));
             selectAmount.selectByValue(String.valueOf(bookTicketInformation.getTicketAmount()));
+        } else {
+            Logger.log("Skip select Ticket Amount");
         }
         ElementUtils.findElement(bookTicketBtn).click();
     }
@@ -129,7 +144,7 @@ public class BookTicketPage extends BasePage {
     }
     public String getDepartFrom() {
         try {
-            return ElementUtils.findElement(departStationValue).getText().trim();
+            return ElementUtils.findElement(selectedDepartStation).getText().trim();
         } catch (Exception e) {
             return "";
         }
@@ -137,7 +152,7 @@ public class BookTicketPage extends BasePage {
 
     public String getArriveAt() {
         try {
-            return ElementUtils.findElement(arriveStationValue).getText().trim();
+            return ElementUtils.findElement(selectedArriveStation).getText().trim();
         } catch (Exception e) {
             return "";
         }

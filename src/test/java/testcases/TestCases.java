@@ -8,6 +8,7 @@ import dataobjects.User;
 import helper.BrowserUtils;
 import helper.Constant;
 import helper.DateTimeUtils;
+import helper.ElementUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -256,7 +257,7 @@ public class TestCases extends TestBase {
         var dynamicPattern = "M/d/yyyy";
         var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(25, dynamicPattern), "Nha Trang", "Sài Gòn", "Soft bed with air conditioner", 5 );
         var expectedMessage = "Ticket booked successfully!";
-//        Pre-condition: an actived account is existing
+//        Pre-condition: an activated account is existing
 
 //        1. Navigate to QA Railway Website
         HomePage homePage = new HomePage();
@@ -368,7 +369,7 @@ public class TestCases extends TestBase {
     public void TC016() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
         var dynamicPattern = "M/d/yyyy";
-        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(12, dynamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(1, dynamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
         var expectedMessage = "Ticket booked successfully!";
 //        Pre-condition: an actived account is existing
 
@@ -392,8 +393,10 @@ public class TestCases extends TestBase {
 //        5. Click on "Cancel" button of ticket which user want to cancel.
 
 //        6. Click on "OK" button on Confirmation message "Are you sure?"
+        myTicketPage.clickCancelBtn();
 
 //        VP: The canceled ticket is disappeared.
+//        Assert.assertTrue(ElementUtils.isElementExists(myTicketPage.isTicketRowExist(bookTicketInformation)));
 
     }
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)
