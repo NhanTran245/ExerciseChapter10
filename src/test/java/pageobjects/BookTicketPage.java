@@ -49,7 +49,7 @@ public class BookTicketPage extends BasePage {
             Logger.log("Skip select Depart Date");
         }
 
-        if (bookTicketInformation.getDepartStation() != null || ElementUtils.isElementExists(selectedDepartStation, Constant.ELEMENT_WAIT_TIMEOUT) == false) {
+        if (bookTicketInformation.getDepartStation() != null || !ElementUtils.isElementExists(selectedDepartStation, Constant.ELEMENT_WAIT_TIMEOUT)) {
             Logger.log("Select Depart Station");
             Select selectDepartStation = new Select(ElementUtils.findElement(departStationDropDown));
             String actualDepartValue = selectDepartStation.getFirstSelectedOption().getText();
@@ -60,10 +60,10 @@ public class BookTicketPage extends BasePage {
             Logger.log("Skip select Depart Station");
         }
 
-        if (bookTicketInformation.getArriveStation() != null || ElementUtils.isElementExists(selectedArriveStation, Constant.ELEMENT_WAIT_TIMEOUT) == false) {
+        if (bookTicketInformation.getArriveStation() != null || !ElementUtils.isElementExists(selectedArriveStation, Constant.ELEMENT_WAIT_TIMEOUT)) {
             Logger.log("Select Arrive Station");
-            // Đang sai chỗ này
-            ElementUtils.waitForElementNotExists(arriveStationDropDown, Constant.ELEMENT_WAIT_TIMEOUT);
+            // Đang sai chỗ này, TC013 pass, TC015 fail
+            ElementUtils.waitForLoadElement(departStationDropDown, Constant.ELEMENT_WAIT_TIMEOUT);
             Select selectArriveStation = new Select(ElementUtils.findElement(arriveStationDropDown));
             String actualArriveValue = selectArriveStation.getFirstSelectedOption().getText();
             if (!bookTicketInformation.getArriveStation().equals(actualArriveValue)) {

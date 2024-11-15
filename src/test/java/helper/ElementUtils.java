@@ -51,6 +51,11 @@ public class ElementUtils
         wait.until(ExpectedConditions.stalenessOf(ElementUtils.findElement(locator)));
     }
 
+    public static void waitForLoadElement (By locator, int timeoutInSecond) {
+        WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSecond));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
     public static void acceptAlert(int timeoutInSecond) {
         // Chờ cho Alert xuất hiện
         WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSecond));
