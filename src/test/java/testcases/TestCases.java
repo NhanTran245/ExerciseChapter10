@@ -255,7 +255,7 @@ public class TestCases extends TestBase {
     public void TC013() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
         var dynamicPattern = "M/d/yyyy";
-        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(25, dynamicPattern), "Nha Trang", "Sài Gòn", "Soft bed with air conditioner", 5 );
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(25, dynamicPattern), "Nha Trang", "Sài Gòn", "Soft bed with air conditioner", 1 );
         var expectedMessage = "Ticket booked successfully!";
 //        Pre-condition: an activated account is existing
 
