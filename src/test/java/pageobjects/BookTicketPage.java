@@ -49,21 +49,25 @@ public class BookTicketPage extends BasePage {
             Logger.log("Skip select Depart Date");
         }
 
-        if (bookTicketInformation.getDepartStation() != null || ElementUtils.isElementExists(selectedDepartStation, Constant.ELEMENT_WAIT_TIMEOUT) == false) {
+        boolean isFirstSelectionDepartStation = false; // global variable
+        if (bookTicketInformation.getDepartStation() != null || !ElementUtils.isElementExists(selectedDepartStation, Constant.ELEMENT_WAIT_TIMEOUT)) {
             Logger.log("Select Depart Station");
             Select selectDepartStation = new Select(ElementUtils.findElement(departStationDropDown));
             String actualDepartValue = selectDepartStation.getFirstSelectedOption().getText();
-            if (!bookTicketInformation.getDepartStation().equals(actualDepartValue)) {
+            isFirstSelectionDepartStation = bookTicketInformation.getDepartStation().equals(actualDepartValue);
+            if (!isFirstSelectionDepartStation) {
                 selectDepartStation.selectByVisibleText(bookTicketInformation.getDepartStation());
             }
         } else {
             Logger.log("Skip select Depart Station");
         }
 
-        if (bookTicketInformation.getArriveStation() != null || ElementUtils.isElementExists(selectedArriveStation, Constant.ELEMENT_WAIT_TIMEOUT) == false) {
+        if (bookTicketInformation.getArriveStation() != null || !ElementUtils.isElementExists(selectedArriveStation, Constant.ELEMENT_WAIT_TIMEOUT)) {
             Logger.log("Select Arrive Station");
-            // Đang sai chỗ này
-            ElementUtils.waitForElementNotExists(arriveStationDropDown, Constant.ELEMENT_WAIT_TIMEOUT);
+
+            if (!isFirstSelectionDepartStation) {
+                ElementUtils.waitForElementNotExists(arriveStationDropDown, Constant.ELEMENT_WAIT_TIMEOUT);
+            }
             Select selectArriveStation = new Select(ElementUtils.findElement(arriveStationDropDown));
             String actualArriveValue = selectArriveStation.getFirstSelectedOption().getText();
             if (!bookTicketInformation.getArriveStation().equals(actualArriveValue)) {
