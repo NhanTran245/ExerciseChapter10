@@ -1,19 +1,17 @@
 package testcases;
 
 //import common.MailPage;
-import common.StaticProvider;
+import VerifyMail.MailPage;
+import VerifyMail.VerifyMailPage;
 import dataobjects.BookTicketInformation;
 import dataobjects.Menu;
 import dataobjects.User;
-import helper.BrowserUtils;
 import helper.Constant;
 import helper.DateTimeUtils;
-import helper.ElementUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageobjects.*;
-import utils.SeleniumHelper;
 
 
 public class TestCases extends TestBase {
@@ -210,6 +208,62 @@ public class TestCases extends TestBase {
 
 //        VP: Next to PID field, error message ""Invalid ID length."" displays"
         Assert.assertEquals(registerPage.getPIDErrorMessage(), expectedPidErrorMessage);
+
+    }
+    @Test
+    public void TC009() {
+        var emailTemplate = "tranthinhan";
+        var dynamicPattern = "yyyyMMddHHmmssSSS";
+        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern));
+        var user = new User(email, "123456789","123456789");
+//        0. Get a free email
+
+//        1. Navigate to QA Railway Website
+        HomePage homePage = new HomePage();
+        homePage.clickCreateAccLink();
+
+
+//        2. Click on "Create an account"
+        RegisterPage registerPage = new RegisterPage();
+        VerifyMailPage.navigateToWebMail();
+//        registerPage.registerAccount(user);
+
+//        3. Enter valid information into all fields
+
+//        4. Click on "Register" button
+
+//        5. Get email information (webmail address, mailbox and password) and navigate to that webmail
+
+//        6. Login to the mailbox
+
+//        7. Open email with subject containing "Please confirm your account"  and the email of the new account at step 3
+
+//        8. Click on the activate link
+
+//
+//        String railWayWindow = SeleniumHelper.saveWindownHandle(); // Save handle of Railway
+//        MailPage mailPage = new MailPage();
+//        MailPage.navigateToWebMail();
+//        String username = mailPage.getMailFree(email);
+//        SeleniumHelper.navigateBackToOriginalWindow(railWayWindow); //Back to Railway
+//
+//        registerPage = registerPage.registerAccount(username, password, pid);
+//        String expectedSuccessMess = "Thank you for registering your account";
+//        String actualSuccessMess = registerPage.getSuccessMess();
+//        Assert.assertEquals(actualSuccessMess, expectedSuccessMess,"Success message shows incorrect");
+//        System.out.println("Success message 'Thank you for registering your account' is shown");
+//
+//        SeleniumHelper.switchTab(railWayWindow);
+//
+//        String emailFreeWeb = SeleniumHelper.saveWindownHandle(); // Save handle of EmailFree Web
+//
+//        mailPage.confirmEmail();
+//        SeleniumHelper.switchWindow(index, emailFreeWeb); //Switch to new tab
+//
+//        String expectedConfirmMessage = "Registration Confirmed! You can now log in to the site.";
+//        String actualConfirmMessage = registerPage.getConfirmMess();
+//        Assert.assertEquals(actualConfirmMessage, expectedConfirmMessage, "Confirm message does not display");
+//        System.out.println("Message 'Registration Confirmed! You can now log in to the site' is shown");
 
     }
 

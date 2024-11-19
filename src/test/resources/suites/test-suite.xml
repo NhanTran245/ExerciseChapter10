@@ -14,8 +14,9 @@
 <!--                    <include name="TC006"/>-->
 <!--                    <include name="TC007"/>-->
 <!--                    <include name="TC008"/>-->
+                    <include name="TC008"/>
 <!--                    <include name="TC012"/>-->
-                    <include name="TC013"/>
+<!--                    <include name="TC013"/>-->
 <!--                    <include name="TC014"/>-->
 <!--                    <include name="TC015"/>-->
                 </methods>

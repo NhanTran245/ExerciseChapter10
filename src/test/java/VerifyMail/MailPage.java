@@ -1,15 +1,15 @@
-package common;
+package VerifyMail;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WindowType;
-import org.openqa.selenium.support.ui.Select;
 //import utils.DriverUtils;
-import utils.SeleniumHelper;
+
 
 //import static utils.DriverUtils.driver;
 
-//public class MailPage extends BasePage {
+import pageobjects.BasePage;
+
+public class MailPage extends BasePage {
+
+}
 //
 //    protected By editEmailBtn = By.xpath("//span[@id = 'inbox-id']");
 //    protected By emailTextBox = By.xpath("//span/input[@type = 'text']");

@@ -30,6 +30,10 @@ public class BasePage {
         var locator = getMenuLocator(menu);
         return ElementUtils.isElementExists(locator, timeoutInSeconds);
     }
+    public static String saveWindownHandle() {
+        String originalWindow = DriverUtils.driver.get().getWindowHandle();
+        return originalWindow;
+    }
 
 //    public Boolean isMenuNotExits (String menu, int timeoutInSeconds) {
 //        var locator = getMenuLocator(menu);

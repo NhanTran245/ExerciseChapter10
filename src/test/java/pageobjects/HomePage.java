@@ -7,10 +7,12 @@ package pageobjects;
 
 import helper.Constant;
 import helper.ElementUtils;
+import helper.Logger;
 import org.openqa.selenium.By;
 
 public class HomePage extends BasePage {
     private By welcomeMessage = By.xpath("//div[@class='account']");
+    private By createAccLink = By.xpath("//a[text() = 'create an account']");
     public HomePage() {
         pageTitle = "Safe Railway";
     }
@@ -23,9 +25,11 @@ public class HomePage extends BasePage {
 
 //    protected By createAccLink = By.xpath("//a[text() = 'create an account']");
 //
-//    public RegisterPage clickCreateAccLink() {
-//        driver.findElement(createAccLink).click();
-//        return new RegisterPage();
-//    }
+    public void clickCreateAccLink() {
+        Logger.log("Click Create an account link");
+        waitForPageLoad();
+        ElementUtils.isElementExists(createAccLink, Constant.ELEMENT_WAIT_TIMEOUT);
+        ElementUtils.findElement(createAccLink).click();
+    }
 
 }

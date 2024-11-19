@@ -1,4 +1,4 @@
-package common;
+package common_NotFix_Old;
 
 import org.testng.annotations.DataProvider;
 public class StaticProvider {
