@@ -85,9 +85,9 @@ public class RegisterPage extends BasePage {
 //        driver.findElement(confirmTextBox).sendKeys(password);
 //        driver.findElement(pidTextBox).sendKeys(pid);
 //
-//        WebElement registerbtn = driver.findElement(registerBtn);
-//        SeleniumHelper.scrollToElement(registerbtn);
-//        registerbtn.click();
+//        WebElement registerBtn = driver.findElement(registerBtn);
+//        SeleniumHelper.scrollToElement(registerBtn);
+//        registerBtn.click();
 //        return new RegisterPage();
 //    }
 //

@@ -2,10 +2,10 @@ package testcases;
 
 //import common.MailPage;
 import VerifyMail.MailPage;
-import VerifyMail.VerifyMailPage;
 import dataobjects.BookTicketInformation;
 import dataobjects.Menu;
 import dataobjects.User;
+import helper.BrowserUtils;
 import helper.Constant;
 import helper.DateTimeUtils;
 import org.testng.Assert;
@@ -19,7 +19,7 @@ public class TestCases extends TestBase {
     @Test
     public void TC001() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
-        var expectedMessage = "Wellcome " + user.getEmail();
+        var expectedMessage = "Welcome " + user.getEmail();
 
 //        1. Navigate to QA Railway Website
 
@@ -33,10 +33,10 @@ public class TestCases extends TestBase {
         loginPage.login(user);
 
 //        VP: User is logged into Railway.
-        Assert.assertTrue(homePage.ísMenuExists(Menu.LOGOUT.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
+        Assert.assertTrue(homePage.isMenuExists(Menu.LOGOUT.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
 
 //        VP: Welcome user message is displayed.
-        Assert.assertEquals(homePage.getWellcomeMessage(),expectedMessage);
+        Assert.assertEquals(homePage.getWelcomeMessage(),expectedMessage);
     }
     @DataProvider (name = "loginTestData", parallel = true)
     public Object [][] createData002(){
@@ -123,7 +123,7 @@ public class TestCases extends TestBase {
         LoginPage loginPage = new LoginPage();
         loginPage.login(user);
 
-//        VP: User can't login and message "Invalid username or password. Please try again." appears.
+//        VP: User can't log in and message "Invalid username or password. Please try again." appears.
         Assert.assertEquals(loginPage.getErrorMessage(), expectedMessage);
     }
 
@@ -149,16 +149,16 @@ public class TestCases extends TestBase {
         homePage.selectMenu(Menu.LOGOUT.toString());
 
 //        VP: Home page displays.
-        Assert.assertTrue(homePage.ísMenuExists(Menu.HOME.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
+        Assert.assertTrue(homePage.isMenuExists(Menu.HOME.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
 
 //        VP: "Log out" tab is disappeared.
-        Assert.assertFalse(homePage.ísMenuExists(Menu.LOGOUT.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
+        Assert.assertFalse(homePage.isMenuExists(Menu.LOGOUT.toString(), Constant.ELEMENT_WAIT_TIMEOUT));
 
     }
 
     @Test
     public void TC007() {
-//        0. Pre-condition: an actived account is existing
+//        0. Pre-condition: an activated account is existing
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789", "123456789");
         var expectedErrorMessage = "This email address is already in use.";
 
@@ -212,7 +212,7 @@ public class TestCases extends TestBase {
     }
     @Test
     public void TC009() {
-        var emailTemplate = "tranthinhan";
+        var emailTemplate = "test";
         var dynamicPattern = "yyyyMMddHHmmssSSS";
         var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern));
         var user = new User(email, "123456789","123456789");
@@ -225,14 +225,14 @@ public class TestCases extends TestBase {
 
 //        2. Click on "Create an account"
         RegisterPage registerPage = new RegisterPage();
-        VerifyMailPage.navigateToWebMail();
+
 //        registerPage.registerAccount(user);
 
 //        3. Enter valid information into all fields
 
 //        4. Click on "Register" button
 
-//        5. Get email information (webmail address, mailbox and password) and navigate to that webmail
+//        5. Get email information (webMail address, mailbox and password) and navigate to that webMail
 
 //        6. Login to the mailbox
 
@@ -241,7 +241,7 @@ public class TestCases extends TestBase {
 //        8. Click on the activate link
 
 //
-//        String railWayWindow = SeleniumHelper.saveWindownHandle(); // Save handle of Railway
+//        String railWayWindow = SeleniumHelper.saveWindowHandle(); // Save handle of Railway
 //        MailPage mailPage = new MailPage();
 //        MailPage.navigateToWebMail();
 //        String username = mailPage.getMailFree(email);
@@ -255,7 +255,7 @@ public class TestCases extends TestBase {
 //
 //        SeleniumHelper.switchTab(railWayWindow);
 //
-//        String emailFreeWeb = SeleniumHelper.saveWindownHandle(); // Save handle of EmailFree Web
+//        String emailFreeWeb = SeleniumHelper.saveWindowHandle(); // Save handle of EmailFree Web
 //
 //        mailPage.confirmEmail();
 //        SeleniumHelper.switchWindow(index, emailFreeWeb); //Switch to new tab
@@ -273,7 +273,7 @@ public class TestCases extends TestBase {
         var dynamicPattern = "M/d/yyyy";
         var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(12, dynamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
         var expectedMessage = "Ticket booked successfully!";
-//        0. Pre-condition: an actived account is existing
+//        0. Pre-condition: an activated account is existing
 
 //        1. Navigate to QA Railway Website
         HomePage homePage = new HomePage();
@@ -348,7 +348,7 @@ public class TestCases extends TestBase {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
         var bookTicketInformation = new BookTicketInformation ("Đà Nẵng", "Sài Gòn");
         var expectedTicketTableText = "Ticket price from Đà Nẵng to Sài Gòn";
-//        Pre-condition: an actived account is existing
+//        Pre-condition: an activated account is existing
 
 //        1. Navigate to QA Railway Website
         HomePage homePage = new HomePage();
@@ -383,7 +383,7 @@ public class TestCases extends TestBase {
         var dynamicPattern = "M/d/yyyy";
         var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(10, dynamicPattern), "Quảng Ngãi", "Huế", null, 5);
         var expectedMessage = "Ticket booked successfully!";
-//        Pre-condition: an actived account is existing
+//        Pre-condition: an activated account is existing
 
 //        1. Navigate to QA Railway Website
         HomePage homePage = new HomePage();
@@ -425,7 +425,7 @@ public class TestCases extends TestBase {
         var dynamicPattern = "M/d/yyyy";
         var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(1, dynamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
         var expectedMessage = "Ticket booked successfully!";
-//        Pre-condition: an actived account is existing
+//        Pre-condition: an activated account is existing
 
 //        1. Navigate to QA Railway Website
         HomePage homePage = new HomePage();
@@ -606,7 +606,7 @@ public class TestCases extends TestBase {
 //
 //        System.out.println("Enter valid information into all fields");
 //
-//        String railWayWindow = SeleniumHelper.saveWindownHandle(); // Save handle of Railway
+//        String railWayWindow = SeleniumHelper.saveWindowHandle(); // Save handle of Railway
 //        MailPage mailPage = new MailPage();
 //        MailPage.navigateToWebMail();
 //        String username = mailPage.getMailFree(email);
@@ -620,7 +620,7 @@ public class TestCases extends TestBase {
 //
 //        SeleniumHelper.switchTab(railWayWindow);
 //
-//        String emailFreeWeb = SeleniumHelper.saveWindownHandle(); // Save handle of EmailFree Web
+//        String emailFreeWeb = SeleniumHelper.saveWindowHandle(); // Save handle of EmailFree Web
 //
 //        mailPage.confirmEmail();
 //        SeleniumHelper.switchWindow(index, emailFreeWeb); //Switch to new tab
@@ -649,7 +649,7 @@ public class TestCases extends TestBase {
 //
 //        MailPage mailPage = new MailPage();
 //        MailPage.navigateToWebMail();
-//        String emailFreeWeb = SeleniumHelper.saveWindownHandle(); // Save handle of EmailFree Web
+//        String emailFreeWeb = SeleniumHelper.saveWindowHandle(); // Save handle of EmailFree Web
 //
 //        mailPage.getMailFree(email);
 //        mailPage.resetPw();
@@ -685,7 +685,7 @@ public class TestCases extends TestBase {
 //
 //        MailPage mailPage = new MailPage();
 //        MailPage.navigateToWebMail();
-//        String emailFreeWeb = SeleniumHelper.saveWindownHandle(); // Save handle of EmailFree Web
+//        String emailFreeWeb = SeleniumHelper.saveWindowHandle(); // Save handle of EmailFree Web
 //
 //        mailPage.getMailFree(email);
 //        mailPage.resetPw();
@@ -742,7 +742,7 @@ public class TestCases extends TestBase {
 //
 //        System.out.println("Ticket booked successfully with corrected ticket info");
 //        String expectedMessage = "Ticket booked successfully!";
-//        String actualMessage = bookTicketPage.getsuccessMessage();
+//        String actualMessage = bookTicketPage.getSuccessMessage();
 //
 //        Assert.assertEquals(actualMessage, expectedMessage, "Message 'Ticket booked successfully!' does not display");
 //        System.out.println("Message 'Ticket booked successfully!' displays");
@@ -782,7 +782,7 @@ public class TestCases extends TestBase {
 //
 //        System.out.println("Ticket booked successfully with corrected ticket info");
 //        String expectedMessage = "Ticket booked successfully!";
-//        String actualMessage = bookTicketPage.getsuccessMessage();
+//        String actualMessage = bookTicketPage.getSuccessMessage();
 //
 //        Assert.assertEquals(actualMessage, expectedMessage, "Message 'Ticket booked successfully!' does not display");
 //        System.out.println("Message 'Ticket booked successfully!' displays");
@@ -836,7 +836,7 @@ public class TestCases extends TestBase {
 //        timeTablePage.clickBookTicket(departStation, arriveStation);
 //        BookTicketPage bookTicketPage = new BookTicketPage();
 //
-//        Assert.assertTrue(bookTicketPage.getbBookTicketForm().isDisplayed(),"Book ticket form is not shown!");
+//        Assert.assertTrue(bookTicketPage.getBookTicketForm().isDisplayed(),"Book ticket form is not shown!");
 //
 //        String actualDepart = bookTicketPage.getDepartFrom();
 //        Assert.assertEquals(actualDepart, departStation, "Book ticket form is shown with the incorrect 'depart from'");
@@ -857,7 +857,7 @@ public class TestCases extends TestBase {
 //
 //        System.out.println("Ticket booked successfully with corrected ticket info");
 //        String expectedMessage = "Ticket booked successfully!";
-//        String actualMessage = bookTicketPage.getsuccessMessage();
+//        String actualMessage = bookTicketPage.getSuccessMessage();
 //
 //        Assert.assertEquals(actualMessage, expectedMessage, "Message 'Ticket booked successfully!' displays. Ticket information display incorrectly");
 //        System.out.println("Message 'Ticket booked successfully!' displays. Ticket information display correctly");

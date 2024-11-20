@@ -17,7 +17,7 @@ public class HomePage extends BasePage {
         pageTitle = "Safe Railway";
     }
 
-    public String getWellcomeMessage() {
+    public String getWelcomeMessage() {
         waitForPageLoad();
         ElementUtils.isElementExists(welcomeMessage, Constant.ELEMENT_WAIT_TIMEOUT);
         return ElementUtils.findElement(welcomeMessage).getText();

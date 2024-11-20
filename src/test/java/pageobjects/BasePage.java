@@ -2,6 +2,9 @@ package pageobjects;
 
 import helper.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WindowType;
+
+import static helper.DriverUtils.driver;
 
 //import static helper.DriverUtils.driver;
 
@@ -26,19 +29,16 @@ public class BasePage {
         BrowserUtils.waitForTitle(pageTitle, Constant.PAGE_WAIT_TIMEOUT);
     }
 
-    public Boolean ísMenuExists (String menu, int timeoutInSeconds) {
+    public Boolean isMenuExists (String menu, int timeoutInSeconds) {
         var locator = getMenuLocator(menu);
         return ElementUtils.isElementExists(locator, timeoutInSeconds);
     }
-    public static String saveWindownHandle() {
-        String originalWindow = DriverUtils.driver.get().getWindowHandle();
-        return originalWindow;
-    }
+
 
 //    public Boolean isMenuNotExits (String menu, int timeoutInSeconds) {
 //        var locator = getMenuLocator(menu);
 //        WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSeconds));
-//        wait.until(ExpectedConditions.stalenessOf(ElementUltis.findElement(locator)));
+//        wait.until(ExpectedConditions.stalenessOf(ElementUtils.findElement(locator)));
 //    }
 
 //    protected String sTabMenu = "//li//a[span[text() = '%s']]";
