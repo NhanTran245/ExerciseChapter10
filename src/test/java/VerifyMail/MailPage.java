@@ -25,6 +25,7 @@ public class MailPage extends BasePage {
     public void getMailFree(String email) {
         Logger.log("Create email free");
         BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
+        waitForPageLoad();
         //get email
         ElementUtils.findElement(editEmailBtn).click();
         ElementUtils.findElement(emailTextBox).sendKeys(email);
@@ -32,9 +33,7 @@ public class MailPage extends BasePage {
 
         //Get domainEmail
         Select selectDomainEmail = new Select(ElementUtils.findElement(domainEmail));
-        String
-
-
+        selectDomainEmail.selectByVisibleText("grr.la");
     }
 
     public void confirmEmail() {

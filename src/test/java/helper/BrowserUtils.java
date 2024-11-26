@@ -40,4 +40,9 @@ public class BrowserUtils {
         return saveWindowHandle;
     }
 
+    public static void navigateNewURL(String url) {
+        Logger.log("Navigate to" + url);
+        DriverUtils.driver.get().get(url);
+    }
+
 }

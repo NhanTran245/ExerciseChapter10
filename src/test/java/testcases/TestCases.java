@@ -212,11 +212,15 @@ public class TestCases extends TestBase {
     }
     @Test
     public void TC009() {
-        var emailTemplate = "test";
+        var emailTemplate = "test%s@%s";
         var dynamicPattern = "yyyyMMddHHmmssSSS";
-        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern));
+        var domainEmail = "grr.la";
+        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern), domainEmail);
         var user = new User(email, "123456789","123456789");
 //        0. Get a free email
+        BrowserUtils.navigateNewURL(Constant.URL_WEB_MAIL);
+        MailPage mailPage = new MailPage();
+        mailPage.getMailFree(email);
 
 //        1. Navigate to QA Railway Website
         HomePage homePage = new HomePage();
