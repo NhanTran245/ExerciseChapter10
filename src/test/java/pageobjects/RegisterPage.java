@@ -21,6 +21,8 @@ public class RegisterPage extends BasePage {
     private By errorMessage = By.xpath("//p[@class = 'message error']");
     private By errorMessPw = By.xpath("//label[@for = 'password' and @class = 'validation-error']");
     private By errorMessPID = By.xpath("//label[@for = 'pid' and @class = 'validation-error']");
+    private By successMessage = By.xpath("//h1");
+
 
     public RegisterPage() {
         pageTitle = "Safe Railway - Register an Account";
@@ -65,6 +67,17 @@ public class RegisterPage extends BasePage {
             return "";
         }
     }
+
+    public String getSuccessMessage() {
+        try {
+            return ElementUtils.findElement(successMessage).getText().trim();
+        }
+        catch (Exception e) {
+            return "";
+        }
+    }
+
+
 //    protected By usernameTextBox = By.xpath("//input[@id = 'email']");
 //    protected By passwordTextBox = By.xpath("//input[@id = 'password']");
 //    protected By confirmTextBox = By.xpath("//input[@id = 'confirmPassword']");

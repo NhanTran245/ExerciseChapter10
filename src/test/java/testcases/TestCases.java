@@ -214,27 +214,29 @@ public class TestCases extends TestBase {
     public void TC009() {
         var emailTemplate = "test%s@%s";
         var dynamicPattern = "yyyyMMddHHmmssSSS";
-        var domainEmail = "grr.la";
-        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern), domainEmail);
+        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern), Constant.DOMAIN_EMAIL);
         var user = new User(email, "123456789","123456789");
+        var expectedSuccessMessage = "Thank you for registering your account";
+        var expectedConfirmMessage = "Registration Confirmed! You can now log in to the site.";
 //        0. Get a free email
-        BrowserUtils.navigateNewURL(Constant.URL_WEB_MAIL);
+        BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
         MailPage mailPage = new MailPage();
         mailPage.getMailFree(email);
 
 //        1. Navigate to QA Railway Website
-        HomePage homePage = new HomePage();
-        homePage.clickCreateAccLink();
-
+        BrowserUtils.navigateTo(Constant.URL_RAILWAY);
 
 //        2. Click on "Create an account"
-        RegisterPage registerPage = new RegisterPage();
-
-//        registerPage.registerAccount(user);
+        HomePage homePage = new HomePage();
+        homePage.clickCreateAccLink();
 
 //        3. Enter valid information into all fields
 
 //        4. Click on "Register" button
+        RegisterPage registerPage = new RegisterPage();
+        registerPage.registerAccount(user);
+//        VP: "Thank you for registering your account" is shown
+        Assert.assertEquals(registerPage.getSuccessMessage(), expectedSuccessMessage);
 
 //        5. Get email information (webMail address, mailbox and password) and navigate to that webMail
 
@@ -243,6 +245,12 @@ public class TestCases extends TestBase {
 //        7. Open email with subject containing "Please confirm your account"  and the email of the new account at step 3
 
 //        8. Click on the activate link
+        BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
+        mailPage.confirmEmail();
+//        VP: Redirect to Railways page and message "Registration Confirmed! You can now log in to the site" is shown
+        RegisterConfirmPage registerConfirmPage = new RegisterConfirmPage();
+        registerConfirmPage.waitForPageLoad();
+        Assert.assertEquals(registerConfirmPage.getConfirmMessage(), expectedConfirmMessage);
 
 //
 //        String railWayWindow = SeleniumHelper.saveWindowHandle(); // Save handle of Railway

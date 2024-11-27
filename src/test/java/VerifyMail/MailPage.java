@@ -14,17 +14,18 @@ public class MailPage extends BasePage {
     private By editEmailBtn = By.xpath("//span[@id = 'inbox-id']");
     private By emailTextBox = By.xpath("//span/input[@type = 'text']");
     private By saveBtn = By.xpath("//span/button[@class = 'save button small']");
-    private  By domainEmail = By.xpath("//select[@id = 'gm-host-select']");
-    private By emailFree = By.xpath("//span[@id = 'email-widget']");
+    private By domainEmail = By.xpath("//select[@id = 'gm-host-select']");
     private By emailConfirm = By.xpath("//tr[contains(@class, 'mail_row')]/td[@class = 'td3' and contains(text(), 'Please confirm your account')]");
     private By emailResetPW = By.xpath("//tr[contains(@class, 'mail_row')]/td[@class = 'td3' and contains(text(), 'Please reset your password')]");
-    private By tokenLink = By.xpath("//div[@class = 'email_body']/a[@href]");
+    private By tokenLink = By.xpath("//div[@class = 'email_body']/a");
     private By emailSubject = By.xpath("//h3[@class = 'email_subject']");
     private By AliasCheckBox = By.xpath("//input[@id = 'use-alias']");
 
+    public MailPage() {
+        pageTitle = "✉ Guerrilla Mail - Disposable Temporary E-Mail Address";
+    }
     public void getMailFree(String email) {
         Logger.log("Create email free");
-        BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
         waitForPageLoad();
         //get email
         ElementUtils.findElement(editEmailBtn).click();
@@ -33,13 +34,19 @@ public class MailPage extends BasePage {
 
         //Get domainEmail
         Select selectDomainEmail = new Select(ElementUtils.findElement(domainEmail));
-        selectDomainEmail.selectByVisibleText("grr.la");
+        selectDomainEmail.selectByVisibleText(Constant.DOMAIN_EMAIL);
     }
 
     public void confirmEmail() {
+        Logger.log("Confirm your account");
         ElementUtils.waitForLoadElement(emailConfirm, Constant.ELEMENT_WAIT_TIMEOUT);
         ElementUtils.findElement(emailConfirm).click(); //click email confirm
 
+        // Lưu lại handle hiện tại của tab
+        String currentTab = driver.get().getWindowHandle();
+
+        Logger.log("Click confirm link");
+        ElementUtils.waitForElementClickable(tokenLink, Constant.ELEMENT_WAIT_TIMEOUT);
         ElementUtils.scrollToElement(emailSubject);
         ElementUtils.findElement(tokenLink).click(); //click Token link
     }

@@ -18,7 +18,7 @@ public class TestBase {
     @BeforeMethod
     public void setup(String browser) throws Exception {
         DriverUtils.initDriver(browser);
-        BrowserUtils.navigateTo(Constant.URL);
+        BrowserUtils.navigateTo(Constant.URL_RAILWAY);
         BrowserUtils.maximize();
 
     }
