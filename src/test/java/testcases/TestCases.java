@@ -284,9 +284,9 @@ public class TestCases extends TestBase {
     @Test
     public void TC010() {
         var emailTemplate = "tranthinhan@%s";
-        var dynamicPattern = "yyyyMMddHHmmssSSS";
         var email = String.format(emailTemplate, Constant.DOMAIN_EMAIL);
-        var user = new User(email, "123456789","123456789");
+        var user = new User(email, "123456789");
+        var expectedErrorMessage = "The new password cannot be the same with the current password";
 //        0. Pre-condition: an activated account is existing
 
 //        1. Navigate to QA Railway Login page
@@ -306,20 +306,77 @@ public class TestCases extends TestBase {
 //        5. Login to the mailbox (the same mailbox when creating account)
         BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
         MailPage mailPage = new MailPage();
+        mailPage.getMailFree(email);
 
 //        6. Open email with subject contain "Please reset your password" and the email of the account at step 3
 //
 //        7. Click on reset link
         mailPage.clickResetPWEmail();
+        String expectedToken = mailPage.getToken();
         PasswordResetPage passwordResetPage = new PasswordResetPage();
 //
 //        VP: Redirect to Railways page and Form "Password Change Form" is shown with the reset password token
         Assert.assertTrue(passwordResetPage.isPWChangeFormExist());
+        Assert.assertEquals(passwordResetPage.getResetToken(), expectedToken);
+
 //        8. Input same password into 2 fields  "new password" and "confirm password"
 //
 //        9. Click Reset Password
-//
+        passwordResetPage.inputNewPW(user);
 //        VP: Message "The new password cannot be the same with the current password" is shown
+        Assert.assertEquals(passwordResetPage.getErrorMessage(),expectedErrorMessage);
+
+    }
+
+    @Test
+    public void TC011() {
+        var emailTemplate = "tranthinhan@%s";
+        var email = String.format(emailTemplate, Constant.DOMAIN_EMAIL);
+        var user = new User(email, "123456789", "12341234");
+        var expectedErrorMessage = "Could not reset password. Please correct the errors and try again.";
+        var expectedErrorMessageConfirmPW = "The password confirmation did not match the new password.";
+
+//        Pre-condition: an actived account is existing
+
+//        1. Navigate to QA Railway Login page
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+
+//        2. Click on "Forgot Password page" link
+        LoginPage loginPage = new LoginPage();
+        loginPage.clickForgotPWPage();
+
+//        3. Enter the email address of the activated account
+
+//        4. Click on "Send Instructions" button
+        ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
+        forgotPasswordPage.enterEmail(email);
+
+//        5. Login to the mailbox (the same mailbox when creating account)
+        BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
+        MailPage mailPage = new MailPage();
+        mailPage.getMailFree(email);
+
+//        6. Open email with subject contaning "Please reset your password" and the email of the account at step 3
+
+//        7. Click on reset link
+        mailPage.clickResetPWEmail();
+        String expectedToken = mailPage.getToken();
+        PasswordResetPage passwordResetPage = new PasswordResetPage();
+
+//        VP: Redirect to Railways page and Form "Password Change Form" is shown with the reset password token
+        Assert.assertTrue(passwordResetPage.isPWChangeFormExist());
+        Assert.assertEquals(passwordResetPage.getResetToken(), expectedToken);
+//
+//        8. Input different input into 2 fields  "new password" and "confirm password"
+
+//        9. Click Reset Password
+        passwordResetPage.inputNewPW(user);
+//        VP: "Error message ""Could not reset password. Please correct the errors and try again."" displays above the form.
+        Assert.assertEquals(passwordResetPage.getErrorMessage(),expectedErrorMessage);
+//
+//        VP: Error message ""The password confirmation did not match the new password."" displays next to the confirm password field."
+        Assert.assertEquals(passwordResetPage.getErrorMessageConfirmPW(),expectedErrorMessageConfirmPW);
 
 
     }

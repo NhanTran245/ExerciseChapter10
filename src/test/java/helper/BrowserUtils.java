@@ -36,11 +36,6 @@ public class BrowserUtils {
         WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSecond));
         // Chờ cho đến khi có ít nhất 2 tab mở
         wait.until(driver -> driver.getWindowHandles().size() > 1);
-//        wait.until(new ExpectedCondition<Boolean>() {
-//            public Boolean apply(DriverUtils.driver) {
-//                return driver.get().getWindowHandles().size() > 1;
-//            }
-//        });
     }
 
     public static void switchToNewTab(String currentTab) {
