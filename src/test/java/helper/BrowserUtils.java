@@ -35,15 +35,16 @@ public class BrowserUtils {
         Logger.log("Wait for new tab");
         WebDriverWait wait = new WebDriverWait(DriverUtils.driver.get(), Duration.ofSeconds(timeoutInSecond));
         // Chờ cho đến khi có ít nhất 2 tab mở
-        wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(DriverUtils.driver) {
-                return driver.get().getWindowHandles().size() > 1;
-            }
-        });
+        wait.until(driver -> driver.getWindowHandles().size() > 1);
+//        wait.until(new ExpectedCondition<Boolean>() {
+//            public Boolean apply(DriverUtils.driver) {
+//                return driver.get().getWindowHandles().size() > 1;
+//            }
+//        });
     }
 
     public static void switchToNewTab(String currentTab) {
-        Logger.log("Switch to new tab, navigate to:" + currentTab);
+        Logger.log("Switch to new tab");
         Set<String> allTabs = driver.get().getWindowHandles();
         for (String tab : allTabs) {
             if (!tab.equals(currentTab)) {

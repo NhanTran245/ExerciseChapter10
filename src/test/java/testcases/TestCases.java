@@ -8,6 +8,7 @@ import dataobjects.User;
 import helper.BrowserUtils;
 import helper.Constant;
 import helper.DateTimeUtils;
+import helper.ElementUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -246,7 +247,8 @@ public class TestCases extends TestBase {
 
 //        8. Click on the activate link
         BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
-        mailPage.confirmEmail();
+        mailPage.clickConfirmEmail();
+
 //        VP: Redirect to Railways page and message "Registration Confirmed! You can now log in to the site" is shown
         RegisterConfirmPage registerConfirmPage = new RegisterConfirmPage();
         registerConfirmPage.waitForPageLoad();
@@ -276,6 +278,49 @@ public class TestCases extends TestBase {
 //        String actualConfirmMessage = registerPage.getConfirmMess();
 //        Assert.assertEquals(actualConfirmMessage, expectedConfirmMessage, "Confirm message does not display");
 //        System.out.println("Message 'Registration Confirmed! You can now log in to the site' is shown");
+
+    }
+
+    @Test
+    public void TC010() {
+        var emailTemplate = "tranthinhan@%s";
+        var dynamicPattern = "yyyyMMddHHmmssSSS";
+        var email = String.format(emailTemplate, Constant.DOMAIN_EMAIL);
+        var user = new User(email, "123456789","123456789");
+//        0. Pre-condition: an activated account is existing
+
+//        1. Navigate to QA Railway Login page
+        HomePage homePage = new HomePage();
+        homePage.selectMenu(Menu.LOGIN.toString());
+
+//        2. Click on "Forgot Password page" link
+        LoginPage loginPage = new LoginPage();
+        loginPage.clickForgotPWPage();
+
+//        3. Enter the email address of the activated account
+
+//        4. Click on "Send Instructions" button
+        ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
+        forgotPasswordPage.enterEmail(email);
+
+//        5. Login to the mailbox (the same mailbox when creating account)
+        BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
+        MailPage mailPage = new MailPage();
+
+//        6. Open email with subject contain "Please reset your password" and the email of the account at step 3
+//
+//        7. Click on reset link
+        mailPage.clickResetPWEmail();
+        PasswordResetPage passwordResetPage = new PasswordResetPage();
+//
+//        VP: Redirect to Railways page and Form "Password Change Form" is shown with the reset password token
+        Assert.assertTrue(passwordResetPage.isPWChangeFormExist());
+//        8. Input same password into 2 fields  "new password" and "confirm password"
+//
+//        9. Click Reset Password
+//
+//        VP: Message "The new password cannot be the same with the current password" is shown
+
 
     }
 

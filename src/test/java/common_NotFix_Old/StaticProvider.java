@@ -3,12 +3,12 @@ package common_NotFix_Old;
 import org.testng.annotations.DataProvider;
 public class StaticProvider {
 
-    @DataProvider(name = "Fixed_TC01")
-    public static Object[][] createData1() {
-        return new Object[][]{
-                {"Login", "h1uv4c9ktg@email2u.shop", "123456789", "Log out"}
-        };
-    };
+//    @DataProvider(name = "Fixed_TC01")
+//    public static Object[][] createData1() {
+//        return new Object[][]{
+//                {"Login", "h1uv4c9ktg@email2u.shop", "123456789", "Log out"}
+//        };
+//    };
 
 
 //    @DataProvider(name = "TC01")

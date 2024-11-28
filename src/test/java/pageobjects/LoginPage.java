@@ -15,6 +15,7 @@ public class LoginPage extends BasePage {
     private By pwTextBox = By.xpath("//input[@id = 'password']");
     private By loginBtn = By.xpath("//input[@type = 'submit']");
     private By errorMessage = By.xpath("//p[@class = 'message error LoginForm']");
+    private By forgotPWlink = By.xpath("//a[text() = 'Forgot Password page']");
 
     public LoginPage() {
         pageTitle = "Safe Railway - Login";
@@ -48,6 +49,11 @@ public class LoginPage extends BasePage {
             return "";
         }
 
+    }
+    public void clickForgotPWPage() {
+        Logger.log("Click Forgot Password link");
+        waitForPageLoad();
+        ElementUtils.findElement(forgotPWlink).click();
     }
 
 //    protected By usernameTextBox = By.xpath("//input[@id = 'username']");

@@ -1,13 +1,30 @@
 package pageobjects;
 
 //import common.BasePage;
-//import org.openqa.selenium.By;
+import helper.ElementUtils;
+import helper.Logger;
+import org.openqa.selenium.By;
 //import org.openqa.selenium.WebElement;
 //import utils.SeleniumHelper;
 //
 //import static helper.DriverUtils.driver;
 
 public class ForgotPasswordPage extends BasePage {
+    private By emailTextBox = By.xpath("//input[@id= 'email']");
+    private By sendBtn = By.xpath("//input[@type= 'submit']");
+
+    public ForgotPasswordPage() {
+        pageTitle = "Safe Railway - Forget Your Password?";
+    }
+
+    public void enterEmail (String email) {
+        Logger.log("Enter Email Address");
+        waitForPageLoad();
+        ElementUtils.scrollToElement(sendBtn);
+        ElementUtils.findElement(emailTextBox).sendKeys(email);
+        ElementUtils.findElement(sendBtn).click();
+    }
+
 
 //    protected By emailTextBox = By.xpath("//input[@id= 'email']");
 //    protected By sendBtn = By.xpath("//input[@type= 'submit']");

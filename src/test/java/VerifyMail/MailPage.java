@@ -37,8 +37,8 @@ public class MailPage extends BasePage {
         selectDomainEmail.selectByVisibleText(Constant.DOMAIN_EMAIL);
     }
 
-    public void confirmEmail() {
-        Logger.log("Confirm your account");
+    public void clickConfirmEmail() {
+        Logger.log("Click Email to confirm your account");
         ElementUtils.waitForLoadElement(emailConfirm, Constant.ELEMENT_WAIT_TIMEOUT);
         ElementUtils.findElement(emailConfirm).click(); //click email confirm
 
@@ -49,5 +49,27 @@ public class MailPage extends BasePage {
         ElementUtils.waitForElementClickable(tokenLink, Constant.ELEMENT_WAIT_TIMEOUT);
         ElementUtils.scrollToElement(emailSubject);
         ElementUtils.findElement(tokenLink).click(); //click Token link
+
+        // Chờ tab mới mở ra và chuyển sang tab đó
+        BrowserUtils.waitForNewTab(currentTab, Constant.ELEMENT_WAIT_TIMEOUT);
+        BrowserUtils.switchToNewTab(currentTab);
+    }
+
+    public void clickResetPWEmail() {
+        Logger.log("Click Reset PW Email");
+        ElementUtils.waitForLoadElement(emailResetPW, Constant.ELEMENT_WAIT_TIMEOUT);
+        ElementUtils.findElement(emailResetPW).click(); // click email reset PW
+
+        // Lưu lại handle hiện tại của tab
+        String currentTab = driver.get().getWindowHandle();
+
+        Logger.log("Click reset PW link");
+        ElementUtils.waitForElementClickable(tokenLink, Constant.ELEMENT_WAIT_TIMEOUT);
+        ElementUtils.scrollToElement(emailSubject);
+        ElementUtils.findElement(tokenLink).click(); //click Token link
+
+        // Chờ tab mới mở ra và chuyển sang tab đó
+        BrowserUtils.waitForNewTab(currentTab, Constant.ELEMENT_WAIT_TIMEOUT);
+        BrowserUtils.switchToNewTab(currentTab);
     }
 }
