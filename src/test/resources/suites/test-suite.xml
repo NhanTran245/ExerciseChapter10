@@ -20,7 +20,10 @@
 <!--                    <include name="TC012"/>-->
 <!--                    <include name="TC013"/>-->
 <!--                    <include name="TC014"/>-->
-                    <include name="FTTC01"/>
+<!--                    <include name="TC015"/>-->
+<!--                    <include name="TC016"/>-->
+<!--                    <include name="TC017"/>-->
+                    <include name="TC018"/>
                 </methods>
             </class>
         </classes>

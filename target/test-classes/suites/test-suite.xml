@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="Railways" parallel="methods" thread-count="5" data-provider-thread-count="5">
+<suite name="Railways" parallel="methods" thread-count="1" data-provider-thread-count="1">
 <parameter name="browser" value="chrome"></parameter>
     <test name="Practice Selenium level 1">
         <classes>
@@ -20,7 +20,10 @@
 <!--                    <include name="TC012"/>-->
 <!--                    <include name="TC013"/>-->
 <!--                    <include name="TC014"/>-->
-                    <include name="FTTC01"/>
+<!--                    <include name="TC015"/>-->
+<!--                    <include name="TC016"/>-->
+<!--                    <include name="TC017"/>-->
+                    <include name="TC018"/>
                 </methods>
             </class>
         </classes>
