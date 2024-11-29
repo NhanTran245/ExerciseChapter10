@@ -1,17 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite name="Practice Selenium level 1"
-           tests="1"
-           failures="0"
+           tests="7"
+           failures="4"
            errors="0"
            skipped="0"
-           time="12.408">
+           time="399.693">
     <properties></properties>
 
+            <testcase
+                name="FTTC01"
+                time="59.853"
+                classname="testcases.TestCases">
+
+            <failure type="org.openqa.selenium.NoSuchElementException" message="Cannot locate option with text: 11/30/2024
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.23.1&apos;, revision: &apos;656257d8e9&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;11.0.21&apos;
+Driver info: driver.version: unknown">
+                <![CDATA[org.openqa.selenium.NoSuchElementException: Cannot locate option with text: 11/30/2024
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: '4.23.1', revision: '656257d8e9'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.21'
+Driver info: driver.version: unknown
+                org.openqa.selenium.support.ui.Select.selectByVisibleText(Select.java:153)pageobjects.BookTicketPage.bookTicket(BookTicketPage.java:47)testcases.TestCases.FTTC01(TestCases.java:641)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)java.base/java.lang.reflect.Method.invoke(Method.java:566)org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)org.testng.internal.invokers.TestMethodWithDataProviderMethodWorker.call(TestMethodWithDataProviderMethodWorker.java:81)org.testng.internal.thread.Async$AsyncTask.run(Async.java:34)java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)java.base/java.lang.Thread.run(Thread.java:834)
+]]>
+            </failure>
+    </testcase>
+            <testcase
+                name="FTTC01"
+                time="57.038"
+                classname="testcases.TestCases">
+
+            <failure type="org.openqa.selenium.NoSuchElementException" message="Cannot locate option with text: 12/1/2024
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.23.1&apos;, revision: &apos;656257d8e9&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;11.0.21&apos;
+Driver info: driver.version: unknown">
+                <![CDATA[org.openqa.selenium.NoSuchElementException: Cannot locate option with text: 12/1/2024
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: '4.23.1', revision: '656257d8e9'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.21'
+Driver info: driver.version: unknown
+                org.openqa.selenium.support.ui.Select.selectByVisibleText(Select.java:153)pageobjects.BookTicketPage.bookTicket(BookTicketPage.java:47)testcases.TestCases.FTTC01(TestCases.java:641)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)java.base/java.lang.reflect.Method.invoke(Method.java:566)org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)org.testng.internal.invokers.TestMethodWithDataProviderMethodWorker.call(TestMethodWithDataProviderMethodWorker.java:81)org.testng.internal.thread.Async$AsyncTask.run(Async.java:34)java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)java.base/java.lang.Thread.run(Thread.java:834)
+]]>
+            </failure>
+    </testcase>
+            <testcase
+                name="FTTC01"
+                time="26.268"
+                classname="testcases.TestCases">
+
+            <failure type="java.lang.AssertionError" message="expected [Thank you for registering your account] but found [Create account]">
+                <![CDATA[java.lang.AssertionError: expected [Thank you for registering your account] but found [Create account]
+                org.testng.Assert.fail(Assert.java:111)org.testng.Assert.failNotEquals(Assert.java:1578)org.testng.Assert.assertEqualsImpl(Assert.java:150)org.testng.Assert.assertEquals(Assert.java:132)org.testng.Assert.assertEquals(Assert.java:656)org.testng.Assert.assertEquals(Assert.java:666)testcases.TestCases.FTTC01(TestCases.java:611)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)java.base/java.lang.reflect.Method.invoke(Method.java:566)org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)org.testng.internal.invokers.TestMethodWithDataProviderMethodWorker.call(TestMethodWithDataProviderMethodWorker.java:81)org.testng.internal.thread.Async$AsyncTask.run(Async.java:34)java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)java.base/java.lang.Thread.run(Thread.java:834)
+]]>
+            </failure>
+    </testcase>
+            <testcase
+                name="FTTC01"
+                time="59.367"
+                classname="testcases.TestCases">
+
+            <failure type="org.openqa.selenium.NoSuchElementException" message="Cannot locate option with text: SSoft bed
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.23.1&apos;, revision: &apos;656257d8e9&apos;
+System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;11.0.21&apos;
+Driver info: driver.version: unknown">
+                <![CDATA[org.openqa.selenium.NoSuchElementException: Cannot locate option with text: SSoft bed
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: '4.23.1', revision: '656257d8e9'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.21'
+Driver info: driver.version: unknown
+                org.openqa.selenium.support.ui.Select.selectByVisibleText(Select.java:153)pageobjects.BookTicketPage.bookTicket(BookTicketPage.java:85)testcases.TestCases.FTTC01(TestCases.java:641)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)java.base/java.lang.reflect.Method.invoke(Method.java:566)org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)org.testng.internal.invokers.TestMethodWithDataProviderMethodWorker.call(TestMethodWithDataProviderMethodWorker.java:81)org.testng.internal.thread.Async$AsyncTask.run(Async.java:34)java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)java.base/java.lang.Thread.run(Thread.java:834)
+]]>
+            </failure>
+    </testcase>
 
 
             <testcase
-                name="TC011"
-                time="12.408"
+                name="FTTC01"
+                time="79.046"
+                classname="testcases.TestCases">
+            </testcase>
+            <testcase
+                name="FTTC01"
+                time="64.769"
+                classname="testcases.TestCases">
+            </testcase>
+            <testcase
+                name="FTTC01"
+                time="53.352"
                 classname="testcases.TestCases">
             </testcase>
 </testsuite>
