@@ -15,28 +15,37 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class MyTicketPage extends BasePage {
     private By firstCancelBtn = By.xpath("(//td/input[@value = 'Cancel'])[1]");
     private String sTicketRow = "//tr[td[text() = '%s' and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s']]]";
     private By filterDepartStation = By.xpath("//select[@name = 'FilterDpStation']");
+    private By filterDepartDate = By.xpath("//input[@name = 'FilterDpDate']");
     private By applyBtn = By.xpath("//input[@type = 'submit']");
     private By filterStatus = By.xpath("//select[@name = 'FilterStatus']");
     private By departStationRow = By.xpath("//table[@class = 'MyTable']/tbody/tr[@class = 'OddRow']/td[2]");
     private By errorMessage = By.xpath("//div[@class = 'error message']");
+    private  By note = By.xpath("//div[@class = 'message']/li[1]");
+    private By cancelBtn = By.xpath("//td/input[@value = 'Cancel']");
 
     public MyTicketPage() {
         pageTitle = "Safe Railway - My Ticket";
     }
 
-    public void clickCancelBtn() {
-        Logger.log("Cancel ticket");
+    public void clickCancelFirstBtn() {
+        Logger.log("Cancel the ticket");
         waitForPageLoad();
         ElementUtils.scrollToElement(firstCancelBtn);
         ElementUtils.findElement(firstCancelBtn).click();
         ElementUtils.acceptAlert(Constant.ELEMENT_WAIT_TIMEOUT);
     }
+
+    public Boolean isCancelBtnExist() {
+        return ElementUtils.isElementExists(cancelBtn, Constant.ELEMENT_WAIT_TIMEOUT);
+    }
+
     public Boolean isTicketRowExist(BookTicketInformation bookTicketInformation) {
         By ticketRow = By.xpath(String.format(sTicketRow, bookTicketInformation));
         return ElementUtils.isElementExists(ticketRow, Constant.ELEMENT_WAIT_TIMEOUT);
@@ -61,6 +70,15 @@ public class MyTicketPage extends BasePage {
             Logger.log("Skip filter Depart Station");
         }
     }
+
+    public void enterDepartDate(String departDate) {
+        if (departDate != null) {
+            Logger.log("Enter Depart Date");
+            ElementUtils.findElement(filterDepartDate).sendKeys(departDate);
+        } else {
+            Logger.log("Skip filter Depart Date");
+        }
+    }
     public void clickApplyButton() {
         ElementUtils.findElement(applyBtn).click();
     }
@@ -83,9 +101,21 @@ public class MyTicketPage extends BasePage {
         this.clickApplyButton();
     }
 
+    public void filterDepartDate(String departDate) {
+        Logger.log("Filter ticket from Depart Date");
+        waitForPageLoad();
+        this.enterDepartDate(departDate);
+        this.clickApplyButton();
+    }
+
     public String getErrorMessage() {
         return ElementUtils.findElement(errorMessage).getText();
     }
+
+    public String getNote() {
+        return ElementUtils.findElement(note).getText();
+    }
+
 
 //    protected By firstCancelBtn = By.xpath("(//td/input[@value = 'Cancel'])[1]");
 //    protected String sTicketRow = "//tr[td[text() = '%s' and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s'] and following-sibling::td[text() = '%s']]]";

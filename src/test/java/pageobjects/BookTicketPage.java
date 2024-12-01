@@ -105,6 +105,9 @@ public class BookTicketPage extends BasePage {
             return "";
         }
     }
+    public int getBookedTicketAmount(BookTicketInformation bookTicketInformation) {
+        return bookTicketInformation.getTicketAmount();
+    }
 
     public void compareTicketInformationRow(BookTicketInformation bookTicketInformation) {
         Logger.log("Get the ticket information");

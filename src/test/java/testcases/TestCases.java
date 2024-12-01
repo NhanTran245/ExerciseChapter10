@@ -497,7 +497,7 @@ public class TestCases extends TestBase {
     public void TC015() {
         var user = new User("6djvhj5wqyyr9v403b@emails2u.shop", "123456789");
         var dynamicPattern = "M/d/yyyy";
-        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(10, dynamicPattern), "Quảng Ngãi", "Huế", null, 5);
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(10, dynamicPattern), "Quảng Ngãi", "Huế", null, 1);
         var expectedMessage = "Ticket booked successfully!";
 //        Pre-condition: an activated account is existing
 
@@ -539,7 +539,7 @@ public class TestCases extends TestBase {
     public void TC016() {
         var user = new User("h1uv4c9ktg@email2u.shop", "123456789");
         var dynamicPattern = "M/d/yyyy";
-        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(1, dynamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
+        var bookTicketInformation = new BookTicketInformation (DateTimeUtils.getDateFromTodayString(5, dynamicPattern), "Nha Trang", "Huế", "Soft bed with air conditioner", 1 );
         var expectedMessage = "Ticket booked successfully!";
 //        Pre-condition: an activated account is existing
 
@@ -563,7 +563,7 @@ public class TestCases extends TestBase {
 //        5. Click on "Cancel" button of ticket which user want to cancel.
 
 //        6. Click on "OK" button on Confirmation message "Are you sure?"
-        myTicketPage.clickCancelBtn();
+        myTicketPage.clickCancelFirstBtn();
 
 //        VP: The canceled ticket is disappeared.
 //        Assert.assertTrue(ElementUtils.isElementExists(myTicketPage.isTicketRowExist(bookTicketInformation)));
@@ -788,6 +788,8 @@ public class TestCases extends TestBase {
                 new BookTicketInformation(DateTimeUtils.getDateFromTodayString(4, dynamicPatternBooking),"Huế", "Quảng Ngãi", "Soft bed", 1),
                 new BookTicketInformation(DateTimeUtils.getDateFromTodayString(5, dynamicPatternBooking),"Quảng Ngãi", "Sài Gòn", "Soft seat with air conditioner", 1)
         };
+        int bookedTicketAmount = 0;
+        String expectedNote;
 
         Logger.log("'Manage ticket' displays remaining available number of booking");
 
@@ -843,6 +845,99 @@ public class TestCases extends TestBase {
 
         for (BookTicketInformation bookingTicket : bookingData) {
             bookTicketPage.bookTicket(bookingTicket);
+            bookedTicketAmount = bookedTicketAmount + bookTicketPage.getBookedTicketAmount(bookingTicket);
+            Logger.log("You currently book " + bookedTicketAmount + " tickets, you can book " + (10 - bookedTicketAmount) + " more.");
+//        VP: Message "Ticket booked successfully!" displays.
+            Assert.assertEquals(bookTicketPage.getSuccessMessage(),expectedMessage);
+            bookTicketPage.selectMenu(Menu.BOOKTICKET.toString());
+        }
+        expectedNote = "You currently book " + bookedTicketAmount + " tickets, you can book " + (10 - bookedTicketAmount) + " more.";
+
+//        4. Click on "My ticket" tab
+        Logger.log("Click on My ticket tab");
+        bookTicketPage.selectMenu(Menu.MYTICKET.toString());
+        MyTicketPage myTicketPage = new MyTicketPage();
+//        VP: note section displays as "You currently book 6 tickets, you can book 4 more"
+        Assert.assertEquals(myTicketPage.getNote(), expectedNote);
+
+    }
+
+    @Test
+    public void TC020() {
+        var emailTemplate = "test%s@%s";
+        var dynamicPattern = "yyyyMMddHHmmssSSS";
+        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern), Constant.DOMAIN_EMAIL);
+        var user = new User(email, "123456789","123412345");
+        var expectedSuccessMessage = "Thank you for registering your account";
+        var expectedConfirmMessage = "Registration Confirmed! You can now log in to the site.";
+        var expectedMessage = "Ticket booked successfully!";
+        var dynamicPatternBooking = "M/d/yyyy";
+        var bookingData = new BookTicketInformation[]{
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(7, dynamicPatternBooking), "Nha Trang", "Đà Nẵng", "Soft bed with air conditioner", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(8, dynamicPatternBooking),"Sài Gòn", "Nha Trang", "Hard seat", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(9, dynamicPatternBooking),"Phan Thiết", "Sài Gòn", "Soft seat", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(10, dynamicPatternBooking),"Đà Nẵng", "Huế", "Hard bed", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(4, dynamicPatternBooking),"Huế", "Quảng Ngãi", "Soft bed", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(5, dynamicPatternBooking),"Quảng Ngãi", "Sài Gòn", "Soft seat with air conditioner", 1)
+
+        };
+        var expectedErrorMessage = "Sorry, can't find any results that match your filters.\n" +
+                "Please change the filters and try again.";
+        var expectedNote = "You currently book 0 ticket, you can book 10 more.";
+
+        Logger.log("'Manage ticket' displays remaining available number of booking");
+
+        //        0. Pre-condition: Create and active a new account
+        Logger.log("Pre-condition: Create and active a new account");
+        //        0. Get a free email
+        BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
+        MailPage mailPage = new MailPage();
+        mailPage.getMailFree(email);
+
+//        0.1. Navigate to QA Railway Website
+        BrowserUtils.navigateTo(Constant.URL_RAILWAY);
+
+//        0.2. Click on "Create an account"
+        HomePage homePage = new HomePage();
+        homePage.clickCreateAccLink();
+
+//        0.3. Enter valid information into all fields
+
+//        0.4. Click on "Register" button
+        RegisterPage registerPage = new RegisterPage();
+        registerPage.registerAccount(user);
+//        VP: "Thank you for registering your account" is shown
+        Assert.assertEquals(registerPage.getSuccessMessage(), expectedSuccessMessage);
+
+//        0.5. Get email information (webMail address, mailbox and password) and navigate to that webMail
+
+//        0.6. Login to the mailbox
+
+//        0.7. Open email with subject containing "Please confirm your account"  and the email of the new account at step 3
+
+//        0.8. Click on the activate link
+        BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
+        mailPage.clickConfirmEmail();
+
+//        VP: Redirect to Railways page and message "Registration Confirmed! You can now log in to the site" is shown
+        RegisterConfirmPage registerConfirmPage = new RegisterConfirmPage();
+        registerConfirmPage.waitForPageLoad();
+        Assert.assertEquals(registerConfirmPage.getConfirmMessage(), expectedConfirmMessage);
+
+//        1. Navigate to QA Railway Website
+
+//        2. Login with a valid account
+        Logger.log("Login with a valid account");
+        registerConfirmPage.selectMenu(Menu.LOGIN.toString());
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+//        3. Book more than 4 tickets
+        homePage.selectMenu(Menu.BOOKTICKET.toString());
+        BookTicketPage bookTicketPage = new BookTicketPage();
+        Logger.log("Book 6 tickets with different Depart Stations");
+
+        for (BookTicketInformation bookingTicket : bookingData) {
+            bookTicketPage.bookTicket(bookingTicket);
 //        VP: Message "Ticket booked successfully!" displays.
             Assert.assertEquals(bookTicketPage.getSuccessMessage(),expectedMessage);
             bookTicketPage.selectMenu(Menu.BOOKTICKET.toString());
@@ -852,12 +947,120 @@ public class TestCases extends TestBase {
         Logger.log("Click on My ticket tab");
         bookTicketPage.selectMenu(Menu.MYTICKET.toString());
         MyTicketPage myTicketPage = new MyTicketPage();
-//        VP: note section displays as "You currently book 6 tickets, you can book 4 more"
 
+//        5. Cancel all existing tickets
+        while (myTicketPage.isCancelBtnExist() == true) {
+            try {
+                myTicketPage.clickCancelFirstBtn();
+            } catch (Exception e) {
+                Logger.log("Cancel button is not existing");
+                break;
+            }
+        }
+        Logger.log("Canceled all ticket");
 
+//        VP: Manage ticket page displays "Sorry, can't find any results that match you filters. Please change the filters and try again.".
+        Assert.assertEquals(myTicketPage.getErrorMessage(),expectedErrorMessage);
+
+//        VP: note section displays "You currently book 0 ticket, you can book 10"
+        Assert.assertEquals(myTicketPage.getNote(), expectedNote);
     }
 
+    @Test
+    public void TC021() {
+        var emailTemplate = "test%s@%s";
+        var dynamicPattern = "yyyyMMddHHmmssSSS";
+        var email = String.format(emailTemplate, DateTimeUtils.getCurrentDateTimeString(dynamicPattern), Constant.DOMAIN_EMAIL);
+        var user = new User(email, "123456789","123412345");
+        var expectedSuccessMessage = "Thank you for registering your account";
+        var expectedConfirmMessage = "Registration Confirmed! You can now log in to the site.";
+        var expectedMessage = "Ticket booked successfully!";
+        var dynamicPatternBooking = "M/d/yyyy";
+        var bookingData = new BookTicketInformation[]{
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(7, dynamicPatternBooking), "Nha Trang", "Đà Nẵng", "Soft bed with air conditioner", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(8, dynamicPatternBooking),"Sài Gòn", "Nha Trang", "Hard seat", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(9, dynamicPatternBooking),"Phan Thiết", "Sài Gòn", "Soft seat", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(10, dynamicPatternBooking),"Đà Nẵng", "Huế", "Hard bed", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(4, dynamicPatternBooking),"Huế", "Quảng Ngãi", "Soft bed", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(5, dynamicPatternBooking),"Quảng Ngãi", "Sài Gòn", "Soft seat with air conditioner", 1),
+                new BookTicketInformation(DateTimeUtils.getDateFromTodayString(6, dynamicPatternBooking),"Đà Nẵng", "Nha Trang", "Soft bed with air conditioner", 1)
+        };
+        var departDate = "4222022";
+        var expectedErrorMessage = "The date format is wrong, date filter is ignored.\n" +
+                "Example of a proper date: Today is 12/1/2024";
 
+        Logger.log("'Manage ticket' displays remaining available number of booking");
+
+        //        0. Pre-condition: Create and active a new account
+        Logger.log("Pre-condition: Create and active a new account");
+        //        0. Get a free email
+        BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
+        MailPage mailPage = new MailPage();
+        mailPage.getMailFree(email);
+
+//        0.1. Navigate to QA Railway Website
+        BrowserUtils.navigateTo(Constant.URL_RAILWAY);
+
+//        0.2. Click on "Create an account"
+        HomePage homePage = new HomePage();
+        homePage.clickCreateAccLink();
+
+//        0.3. Enter valid information into all fields
+
+//        0.4. Click on "Register" button
+        RegisterPage registerPage = new RegisterPage();
+        registerPage.registerAccount(user);
+//        VP: "Thank you for registering your account" is shown
+        Assert.assertEquals(registerPage.getSuccessMessage(), expectedSuccessMessage);
+
+//        0.5. Get email information (webMail address, mailbox and password) and navigate to that webMail
+
+//        0.6. Login to the mailbox
+
+//        0.7. Open email with subject containing "Please confirm your account"  and the email of the new account at step 3
+
+//        0.8. Click on the activate link
+        BrowserUtils.navigateTo(Constant.URL_WEB_MAIL);
+        mailPage.clickConfirmEmail();
+
+//        VP: Redirect to Railways page and message "Registration Confirmed! You can now log in to the site" is shown
+        RegisterConfirmPage registerConfirmPage = new RegisterConfirmPage();
+        registerConfirmPage.waitForPageLoad();
+        Assert.assertEquals(registerConfirmPage.getConfirmMessage(), expectedConfirmMessage);
+
+//        1. Navigate to QA Railway Website
+
+//        2. Login with a valid account
+        Logger.log("Login with a valid account");
+        registerConfirmPage.selectMenu(Menu.LOGIN.toString());
+        LoginPage loginPage = new LoginPage();
+        loginPage.login(user);
+//        3. Book more than 4 tickets
+        homePage.selectMenu(Menu.BOOKTICKET.toString());
+        BookTicketPage bookTicketPage = new BookTicketPage();
+        Logger.log("Book more than 6 tickets with different Depart Stations");
+
+        for (BookTicketInformation bookingTicket : bookingData) {
+            bookTicketPage.bookTicket(bookingTicket);
+//        VP: Message "Ticket booked successfully!" displays.
+            Assert.assertEquals(bookTicketPage.getSuccessMessage(),expectedMessage);
+            bookTicketPage.selectMenu(Menu.BOOKTICKET.toString());
+        }
+
+//        4. Click on "My ticket" tab
+        Logger.log("Click on My ticket tab");
+        bookTicketPage.selectMenu(Menu.MYTICKET.toString());
+        MyTicketPage myTicketPage = new MyTicketPage();
+
+//        5. Enter invalid date into "Depart Date". Ex 4222022
+
+//        6. Click "Apply filter" button
+        Logger.log("Enter 4222022 for 'Depart Date'");
+        myTicketPage.filterDepartDate(departDate);
+
+//        VP: Message "The date format is wrong, date filter is ignored. Example of proper date: Today is <mm/dd/yyyy>"
+        Assert.assertEquals(myTicketPage.getErrorMessage(),expectedErrorMessage);
+    }
 
 //    @Test (dataProvider = "TC01", dataProviderClass = StaticProvider.class)
 //    public void TC01(String username, String password) {
@@ -878,7 +1081,7 @@ public class TestCases extends TestBase {
 //    public void TC02(String username, String password) {
 //        HomePage homePage = new HomePage();
 //
-//        System.out.println("User cannot login with blank Username textbox");
+//        System.out.println("User cannot login with blank Username textBox");
 //        homePage.navigateTabPage("Login");
 //        LoginPage loginPage = new LoginPage();
 //        homePage = loginPage.loginAccount(username, password);
